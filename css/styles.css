@@ -4,6 +4,9 @@ a {text-decoration:none; color:#8e5900;}
 a:hover {color:#993300; }
 form {padding:0px; margin:0px;}
 
+h5 {margin:0px; padding:0px; padding-left:5px; padding-bottom:20px; font-weight:normal; color:#152e54; font-size:19px; font-family:Trebuchet MS, Arial, Tahoma;}
+
+
 .wrapper {background: url(../graph/pagebg.png) top repeat-x; height:1500px;}
 .wrtable {padding:0px; margin:0px; width:100%}
 .leftbg {background:url("../graph/left.png") top right no-repeat; }
@@ -30,12 +33,29 @@ form {padding:0px; margin:0px;}
 .logo a {float:left; margin-top:13px; margin-left:20px; display:block; overflow:hidden; width:500px; height:54px; background: url(../graph/consul-marine.png) left no-repeat; text-indent:-999em;}
 .logo_en a {float:left; margin-top:13px; margin-left:20px; display:block; overflow:hidden; width:500px; height:54px; background: url(../graph/consul-marine_en.png) left no-repeat; text-indent:-999em;}
 
-.search {float:right; width:300px;  }
+.search {float:right; width:300px;}
 .search input {float:left; margin-top:20px; width:250px; padding-left:10px; height:28px; border:solid 1px #e7e7e7;}
 .search .go {float:left; height:30px; width:30px; border:solid 1px #e7e7e7; margin-top:20px; margin-left:-30px; cursor:pointer; background:url(../graph/search.png) no-repeat;  }
 
-.toptextarea {clear:both; width:1004px; height:185px;}
-.topabout {width:270px; height:115px; overflow:hidden; margin-left:25px; margin-top:25px; color:white; font-size:10px; text-align:justify;}
+.toptextarea {clear:both; width:1004px; height:170px;}
+.topabout {float:left; width:270px; height:115px; overflow:hidden; margin-left:25px; margin-top:25px; color:white; font-size:10px; text-align:justify;}
+
+.slog {float:left; margin-top:15px; margin-left:40px; width:360px; height:170px; background:url(../graph/slog.png) top left no-repeat; }
+.slog_en {float:left; margin-top:15px; margin-left:40px; width:360px; height:170px; background:url(../graph/slog_en.png) top left no-repeat; }
+
+.infoarea {clear:both; float:left; width:1004px;}
+.leftpart {float:left; width:320px; }
+.rightpart {float:right; width:675px; padding-top:30px;}
+
+.catalogmenu {margin-left:35px; }
+.catalogmenu ul    {margin:0px; padding:0px;}
+.catalogmenu ul li {list-style:none; width:220px; padding-left:26px; padding-bottom:10px; margin-bottom:10px; border-bottom:solid 1px #e0e0e0; font-family:Tahoma; font-size:14px; background:url(../graph/lmarr.png) top left no-repeat;}
+.catalogmenu ul li a {color:#081938;}
+.catalogmenu ul li a:hover {color:#8e5900;}
+.nomline {width:250px; height:11px; padding-left:35px; margin-top:-11px; background-color:white;}
+
+
+
 
 
 /*
@@ -44,7 +64,6 @@ h1 {margin:0px; padding:0px; padding-bottom:10px; font-weight:normal; color:#104
 h2 {margin:0px; padding:0px; padding-bottom:5px; color:#104e9c; font-size:16px; font-family:Trebuchet MS, Arial, Tahoma;}
 h3 {margin:0px; padding:0px; font-weight:normal; color:#717272; font-size:13px; font-family:Trebuchet MS, Arial, Tahoma;}
 h4 {margin:0px; padding:0px; padding-bottom:5px; color:black; font-size:15px; font-family:Trebuchet MS, Arial, Tahoma; text-transform:uppercase;}
-h5 {margin:0px; padding:0px; padding-bottom:5px; font-weight:normal; color:#717272; font-size:12px; font-family:Trebuchet MS, Arial, Tahoma;}
 
 
 .wrapper {float:left; width:100%; text-align:center; background: url(../graph/topbg.png) top repeat-x; }
