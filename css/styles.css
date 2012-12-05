@@ -1,0 +1,225 @@
+body {font-size:12px; font-family:Arial,Tahoma; margin:0px; padding:0px;  background-color:#f5f5f5; behavior:url("csshover.htc");}
+
+a {text-decoration:none; color:#8e5900;}
+a:hover {color:#993300; }
+form {padding:0px; margin:0px;}
+
+.wrapper {background: url(../graph/pagebg.png) top repeat-x; height:1500px;}
+.wrtable {padding:0px; margin:0px; width:100%}
+.leftbg {background:url("../graph/left.png") top right no-repeat; }
+.rightbg {background:url("../graph/right.png") top left no-repeat; }
+.page {width:1004px; background:url("../graph/bg.jpg") top no-repeat; background-color:white;}
+
+.topmenu    {float:left; height:44px; width:819px; overflow:hidden;}
+.topmenu .mitem {float:left;}
+.topmenu .mitem li {list-style:none; text-align:center; padding-right:17px; padding-left:17px; padding-top:11px; height:33px; text-transform:uppercase; background: url(../graph/vml.png) right no-repeat;}
+.topmenu .mitem li a {text-decoration:none; font-family:Trebuchet MS; font-size:16px; text-transform:uppercase; color:#091b3b;}
+.topmenu .mitem span li {text-decoration:none; background: url(../graph/nonr.png); }
+.topmenu .mitem b li {background: url(../graph/nonr.png); background-color:#e7b312; font-weight:normal; }
+.topmenu .mitem b li a {color:white;}
+.topmenu .mitem li:hover {background-color:#e7b312;}
+.topmenu .mitem li:hover a {color:white;}
+
+.langmenu {float:right; height:32px; padding-top:12px; width:150px; padding-right:20px; }
+.ru {float:right; cursor:pointer; width:53px; height:17px; margin-right:9px; margin-left:9px; background:url(../graph/rus.png);}
+.en {float:right; cursor:pointer; width:53px; height:17px; margin-right:9px; margin-left:9px; background:url(../graph/eng.png);}
+.aru {float:right; width:53px; height:17px; margin-right:9px; margin-left:9px; background:url(../graph/rus_active.png);}
+.aen {float:right; width:53px; height:17px; margin-right:9px; margin-left:9px; background:url(../graph/eng_active.png);}
+
+.logoarea {clear:both; width:1004px; height:80px;}
+.logo a {float:left; margin-top:13px; margin-left:20px; display:block; overflow:hidden; width:500px; height:54px; background: url(../graph/consul-marine.png) left no-repeat; text-indent:-999em;}
+
+
+
+/*
+
+h1 {margin:0px; padding:0px; padding-bottom:10px; font-weight:normal; color:#104e9c; font-size:19px; font-family:Trebuchet MS, Arial, Tahoma;}
+h2 {margin:0px; padding:0px; padding-bottom:5px; color:#104e9c; font-size:16px; font-family:Trebuchet MS, Arial, Tahoma;}
+h3 {margin:0px; padding:0px; font-weight:normal; color:#717272; font-size:13px; font-family:Trebuchet MS, Arial, Tahoma;}
+h4 {margin:0px; padding:0px; padding-bottom:5px; color:black; font-size:15px; font-family:Trebuchet MS, Arial, Tahoma; text-transform:uppercase;}
+h5 {margin:0px; padding:0px; padding-bottom:5px; font-weight:normal; color:#717272; font-size:12px; font-family:Trebuchet MS, Arial, Tahoma;}
+
+
+.wrapper {float:left; width:100%; text-align:center; background: url(../graph/topbg.png) top repeat-x; }
+.fbg {float:left; width:100%; text-align:center; background: url(../graph/bg.jpg) bottom no-repeat; }
+
+.top  {width:1004px; height:145px; text-align:left; display:block;  background: url(../graph/pagetopbg.png) no-repeat; overflow:hidden;}
+.info {clear:both; width:1004px; display:block; border:solid 0px; }
+.left  {float:left; width:245px; padding-top:85px; margin-right:10px; text-align:left; }
+.right {float:right; width:725px; margin-right:4px; text-align:left; }
+.end {clear:both; width:1004px; height:153px; margin-top:20px; background: url(../graph/endbg.png) bottom  no-repeat; display:block; border:solid 0px; }
+
+.logo {position:absolute; }
+.logo a {display:block; overflow:hidden; width:241px; height:226px; background: url(../graph/pirogovo_logo.png) no-repeat; text-indent:-999em;}
+
+.slog {position:absolute; margin-top:25px; margin-left:330px;}
+.slog a {display:block; overflow:hidden; width:439px; height:48px; background: url(../graph/slog.png) no-repeat; text-indent:-999em;}
+
+.lang {position:absolute; text-align:left; margin-top:25px; margin-left:248px; width:45px; height:76px; z-index:25;}
+.lang ul {list-style:none; margin:0px; padding:0px;}
+.lang ul li {list-style:none;  text-align:left; width:49px; height:19px; margin:0px; padding:0px; padding-top:2px; margin-left:-2px; margin-bottom:4px; display:block; background: url(../graph/lbg.png);}
+.lang .ru a {width:45px; height:17px; display:block; margin-bottom:4px; overflow:hidden; background: url(../graph/ru.png) no-repeat; text-indent:-999em;}
+.lang .en a {width:45px; height:17px; display:block; margin-bottom:5px; overflow:hidden; background: url(../graph/en.png) no-repeat; text-indent:-999em;}
+.lang .ua a {width:45px; height:17px; display:block; margin-bottom:6px; overflow:hidden; background: url(../graph/ua.png) no-repeat; text-indent:-999em;}
+.lang .dc a {width:45px; height:17px; display:block; margin-bottom:7px; overflow:hidden; background: url(../graph/dc.png) no-repeat; text-indent:-999em;}
+
+.topbutton {position:absolute; margin-top:-15px; margin-left:593px; width:409px; height:59px; background: url(../graph/tobuttonbg_orange_small.png) no-repeat;}
+
+.topmenu   {position:absolute; margin-top:78px; margin-left:330px; height:46px; width:720px;}
+.topmenu ul {padding:0px; margin:0px; }
+.topmenu ul li {float:left; list-style:none; text-align:center; margin-left:-43px; width:155px; height:33px; padding-top:13px; background: url(../graph/menubg.png) no-repeat;}
+.topmenu ul li a {text-decoration:none; font-family:Trebuchet MS; font-size:16px; text-transform:uppercase; color:#125fa8;}
+.topmenu ul li b {font-weight:normal; padding-left:20px;}
+
+.topmenu ul li:hover {background: url(../graph/omenubg.png) no-repeat;}
+.topmenu ul li:hover a {color:white;}
+
+.addmenu {padding:5px; padding-top:15px; padding-bottom:15px;}
+.addmenu ul {padding:0px; margin:0px; }
+.addmenu li {font-size:14px; list-style:none;  font-face:Trebuchet MS; padding:7px; padding-left:18px; border-bottom:solid 1px #e9e9e9; background: url(../graph/galka-m.png) top left no-repeat; }
+.addmenu li a {color:#065582; }
+.addmenu li a:hover {color:#993300; }
+
+
+
+.lp {width:245px; background: url(../graph/lmbg1.png); }
+.lpt {width:245px; background: url(../graph/lmtop.png) top no-repeat;}
+.lpb {width:215px; padding:15px; padding-bottom:10px;}
+.lpbb {width:245px; height:13px;  background: url(../graph/lmbot.png) bottom no-repeat; margin-bottom:15px;}
+
+.social {float:right; height:26px; overflow:hidden; width:133px; margin-top:-8px;}
+.krohi {width:710px; height:20px; padding-top:6px; padding-left:15px; margin-top:5px; margin-bottom:5px; font-size:11px; font-family:Trebuchet MS, Arial, Tahoma; color:#797979; background: url(../graph/krohibg.png) no-repeat; }
+.krohi a {color:#797979;}
+.krohi a:hover {color:#797979;}
+
+.pinfotop {width:725px; height:10px; background: url(../graph/ctop.png) no-repeat;}
+.pinfobot {width:725px; height:11px; background: url(../graph/cbot.png) no-repeat;}
+.pinfo {width:665px; color:#555555; padding-top:10px; padding-bottom:15px; padding-left:25px; padding-right:35px; background: url(../graph/cbg.png);}
+.pinfo h1 {margin-bottom:15px;}
+
+.counts {float:right; width:320px; height:20px; margin-top:40px; padding-bottom:10px; }
+.counter {float:right; margin-left:15px;}
+.copyright  {float:right; width:320px; margin-top:10px; margin-right:30px;  text-align:right; color:#999999; font-family : Tahoma; font-size : 9px;}
+.copyright a {color:#999999;}
+.ccc {}
+
+
+.endmenu {float:left; width:500px; margin-top:50px; margin-left:30px;  }
+.emitem  {float:left; text-align:left;  width:120px; margin-bottom:7px; padding-left:9px; background: url(../graph/emarr.png) left center no-repeat;}
+
+.maintext {padding-bottom:5px; margin-bottom:5px; border-bottom:solid 1px #eeeeee;}
+.mobjlist {width:665px; overflow:hidden; }
+.mobjarea {width:750px;  }
+.mobject {width:320px; font-size:11px; text-align:justify; margin-bottom:10px; margin-top:10px;  margin-right:20px; display: -moz-inline-stack; display:inline-block; vertical-align:text-top; zoom:1; *display:inline;}
+.more {text-align:right; padding-top:5px; font-size:11px;}
+.more a {color:#4453af;}
+.mopic {width:320px; overflow:hidden; padding-bottom:5px; }
+.mopic img {width:320px; }
+
+.roomtable {width:100%; font-size:11px; }
+.roomtable td {width:50%;}
+.roomlist {width:665px; padding-left:10px; overflow:hidden; }
+.roomjarea {width:750px;  }
+.roomitem {width:140px; font-size:10px; font-family:Arial; margin-bottom:10px; margin-top:10px;  margin-right:23px; display: -moz-inline-stack; display:inline-block; vertical-align:text-top; zoom:1; *display:inline;}
+.rpc {width:136px; height:91px; overflow:hidden; padding:4px; border:solid 1px #999999; }
+.roompic {width:138px; height:91px; overflow:hidden; border:0px;}
+.roompic img {width:136px; border:0px;}
+.roommore {width:137px; height:19px;  text-align:right; font-size:9px; letter-spacing:1px; color:white; padding-right:4px; padding-top:0px; margin-bottom:2px; margin-top:-4px; margin-right:5px; background: url(../graph/numiconbg.png) no-repeat;}
+
+
+.clearline {clear:both; margin-top:10px; margin-bottom:10px; border-bottom:solid 1px #eeeeee;  }
+.clear {clear:both; }
+
+.roomlink {float:left; width:370px; height:35px; }
+.roomlink .rlink {float:left; padding:4px; padding-left:10px; padding-right:10px; margin-top:5px; margin-right:10px; background-color:#e68100;}
+.roomlink .rlink a {font-family: Trebuchet MS, Arial; color:white;}
+
+.allroomlink {float:right; text-transform:lowercase; width:150px; height:35px;  text-align:right; font-family: Trebuchet MS, Arial;}
+.allroomlink .rlink {float:right; padding:4px; padding-left:10px; padding-right:10px; margin-top:5px; margin-left:10px; background-color:#e68100;}
+.allroomlink .rlink a {font-family: Trebuchet MS, Arial; color:white;}
+
+
+
+.booking {float:left; cursor:pointer;  margin-left:142px; text-align:center; margin-top:19px;  width:220px; height:26px; background: url(../graph/orderbg_no.png) no-repeat;}
+.booking h6 {padding:0px; padding-top:4px; margin:0px; color:white; text-transform:uppercase; font-weight:normal; font-size:14px; }
+.bookingform  {margin-left:25px; margin-top:25px; }
+.bookingform  p {float:left; width:320px; padding:0px; margin:0px; margin-right15px; padding-bottom:10px; }
+.bookingform  b {color:red;}
+.bookingform  input  {width:250px; margin-top:2px; }
+.bookingform  select {width:573px; margin-top:2px; }
+.bookingform  textarea {width:573px; margin-top:2px; }
+
+.bookingres   {text-align:center; padding:20px;}
+.bookingres p {text-align:center; font-size:19px; color:green;}
+
+.pricetable {border:0px; width:100%; background-color:#e0e0e0; font-size:11px;}
+.pricetable tr {background-color:white; text-align:center;}
+.pricetable tr td {padding:5px; padding-right:8px; padding-left:8px;}
+.tytletd {font-size:15px; margin-top:30px; }
+.periodtd {font-size:11px;}
+.placetd {font-size:10px;}
+
+.valute   {padding:10px; text-align:center; font-size:14px;}
+.valute a {cursor:pointer;}
+.valute a:hover {color:#e68100;}
+.valute .alv {cursor:pointer; color:#e68100; font-weight:bold;}
+.vl {font-size:11px;}
+
+
+.bb  {cursor:pointer;  text-align:center; margin-top:17px;  width:210px; height:26px; background: url(../graph/querstbg_orange.png) no-repeat;}
+.bb h6 {padding:0px; padding-top:5px; margin:0px; color:white; text-transform:uppercase; font-weight:normal; font-size:14px; }
+
+
+.quest  {float:right; cursor:pointer;  margin-right:25px; margin-top:17px;  width:152px; height:26px; background: url(../graph/querstbg.png) no-repeat;}
+.quest h6 {padding:0px; padding-top:4px; margin:0px; color:white; text-transform:uppercase; font-weight:normal; font-size:14px; }
+
+.bigroomgallery {float:right; width:330px; padding-left:20px; padding-bottom:10px; }
+.bigroompic {width:330px; overflow:hidden; padding-bottom:5px; }
+.bigroompic img {width:330px; }
+
+
+.roomgallery {float:right; width:330px;}
+.roombpic {width:315px; overflow:hidden; padding-left:10px; padding-bottom:15px;}
+.roombpic img {width:315px;}
+
+.roomiconlist {width:330px; overflow:hidden;}
+.iconarea {width:350px; }
+
+.roomicon {width:55px; height:55px; overflow:hidden; margin-left:10px; margin-bottom:7px; cursor:pointer; display: -moz-inline-stack; display:inline-block; vertical-align:text-top; zoom:1; *display:inline;}
+.roomicon img {height:55px;}
+
+.videoitem {width:310px; height:275px; overflow:hidden; margin-right:20px; margin-bottom:10px; cursor:pointer; display: -moz-inline-stack; display:inline-block; vertical-align:text-top; zoom:1; *display:inline;}
+.videoitem img {width:310px; margin-bottom:5px;}
+.play {position:absolute; margin-top:70px; margin-left:105px; width:100px; height:100px; z-index:25;}
+.play img {width:100px;}
+
+.topvideogallery {margin-top:2px; font-size:11px; }
+.topvideoitem {width:200px; font-size:11px; height:170px; overflow:hidden; margin-right:20px; margin-bottom:7px; cursor:pointer; display: -moz-inline-stack; display:inline-block; vertical-align:text-top; zoom:1; *display:inline;}
+.topvideoitem img {width:200px; margin-top:7px; }
+.topvplay {position:absolute; margin-top:45px; margin-left:70px; width:60px; height:60px; z-index:25;}
+.topvplay img {width:60px;}
+
+.topfotogallery {margin-top:2px; font-size:11px; }
+.topfotoitem {width:200px; font-size:11px; height:170px; overflow:hidden; margin-right:20px; margin-bottom:7px; cursor:pointer; display: -moz-inline-stack; display:inline-block; vertical-align:text-top; zoom:1; *display:inline;}
+.topfotoitem img {width:200px; margin-top:7px; }
+
+.albumitem {width:310px; height:245px; overflow:hidden; margin-right:20px; margin-bottom:10px; cursor:pointer; display: -moz-inline-stack; display:inline-block; vertical-align:text-top; zoom:1; *display:inline;}
+.albumitem img {width:310px; margin-bottom:5px;}
+.albumitem span {font-size:11px; color:#bbbbbb;}
+
+.photoitem {width:200px; height:200px; overflow:hidden; margin-right:15px; margin-bottom:15px; cursor:pointer; display: -moz-inline-stack; display:inline-block; vertical-align:text-top; zoom:1; *display:inline;}
+.photoitem img {height:200px;}
+
+.articleitem {padding-bottom:10px; border-bottom:solid 1px #d9d9d9; margin-bottom:10px; }
+.articleitem h2 {margin-bottom:0px; padding-bottom:0px;}
+.artpic {float:left; margin-bottom:10px; margin-right:15px; width:180px; overflow:hidden;}
+.artpic img {width:180px;}
+
+.ca {float:left;clear:both; margin-top:4px; margin-bottom:6px; }
+.citates {float:left; margin:5px; margin-bottom:0px; margin-top:0px; padding-right:20px; padding-left:15px; font-size:11px; color:#666666; text-align:justify; background-color:#f6f6f6; }
+.citates table {font-size:11px; color:#666666; text-align:justify;}
+.pcinfotop {float:left; width:725px; height:10px; background: url(../graph/cttop.png) no-repeat;}
+.pcinfobot {float:left; width:725px; height:11px; background: url(../graph/ctbot.png) no-repeat;}
+.qpic {float:left; margin-right:10px;}
+
+*/
