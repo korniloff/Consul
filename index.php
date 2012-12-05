@@ -33,7 +33,19 @@ include ("inc/head.php");
     <!-- конец меню языков -->
 
     <div class=logoarea>
-        <div class=logo><a href=''>sdfgsdf</a></div>
+
+        <!-- логотип:  class=logo_en для english -->
+        <div class=logo><a href=''></a></div>
+
+        <!-- форма поиска -->
+        <div class=search>
+            <form name=searchform action='' method=POST>
+                <div><input name=word></div>
+                <div class=go onclick='document.searchform.submit()'></div>
+            </form>
+        </div>
+        <!-- конец формы поиска -->
+
     </div>
 
 
