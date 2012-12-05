@@ -1,6 +1,7 @@
 <?php
 include("inc/settings.php");
 include ("inc/head.php");
+//Test for git
 ?>
 
 
