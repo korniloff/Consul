@@ -88,6 +88,48 @@ function Upload()
 document.data.oper.value='F';
 document.data.submit();
 }
+
+function makeRequest(url) {
+	var httpRequest;
+
+	if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+		httpRequest = new XMLHttpRequest();
+		if (httpRequest.overrideMimeType) {
+			httpRequest.overrideMimeType('text/xml');
+			// See note below about this line
+		}
+	} 
+	else if (window.ActiveXObject) { // IE
+		try {
+			httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		} 
+		catch (e) {
+			try {
+				httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} 
+			catch (e) {}
+		}
+	}
+
+	if (!httpRequest) {
+		alert('Giving up :( Cannot create an XMLHTTP instance');
+		return false;
+	}
+	httpRequest.onreadystatechange = function() { alertContents(httpRequest); };
+	httpRequest.open('GET', url, true);
+	httpRequest.send('');
+
+}
+
+function alertContents(httpRequest) {
+	if (httpRequest.readyState == 4) {
+		if (httpRequest.status == 200) {
+			document.getElementById("txtHint").innerHTML="Документ удален";
+		} else {
+			alert('There was a problem with the delete pdf request.');
+		}
+	}
+}
 </script>
 <BODY>
 <center>
@@ -197,7 +239,12 @@ document.data.submit();
      }
      if ($page_type=="catalog")
      {
-     	print '<tr><td class=lmenutext > Ссылка на документ (pdf) '.$static_url.'<br>';
+     	print '<tr><td class=lmenutext > Ссылка на документ (pdf) <span id="txtHint">'.$static_url.'</span>';
+     	if ($static_url!="")
+     	{
+     	print ' &nbsp <input type="button" type=button class=smalltext onClick=makeRequest("deletepdf.php?static_code='.$static_code;
+    	print '") value="Удалить документ">';}
+    	print '<br>';
      	print '<input type=file style="width:300px" name="pdffile">';     	
      }
      ?>
