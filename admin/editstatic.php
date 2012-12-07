@@ -6,19 +6,18 @@
 //    if(!isAllowed("rtext")) {die("У Вас недостаточно прав для просмотра этой страницы");}    
     if (!empty($oper))
     {
-     	if ($oper=='I' or $oper=='U')
-    	{	
-    	 $err=0;
+    	$err=0;
+     	if (($oper=='I' or $oper=='U') and (isset($page_url)))
+    	{	   	     	
     	 mysql_query("start transaction;");
-    	 $query="update {$PREFFIX}_page set page_url='$page_url'
+    	     	 $query="update {$PREFFIX}_page set page_url='$page_url'
     	    	where (page_code=$page_code)";
     	 $result=mysql_query($query) or $err=1;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());   	 
     	}
     	   
     	if ($oper=='I' and $err==0)
     	{
-    		$err=0;
-    		mysql_query("start transaction;");
+    		mysql_query("start transaction;");    		
     		$query="insert into {$PREFFIX}_static (page_code,static_name,static_text,lang_code,static_abstract) values($page_code,'$static_name','$static_text',$langindex,'$static_abstract')";
     		$result=mysql_query($query) or $err=2;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
     		
@@ -33,11 +32,27 @@
     	
     	if ($oper=='U' and $err==0)
     	{
-    		$err=0;
     		mysql_query("start transaction;");
-    		$query="update {$PREFFIX}_static set static_name='$static_name', 
-    		        static_text='$static_text',
- 					static_abstract='$static_abstract'				    		
+    		
+/*    		$stmt_insert = mysqli_prepare($link, "INSERT INTO Persons (FirstName, LastName, Age) (?, ?, ?)");
+    		mysqli_stmt_bind_param($stmt_insert, 'ssi', $fname, $lname, $age);
+    		foreach ($rows as $value) {
+    			$fname = $value['fname'];
+    			$lname = $value['lname'];
+    			$age = $value['age'];
+    			mysqli_stmt_execute($stmt_insert);
+    		}
+    		mysqli_stmt_close($stmt_insert); */
+    		
+/*    		    		
+    		$stmt_update = mysqli_prepare($link, "update consul_static set static_name=? static_text=? static_abstract=? where static_code=?");
+    		mysqli_stmt_bind_param($stmt_update, $static_name, $static_text, $static_abstract, $static_code);
+    		$result=mysqli_stmt_execute($stmt_update) or $err=3;
+    		mysqli_stmt_close($stmt_update);    		
+    		
+*/    		
+    		
+    		$query="update {$PREFFIX}_static set static_name='".mysql_escape_string($static_name)."', static_text='".mysql_escape_string($static_text)."',static_abstract='.mysql_escape_string($static_abstract).'		
     		where (static_code=$static_code)";
     		$result=mysql_query($query) or $err=3;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
       	
