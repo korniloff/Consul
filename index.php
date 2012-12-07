@@ -28,8 +28,8 @@ include ("inc/head.php");
 
     <!-- меню языков -->
     <div class=langmenu>
-        <a href='?ln=ru'><div class=en></div></a>  <!-- class=aen при активном english -->
-        <div class=aru></div>                       <!-- class=ru при активном english -->
+        <a href='<?=$PHP_SELF?>?ln=<?=GetNextLang($LANG)?>'><div class=<?=GetNextLang($LANG)?>></div></a>  <!-- class=aen при активном english -->
+        <div class=<?=$lng?>></div>                       <!-- class=ru при активном english -->
     </div>
     <!-- конец меню языков -->
 

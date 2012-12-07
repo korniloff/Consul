@@ -51,15 +51,35 @@ function prepare($st)
   return $st;
 }
 
-function getStatic($code,$lng="")
+function getStatic($pagename,$lng="ru")
 {
-    global $PREFFIX;
-    $res=mysql_query("select static_code,static_name$lng,static_text$lng from {$PREFFIX}_static where static_code=$code");
-    list($s_c,$s_n,$s_t)=mysql_fetch_array($res);
-    $s_t=str_replace("../im","im",$s_t);
-    $a=array("code"=>$s_c,
-             "name"=>$s_n,
-             "text"=>prepare($s_t)
+	global $PREFFIX;
+    $res=mysql_query("SELECT
+{$PREFIFX}_static.static_text,
+{$PREFIFX}_static.static_pos,
+{$PREFIFX}_static.static_seo_title,
+{$PREFIFX}_static.static_seo_desc,
+{$PREFIFX}_static.static_seo_key,
+{$PREFIFX}_static.static_abstract,
+{$PREFIFX}_static.static_url,
+{$PREFIFX}_static.static_name
+FROM
+{$PREFIFX}_lang
+INNER JOIN {$PREFIFX}_static ON {$PREFIFX}_lang.lang_code = {$PREFIFX}_static.lang_code 
+INNER JOIN {$PREFIFX}_page ON {$PREFIFX}_page.page_code = {$PREFIFX}_static.page_code
+WHERE ({$PREFIFX}_page.page_name='$pagename') and ({$PREFIFX}_lang.lang_name='$lng')
+");
+    
+//    $res=mysql_query("select static_code,static_name$lng,static_text$lng from {$PREFFIX}_static where static_code=$code");
+    list($static_text,$static_pos,$static_seo_title,$static_seo_desc,$static_seo_key,$static_abstact, $static_url,$static_name)=mysql_fetch_array($res);
+    $a=array("text"=>$static_text,
+             "pos"=>$static_pos,
+             "seo_title"=>$static_seo_title,
+    		 "seo_desc"=>$static_seo_desc,
+    		 "seo_key"=>$static_seo_key,
+    		 "abstract"=>$static_abstact,
+    		 "url"=>$static_url,
+    		 "name"=>$static_name
              );
     return $a;
 }
@@ -552,7 +572,14 @@ function GetFirstpicstr($pcode)
   return($picsmall_str);
 }               
 
+//************  George Sergeev ********* 
 
+function GetNextLang($lan)
+{  
+  if ($lan==1) return ("en"); else return ("ru"); 
+  
+}	
+//************  George Sergeev *********
   
 
 ?>
