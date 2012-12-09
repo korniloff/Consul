@@ -1,7 +1,11 @@
          <!-- контакты слева -->
          <div class=contactarea>
-            <h5>Контактная информация</h5>
+            <h5><?=Translate($LANG,'Контактная информация');?></h5>
             <div class=addresstext>
+                   <?php   $topstatic=getStatic('contacts',$LANG);
+                     echo $topstatic['text']; ?>
+            
+            <!--  
                 <b>ООО «ВЭК КОНСУЛ»</b><br>
                 <p>
                     <b>Адрес:</b>
@@ -17,7 +21,7 @@
                 <p>
                     <b>E-mail:</b>  <a href="mailto:office@consul-marine.com.ua">office@consul-marine.com.ua</a>
                     <br><b>Skype:</b>  <a href="">consul-marine</a>
-                </p>
+                </p> -->
             </div>
           </div>
          <!-- контакты слева -->
