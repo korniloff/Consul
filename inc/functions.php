@@ -1,4 +1,4 @@
-<?
+<?php
 
 
 function  varHardtest($varname)
@@ -642,55 +642,83 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	}
 	
 	
-/*
- * 
- * 
- *function view_tree($langname) {
-  	$catalogshort="SELECT DISTINCT
-					consul_equip.equip_code,
-  	                consul_equip.equip_parent,
-					consul_static.static_code,
-					consul_static.static_name
-					FROM consul_static 
-					INNER JOIN consul_page ON consul_page.page_code = consul_static.page_code 
-					INNER JOIN consul_equip ON consul_page.page_code = consul_equip.page_code 
-					INNER JOIN consul_lang ON consul_lang.lang_code=consul_static.lang_code
-					WHERE (lang_name='$langname') and (page_active>0)
-					ORDER BY static_name";
+	function getlastnews($lang=1)
+	{
+		global $PREFFIX;	
+		$lastnewsquery="SELECT
+		{$PREFFIX}_news.news_code,
+		{$PREFFIX}_news.news_date,
+		{$PREFFIX}_static.static_abstract,
+		{$PREFFIX}_picture.picsmall
+		FROM
+		{$PREFFIX}_news
+		LEFT JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_news.page_code
+		LEFT JOIN {$PREFFIX}_static ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
+		LEFT JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
+		WHERE {$PREFFIX}_static.lang_code=$lang
+		ORDER BY news_date DESC
+		limit 3 ";
+
+		$query = mysql_query("$lastnewsquery") or  die("Ошибка выборки новости ".$lastnewsquery);
+		while (list($news_code,$news_date,$static_abstract,$picture_picsmall)= mysql_fetch_array($query)) 
+			$a[] = array ($news_code,$news_date,$static_abstract,$picture_picsmall);
+		return $a;	
+	}
+
+	
+	/*
+	 *
+	*
+	*function view_tree($langname) {
+	$catalogshort="SELECT DISTINCT
+	consul_equip.equip_code,
+	consul_equip.equip_parent,
+	consul_static.static_code,
+	consul_static.static_name
+	FROM consul_static
+	INNER JOIN consul_page ON consul_page.page_code = consul_static.page_code
+	INNER JOIN consul_equip ON consul_page.page_code = consul_equip.page_code
+	INNER JOIN consul_lang ON consul_lang.lang_code=consul_static.lang_code
+	WHERE (lang_name='$langname') and (page_active>0)
+	ORDER BY static_name";
+	
+	$query = mysql_query("$catalogshort") or  die("Ошибка выборки каталога ".$catalogshort);
+	while (list($equip_code,$equip_parent,$static_code,$static_name)= mysql_fetch_array($query)) {
+	if ($equip_parent == '0') { //echo $equip_code."  ".$equip_parent. " ". $static_name."<BR>";
+	$one_lvl[] = array ($equip_code, $equip_parent, $static_code,$static_name);
+	} else { //echo "Child ". $equip_code." ".$equip_parent. " ". $static_name ."<BR>";
+	$next_lvl[] = array ($equip_code, $equip_parent, $static_code,$static_name);
+	}
+	}
+	print '<ul id="tree_one">';
+	foreach ($one_lvl as $key){
+	print '<li><a href="static_page.php?'.$key[2].'">'.$key[3].'</a>';
+	view_tree_next_level($key[0], $next_lvl);
+	print '</li>';
+	}
+	print '</ul>';
+	}
+	
+	
+	function view_tree_next_level($family, $next_lvl) {
+	foreach ($next_lvl as $key) {
+	if ($key[1]==$family) {
+	print '<ul id="tree_one"> <li><a href="static_page.php?'.$key[2].'">'.$key[3].'</a>';
+	view_tree_next_level($key[0], $next_lvl);
+	print '</li></ul>';
+	}
+	}
+	}
+	
+	*
+	*
+	*/
+	
+	//************  George Sergeev *********
+	
+	
+	?>
+		
+	
   
-    $query = mysql_query("$catalogshort") or  die("Ошибка выборки каталога ".$catalogshort);
-    while (list($equip_code,$equip_parent,$static_code,$static_name)= mysql_fetch_array($query)) {       
-      if ($equip_parent == '0') { //echo $equip_code."  ".$equip_parent. " ". $static_name."<BR>";
-        $one_lvl[] = array ($equip_code, $equip_parent, $static_code,$static_name);
-      } else { //echo "Child ". $equip_code." ".$equip_parent. " ". $static_name ."<BR>";
-        $next_lvl[] = array ($equip_code, $equip_parent, $static_code,$static_name);
-      }
-    }
-    print '<ul id="tree_one">';
-    foreach ($one_lvl as $key){
-      print '<li><a href="static_page.php?'.$key[2].'">'.$key[3].'</a>';
-    view_tree_next_level($key[0], $next_lvl);
-      print '</li>';
-    }
-    print '</ul>';
-  }
 
-
-  function view_tree_next_level($family, $next_lvl) {
-    foreach ($next_lvl as $key) {
-      if ($key[1]==$family) {
-        print '<ul id="tree_one"> <li><a href="static_page.php?'.$key[2].'">'.$key[3].'</a>';
-        view_tree_next_level($key[0], $next_lvl);
-        print '</li></ul>';
-      }
-    }
-  }
-
- * 
- * 
- */	
-
-//************  George Sergeev *********
-  
-
-?>

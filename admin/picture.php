@@ -18,6 +18,11 @@ if (!empty($oper))
 if ($oper=='I')
 {
   $newicon=$icon+1;
+  
+  $resu=mysql_query("select max(picture_code) from {$PREFFIX}_picture");
+  $newunitcode=mysql_result($resu,0,0);
+  $newunitcode=$newunitcode+1;
+  
   if ($_FILES['picbig'])
   {
       $r=basename($_FILES['picbig']['name']);
