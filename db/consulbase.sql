@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 04 2012 г., 11:42
+-- Время создания: Дек 09 2012 г., 19:50
 -- Версия сервера: 5.1.50
 -- Версия PHP: 5.3.14
 
@@ -60,18 +60,25 @@ INSERT INTO `consul_admin` (`admin_code`, `admin_name`, `admin_login`, `admin_pa
 DROP TABLE IF EXISTS `consul_dict`;
 CREATE TABLE IF NOT EXISTS `consul_dict` (
   `dict_code` int(11) NOT NULL AUTO_INCREMENT,
-  `dict_ru` varchar(250) DEFAULT NULL,
+  `dict_ru` varchar(250) NOT NULL,
   `dict_en` varchar(250) NOT NULL,
   PRIMARY KEY (`dict_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=10 ;
 
 --
 -- Дамп данных таблицы `consul_dict`
 --
 
 INSERT INTO `consul_dict` (`dict_code`, `dict_ru`, `dict_en`) VALUES
-(1, 'Я люблю пиво', 'I like bear'),
-(2, 'Это кот', 'This is cat');
+(1, 'главная', 'main'),
+(2, 'о компании', 'about us'),
+(3, 'новости', 'news'),
+(4, 'услуги', 'service'),
+(5, 'оборудование', 'equipment'),
+(6, 'партнеры', 'partners'),
+(7, 'контакты', 'contacts'),
+(8, 'ООО «ВЭК КОНСУЛ»', 'CONSUL CO., LTD'),
+(9, 'Каталог оборудования', 'Equipment catalog');
 
 -- --------------------------------------------------------
 
@@ -88,20 +95,33 @@ CREATE TABLE IF NOT EXISTS `consul_equip` (
   `equip_url` varchar(250) CHARACTER SET cp1256 DEFAULT NULL,
   `equip_parent` int(11) NOT NULL,
   PRIMARY KEY (`equip_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- Дамп данных таблицы `consul_equip`
 --
 
 INSERT INTO `consul_equip` (`equip_code`, `equip_icon`, `equip_pos`, `page_code`, `equip_url`, `equip_parent`) VALUES
+(1, NULL, 1, 6, 'www.navigane.ru', 0),
+(2, NULL, 2, 7, 'www.electric.com', 0),
 (4, NULL, 1, 9, '', 3),
 (5, NULL, 2, 10, '', 3),
 (7, NULL, 1, 12, '', 6),
 (8, NULL, 2, 13, '', 6),
-(9, NULL, 1, 14, '', 0),
-(10, NULL, 1, 15, '', 9),
-(11, NULL, 2, 16, '', 9);
+(10, NULL, 3, 19, '', 0),
+(11, NULL, 4, 20, '', 0),
+(12, NULL, 5, 21, '', 0),
+(13, NULL, 6, 22, '', 0),
+(14, NULL, 7, 23, '', 0),
+(15, NULL, 8, 24, '', 0),
+(16, NULL, 9, 25, '', 0),
+(17, NULL, 10, 26, '', 0),
+(18, NULL, 11, 27, '', 0),
+(19, NULL, 12, 28, '', 0),
+(20, NULL, 1, 29, '', 10),
+(21, NULL, 2, 30, '', 10),
+(22, NULL, 3, 31, '', 10),
+(23, NULL, 4, 32, '', 10);
 
 -- --------------------------------------------------------
 
@@ -114,6 +134,7 @@ CREATE TABLE IF NOT EXISTS `consul_lang` (
   `lang_code` int(11) NOT NULL AUTO_INCREMENT,
   `lang_name` varchar(250) NOT NULL DEFAULT ' ',
   `lang_direct` char(1) NOT NULL DEFAULT 'l',
+  `lang_charset` varchar(20) NOT NULL DEFAULT 'windows-1251',
   PRIMARY KEY (`lang_code`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=4 ;
 
@@ -121,10 +142,9 @@ CREATE TABLE IF NOT EXISTS `consul_lang` (
 -- Дамп данных таблицы `consul_lang`
 --
 
-INSERT INTO `consul_lang` (`lang_code`, `lang_name`, `lang_direct`) VALUES
-(1, 'ru', 'l'),
-(2, 'eng', 'l'),
-(3, 'fr', 'l');
+INSERT INTO `consul_lang` (`lang_code`, `lang_name`, `lang_direct`, `lang_charset`) VALUES
+(1, 'ru', 'l', 'windows-1251'),
+(2, 'eng', 'l', 'windows-1251');
 
 -- --------------------------------------------------------
 
@@ -139,14 +159,16 @@ CREATE TABLE IF NOT EXISTS `consul_news` (
   `news_url` varchar(200) DEFAULT '',
   `page_code` int(11) NOT NULL,
   PRIMARY KEY (`news_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=6 ;
 
 --
 -- Дамп данных таблицы `consul_news`
 --
 
 INSERT INTO `consul_news` (`news_code`, `news_date`, `news_url`, `page_code`) VALUES
-(3, '2012-11-29', 'www.cats.ru', 5);
+(3, '2012-11-29', 'www.navico.com', 5),
+(4, '2012-12-09', 'http://www.korabel.ru/news/comments/kompaniya_navmarin_zavershila_razrabotku_i_pristupila_k_vipusku_dvuh_modeley_kommutatorov_signalov_nmea-soobshcheniy_navcom_beta-100_i_beta-110.html', 33),
+(5, '2012-12-09', 'http://www.korabel.ru/news/comments/rasprodazha_aksessuarov_sailor_5000_serii.html', 34);
 
 -- --------------------------------------------------------
 
@@ -162,24 +184,39 @@ CREATE TABLE IF NOT EXISTS `consul_page` (
   `page_url` varchar(255) CHARACTER SET cp1251 DEFAULT NULL,
   `page_type` varchar(10) NOT NULL DEFAULT 'static',
   PRIMARY KEY (`page_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
 -- Дамп данных таблицы `consul_page`
 --
 
 INSERT INTO `consul_page` (`page_code`, `page_name`, `page_active`, `page_url`, `page_type`) VALUES
-(1, 'testpage', 1, NULL, 'static'),
-(2, 'Первая страница', 1, '', 'static'),
-(5, 'О котах', 1, NULL, 'news'),
+(2, 'toptext', 1, NULL, 'static'),
+(5, 'Новые эхолоты от Navico', 1, 'http://lowrance-eholot.ru/news/20-elite4.html', 'news'),
+(6, 'Авторулевые', 1, '', 'catalog'),
+(7, 'АРБ, РЛО, УКВ-носимые', 1, '', 'catalog'),
 (9, 'Garmin RS 232', 1, NULL, 'catalog'),
 (10, 'Garmin UL 416', 1, NULL, 'catalog'),
 (12, 'Samsung 18', 1, NULL, 'catalog'),
 (13, 'Samsung 19', 1, NULL, 'catalog'),
-(14, 'GMDSS radio equipment ', 1, NULL, 'catalog'),
-(15, 'NAVTEX NX-700,”FURUNO”', 1, 'http://www.transas.com.ua/component/option,com_mtree/task,viewlink/link_id,59/Itemid,39/', 'catalog'),
-(16, 'NAVTEX SNX-300,”SUMYUNG”', 1, 'http://www.samyung-russia.ru/snx300.html', 'catalog'),
-(17, 'Рога и копыта', 1, NULL, 'partner');
+(15, 'ЦК КПСС', 1, NULL, 'partner'),
+(16, 'Газпром', 1, NULL, 'partner'),
+(19, 'Гирокомпасы', 1, '', 'catalog'),
+(20, 'Картографические системы', 1, '', 'catalog'),
+(21, 'Командно-вещательные установки', 1, '', 'catalog'),
+(22, 'Компасы магнитные', 1, '', 'catalog'),
+(23, 'Приемники GPS, карт-плоттеры', 1, '', 'catalog'),
+(24, 'Приемники NAVTEX, приемники карт погоды', 1, '', 'catalog'),
+(25, 'ПВ/КВ, УКВ-радиостанции', 1, '', 'catalog'),
+(26, 'Радары', 1, '', 'catalog'),
+(27, 'Регистраторы данных рейса', 1, '', 'catalog'),
+(28, 'Спутниковые системы связи', 1, '', 'catalog'),
+(29, 'Гирокомпас GC 80 Simrad', 1, '', 'catalog'),
+(30, 'Гирокомпас Standard 22 Raytheon', 1, '', 'catalog'),
+(31, 'Гирокомпас PGM-C-009', 1, '', 'catalog'),
+(32, 'Гирокомпас Меридиан', 1, '', 'catalog'),
+(33, 'КОМПАНИЯ "НАВМАРИН" ЗАВЕРШИЛА РАЗРАБОТКУ И ПРИСТУПИЛА К ВЫПУСКУ ДВУХ МОДЕЛЕЙ КОММУТАТОРОВ СИГНАЛОВ NMEA-СООБЩЕНИЙ NAVCOM BETA-100 И BETA-110', 1, NULL, 'news'),
+(34, 'РАСПРОДАЖА АКСЕССУАРОВ SAILOR 5000 СЕРИИ', 1, NULL, 'news');
 
 -- --------------------------------------------------------
 
@@ -195,14 +232,15 @@ CREATE TABLE IF NOT EXISTS `consul_partner` (
   `page_code` int(11) NOT NULL DEFAULT '0',
   `partner_url` varchar(255) CHARACTER SET cp1251 DEFAULT NULL,
   PRIMARY KEY (`partner_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `consul_partner`
 --
 
 INSERT INTO `consul_partner` (`partner_code`, `partner_pos`, `partner_onmain`, `page_code`, `partner_url`) VALUES
-(1, 1, 1, 17, 'www.roga.com');
+(1, 1, 0, 15, 'www.ussr.com'),
+(2, 2, 1, 16, 'www.gazprom.ua');
 
 -- --------------------------------------------------------
 
@@ -221,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `consul_picture` (
   `piccomment_en` text,
   PRIMARY KEY (`picture_code`),
   UNIQUE KEY `picture_code` (`picture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `consul_picture`
@@ -229,10 +267,7 @@ CREATE TABLE IF NOT EXISTS `consul_picture` (
 
 INSERT INTO `consul_picture` (`picture_code`, `page_code`, `picsmall`, `picbig`, `picpos`, `piccomment`, `piccomment_en`) VALUES
 (1, 2, 'small.JPG', 'big.JPG', 1, 'Боря и я', 'Borya and I'),
-(2, 2, 'small.jpg', 'big.jpg', 2, 'ПАРМ', 'PARM'),
-(3, 17, 'small.jpg', 'big.jpg', 1, '', ''),
-(4, 15, 'small.jpg', 'big.jpg', 1, '', ''),
-(5, 16, 'small.jpg', 'big.jpg', 1, '', '');
+(2, 2, 'small.jpg', 'big.jpg', 2, 'ПАРМ', 'PARM');
 
 -- --------------------------------------------------------
 
@@ -254,24 +289,51 @@ CREATE TABLE IF NOT EXISTS `consul_static` (
   `static_abstract` text,
   `static_url` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`static_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=53 ;
 
 --
 -- Дамп данных таблицы `consul_static`
 --
 
 INSERT INTO `consul_static` (`static_code`, `page_code`, `static_name`, `static_text`, `static_pos`, `static_seo_title`, `static_seo_desc`, `static_seo_key`, `lang_code`, `static_abstract`, `static_url`) VALUES
-(12, 2, '1 страница 1', '<p>1 hgfghfghf</p>\r\n<p><img src="/consul/img/logo_4.gif" alt="logo_4" width="132" height="51" /></p>\r\n<p><img src="/consul/img/consul_all.gif" alt="consul_all" width="968" height="463" /></p>', 0, 'Страница', 'Описание', 'Ключевые слова', 1, '', ''),
-(13, 2, 'first', '<p>first</p>', 0, 'page', 'description', 'keywords', 2, NULL, NULL),
+(12, 2, 'Компания Консул', '<p><span>Компания КОНСУЛ была основано в 2001 году. Деятельность компании основана на использовании новейших технологий в области радиоэлектроники, передовых научных достижений и богатого опыта наших специалистов. Наша философия заключается в гибком подходе к потребностям наших клиентов, высокой ответственности и профессионализме в развитии проектов. Мы дорожим репутацией нашей компании как надежного партнера!</span></p>', 0, 'Страница', 'Описание', 'Ключевые слова', 1, '.mysql_escape_string().', NULL),
+(13, 2, 'Consul Company', '<p>CONSUL company was founded in 2001. The company''s activity is based on the latest technology in electronics, advanced scientific knowledge and vast experience of our professionals. Our philosophy is to take a flexible approach to the needs of our customers, high responsibility and professionalism in the development of projects. We value our reputation as a reliable partner!</p>', 0, 'page', 'description', 'keywords', 2, '.mysql_escape_string().', NULL),
 (14, 1, 'тест', '<p>Это тест.<img title="Хмурюсь" src="http://localhost/consul/admin/editor/tiny_mce/plugins/emotions/img/smiley-frown.gif" alt="Хмурюсь" border="0" /></p>', 0, 'Тест', 'Тестовое описание', 'тестовые ключевые слова', 1, NULL, NULL),
 (15, 1, 'test', '<p>this is test&nbsp;<img title="Краснею" src="http://localhost/consul/admin/editor/tiny_mce/plugins/emotions/img/smiley-embarassed.gif" alt="Краснею" border="0" /></p>', 0, NULL, NULL, NULL, 2, NULL, NULL),
 (16, 12, 'Морской навигатор Samsung 18', '<p>Морские навигаторы GPS Samsung отличная вещь</p>\r\n<p><img src="/consul/img/4d72f0859d0d6f4e2b8f23296ea1f9c2.JPG" alt="200px-3И-НЕ_74LS(К555)" width="200" height="165" /></p>', 0, NULL, NULL, NULL, 1, NULL, NULL),
-(17, 6, 'Морские навигаторы', '<p>Морские навигаторы нужны для навигации</p>', 0, NULL, NULL, NULL, 1, '', '../files/nx700_e_01.pdf'),
-(18, 6, 'Sea naviagte', '<p>Sea navigate use for navigate</p>', 0, NULL, NULL, NULL, 2, NULL, NULL),
+(17, 6, 'Авторулевые', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(18, 6, 'Autopilots', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(19, 6, 'Sea naviagte', '<p>Sea navigate use for navigate</p>', 0, NULL, NULL, NULL, 2, NULL, NULL),
 (20, 8, 'Garmin - это круто', '<p>Garmin лучший нафигатор<img src="/consul/img/logo.gif" alt="logo" width="344" height="70" /></p>', 0, NULL, NULL, NULL, 1, NULL, NULL),
 (21, 9, 'Навигатор Garmin RS 232 ', '<p>Навигатор это навигатор</p>', 0, NULL, NULL, NULL, 1, NULL, NULL),
 (22, 9, 'Garmin RS 232', '<p>Garmin RS 232 is garmin</p>', 0, NULL, NULL, NULL, 2, NULL, NULL),
-(23, 7, 'Электрораспределительные щиты', '<p>Это очень даже щиты</p>', 0, NULL, NULL, NULL, 1, '', ''),
-(24, 7, 'Electric board', '<p>It is electric board</p>', 0, NULL, NULL, NULL, 2, NULL, NULL),
-(25, 15, 'NAVTEX NX-700,”FURUNO”', '<p>Типовое одобрение Российского Морского Регистра Судоходства.<br />Одобрение типа Регистра судоходства Украины.<br /><br /><br />FURUNO NX-700 представляет собой двухканальный приемник NAVTEX для судов SOLAS, который полностью соответствует новому стандарту MSC.148(77), вступившему в силу 1 июля 2005 г. <br />Память &ndash; 200 сообщений.<br />Дисплей -&nbsp; черно-белый&nbsp; ЖКИ -экран&nbsp;&nbsp; 5".<br />При подключении к NX-700 GPS-приемника передающие станции выбираются автоматически в зависимости от местоположения судна.<br />Все входящие сообщения сохраняются в энергонезависимой памяти (информация не теряется после отключения питания) и выводятся на четкий монохромный 5" LCD экран.<br />Питание 12&hellip;24В постоянного тока.<br />Вес, безбумажный вариант :&nbsp; NX-700-B, только дисплей, вес&nbsp; - 0,7кг ;<br />Вес, вариант с принтером : NX-700-A, дисплей с принтером&nbsp; вес - 3,3кг;<br />Стандартная комплектация: <br /><br />Приемник NX-7001&nbsp; (вес 2,0 кг);<br />Антенна NX-7H зонтичного типа;<br />Дисплей с креплением (указывается при заказе), безбумажный вариант либо вариант с бумажным принтером:<br />Безбумажный вариант, только дисплей:&nbsp; NX-700-B,;<br />Вариант дисплей с принтером:&nbsp; NX-700-A;<br />Монтажный комплект;<br />Комплект документации.</p>', 0, NULL, NULL, NULL, 1, '<p><span style="color: #4f4f4f; font-family: Arial,Helvetica,sans-serif; font-size: 12px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 16.7833px; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">FURUNO NX-700 представляет собой двухканальный приемник NAVTEX для судов SOLAS, который полностью соответствует новому стандарту MSC.148(77), вступившему в силу 1 июля 2005 г.<span class="Apple-converted-space"> <br /></span></span></p>\r\n<p>&nbsp;</p>', '../files/nx700_e_01.pdf'),
-(26, 16, 'NAVTEX SNX-300,”SUMYUNG”', '<p><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Устройство имеет расширенную энергонезависимую память для хранения принятых сообщений (не менее 200 сообщений объемом, в среднем, 500 знаков) и встроенную систему самодиагностики.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Принимаемая информация отображается на высококонтрастном ЖК дисплее и может выводиться на печать.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Устройство SNX-300 состоит из двух приемников, один из которых работает на частоте, предписанной Регламентом радиосвязи для Международной системы НАВТЕКС (518 кГц), второй может работать одновременно с первым на других частотах, предназначенных для передачи информации НАВТЕКС. Первый приемник имеет приоритет в представлении информации на экране или печатающем устройстве. Получение информации с одного приемника не препятствует приему информации другим приемником.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Приемник SNX-300 с LCD экраном полностью автоматизирован, имеет компактный легкий и простой в установке корпус, автоматически проверяет соединение с антенной после подключения питания, имеет визуальную и звуковую сигнализацию:<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">- о получении сообщений,<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">- о имеющихся неисправностях.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Приемник имеет расширенную энергонезависимую память для хранения принятых сообщений (не менее 200 сообщений объемом, в среднем, 500 знаков) и встроенную систему самодиагностики.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Принимаемая информация отображается на высококонтрастном ЖК дисплее с разрешением 320х240 точек. Индикация о новых полученных сообщениях незамедлительно появляется на экране и сохраняется до тех пор, пока не будет подтверждена или в течение 24 часов после получения. На дисплей выводится не менее 16 строчек текста сообщения.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Вывод информации на бумагу осуществляется при помощи подключаемого принтера. Сообщения выводятся в следующем виде:</span></p>\r\n<ul>\r\n<li><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Устройство имеет расширенную энергонезависимую память для хранения принятых сообщений (не менее 200 сообщений объемом, в среднем, 500 знаков) и встроенную систему самодиагностики.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Принимаемая информация отображается на высококонтрастном ЖК дисплее и может выводиться на печать.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Устройство SNX-300 состоит из двух приемников, один из которых работает на частоте, предписанной Регламентом радиосвязи для Международной системы НАВТЕКС (518 кГц), второй может работать одновременно с первым на других частотах, предназначенных для передачи информации НАВТЕКС. Первый приемник имеет приоритет в представлении информации на экране или печатающем устройстве. Получение информации с одного приемника не препятствует приему информации другим приемником.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Приемник SNX-300 с LCD экраном полностью автоматизирован, имеет компактный легкий и простой в установке корпус, автоматически проверяет соединение с антенной после подключения питания, имеет визуальную и звуковую сигнализацию:<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">- о получении сообщений,<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">- о имеющихся неисправностях.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Приемник имеет расширенную энергонезависимую память для хранения принятых сообщений (не менее 200 сообщений объемом, в среднем, 500 знаков) и встроенную систему самодиагностики.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Принимаемая информация отображается на высококонтрастном ЖК дисплее с разрешением 320х240 точек. Индикация о новых полученных сообщениях незамедлительно появляется на экране и сохраняется до тех пор, пока не будет подтверждена или в течение 24 часов после получения. На дисплей выводится не менее 16 строчек текста сообщения.<span class="Apple-converted-space">&nbsp;</span></span><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Вывод информации на бумагу осуществляется при помощи подключаемого принтера. Сообщения выводятся в следующем виде:</span></li>\r\n</ul>\r\n<p style="text-align: left;">все сообщения по получении;</p>\r\n<p>все сообщения, хранящиеся в памяти;</p>\r\n<p>все сообщения, полученные по оговоренным частотам, сообщения из оговоренных мест или сообщения, имеющие специальные определители сообщений;</p>\r\n<p>все сообщения, представляемые на экран в текущий момент;</p>\r\n<p>отдельные выборочные сообщения из тех, что находятся на экране.</p>\r\n<ul>\r\n<li><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Имеется NMEA порт для передачи информации в ECDIS.<span class="Apple-converted-space"> <br /></span></span></li>\r\n</ul>\r\n<p><br style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff;" /><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;"><span class="Apple-converted-space"><br /></span></span></p>', 0, NULL, NULL, NULL, 1, '<p><span style="color: #000066; font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: #ffffff; display: inline ! important; float: none;">Данный приемник предназначен для несения постоянной вахты, как на международных, так и национальных каналах приема информации (518 кГц, 490 кГц, 4209,5 кГц).<span class="Apple-converted-space"> <br /></span></span></p>', '../files/snx-300.pdf');
+(23, 7, 'АРБ, РЛО, УКВ-носимые', '', 0, NULL, NULL, NULL, 1, '', '../files/Copy of Invoice - Professional (Cool).gdoc'),
+(24, 7, 'EPIRB, SART, VHF portable', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(25, 18, 'Щит защитный', '<p>456</p>', 0, NULL, NULL, NULL, 1, '<p>123</p>', ''),
+(26, 18, 'Protected board', '<p>Protected board</p>', 0, NULL, NULL, NULL, 2, '<p>Protected board</p>', ''),
+(27, 19, 'Гирокомпасы', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(28, 19, 'Gyrocompasses', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(29, 27, 'Регистраторы данных рейса', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(30, 27, 'Voyage data recorders', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(31, 20, 'Картографические системы', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(32, 20, 'Mapping systems', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(33, 21, 'Командно-вещательные установки', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(34, 21, 'Command and broadcast settings', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(35, 22, 'Компасы магнитные', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(36, 22, 'Magnetic compasses', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(37, 25, 'MF/HF, VHF radio', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(38, 25, 'ПВ/КВ, УКВ-радиостанции', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(39, 23, 'Приемники GPS, карт-плоттеры', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(40, 23, 'Receivers GPS, map plotter', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(41, 24, 'Приемники NAVTEX, приемники карт погоды', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(42, 24, 'Receiver NAVTEX, weather maps receivers', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(43, 26, 'Радары', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(44, 26, 'Radars', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(45, 28, 'Спутниковые системы связи', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(46, 28, 'Satellite systems', '', 0, NULL, NULL, NULL, 2, '', NULL),
+(47, 29, 'Гирокомпас GC 80 Simrad', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(48, 31, 'Гирокомпас PGM-C-009', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(49, 30, 'Гирокомпас Standard 22 Raytheon', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(50, 32, 'Гирокомпас Меридиан', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(51, 5, 'Новые эхолоты от Navico', '<table class="contentpaneopen">\r\n<tbody>\r\n<tr>\r\n<td class="createdate" valign="top">16.11.11 10:05</td>\r\n</tr>\r\n<tr>\r\n<td valign="top"><br />\r\n<div align="justify"><img src="http://lowrance-eholot.ru/images/stories/news/2011/mark4.jpg" alt="картплоттер/эхолот Lowrance Mark-4" width="386" height="272" />Компания&nbsp;<a title="Navico" href="http://www.navico.com/" target="_blank">Navico</a>, мировой лидер по производству морской электроники, объявила о выходе новой линейки эхолотов и картплоттеров Lowrance серии Elite&trade; и серии Mark&trade;. Все устройства данных серий оснащены 3,5 дюймовым экраном, черно-белым в приборах Mark и цветным в Elite, а также функциями, которые ранее были доступны только в дорогих моделях.<br /><br />Яркий экран обеспечивает максимальную четкость, позволяющую увидеть все детали при любых условиях. Функция Trackback&trade; позволяет просмотреть историю уже пройденного маршрута, поближе рассмотреть структуру дна и рыбу. Рыбаки по достоинству оценят полезность опции Advanced Signal Processing&trade;, которая автоматически определяет рыбу, структуру и детали дна более четко. Приборы легко и быстро устанавливаются, все коннекторы подходят для кабелей Lowrance или Eagle&reg;.<br /><br />Модели с картплоттером имеют встроенную GPS антенну и слот для карт microSD.&nbsp;<br /><br />В серии Elite представлены 6 приборов - эхолоты Elite-4x, Elite-4x DSI и картплоттеры/эхолоты Elite-4, Elite-4 DSI, Elite-4 GOLD,&nbsp; Elite-4M.<br />В серии Mark представлен черно-белый картплоттер/эхолот Mark-4.</div>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>', 0, NULL, NULL, NULL, 1, '<p><span>Компания Navico, мировой лидер по производству морской электроники, объявила о выходе новой линейки эхолотов и картплоттеров Lowrance серии Elite&trade; и серии Mark&trade;.</span></p>', NULL),
+(52, 5, 'New fishfinders from Navico', '<p>The company Navico, the world leader in marine electronics, today announced a new line of sonar and chartplotter Lowrance Elite &trade; Series and Series Mark &trade;. All of the devices in these series features a 3.5 inch screen, a black-and-white in color, and Mark devices in Elite, as well as features that were previously only available in high-end models.</p>\r\n<p>Bright screen for maximum clarity, allows you to see all the details at all times. Trackback &trade; feature allows you to view the history of the route covered already, a closer look at the structure of the bottom and fish. Fishermen will appreciate the usefulness of options Advanced Signal Processing &trade;, which automatically detects fish, structure and bottom detail more clearly. Products are easily and quickly installed, all the connectors are suitable for cables Lowrance or Eagle &reg;.</p>\r\n<p>Models with built-in GPS chartplotter to have an antenna and a slot for microSD.</p>\r\n<p>In the Elite series are 6 units - echo sounders Elite-4x, Elite-4x DSI and chartplotter / fishfinders Elite-4, Elite-4 DSI, Elite-4 GOLD, Elite-4M.<br />In a series of Mark presented a black and white combination chartplotter / sounder Mark-4.</p>', 0, NULL, NULL, NULL, 2, '<p>The company Navico, the world leader in marine electronics, today announced a new line of Lowrance sonar and chartplotter series&nbsp;Elite&trade; &amp; Mark&trade;.</p>', NULL);
