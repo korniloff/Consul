@@ -1,7 +1,7 @@
     <div class=logoarea>
 
         <!-- логотип:  class=logo_en для english -->
-        <div class=logo><a href=''></a></div>
+        <div class=logo<?=GetCurrentLang($LANG) ?>><a href=''></a></div>
 
         <!-- форма поиска -->
         <div class=search>

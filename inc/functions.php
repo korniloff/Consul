@@ -54,23 +54,22 @@ function prepare($st)
 function getStatic($pagename,$lng="ru")
 {
 	global $PREFFIX;
-    $res=mysql_query("SELECT
-{$PREFIFX}_static.static_text,
-{$PREFIFX}_static.static_pos,
-{$PREFIFX}_static.static_seo_title,
-{$PREFIFX}_static.static_seo_desc,
-{$PREFIFX}_static.static_seo_key,
-{$PREFIFX}_static.static_abstract,
-{$PREFIFX}_static.static_url,
-{$PREFIFX}_static.static_name
+	$query= "SELECT
+{$PREFFIX}_static.static_text,
+{$PREFFIX}_static.static_pos,
+{$PREFFIX}_static.static_seo_title,
+{$PREFFIX}_static.static_seo_desc,
+{$PREFFIX}_static.static_seo_key,
+{$PREFFIX}_static.static_abstract,
+{$PREFFIX}_static.static_url,
+{$PREFFIX}_static.static_name
 FROM
-{$PREFIFX}_lang
-INNER JOIN {$PREFIFX}_static ON {$PREFIFX}_lang.lang_code = {$PREFIFX}_static.lang_code 
-INNER JOIN {$PREFIFX}_page ON {$PREFIFX}_page.page_code = {$PREFIFX}_static.page_code
-WHERE ({$PREFIFX}_page.page_name='$pagename') and ({$PREFIFX}_lang.lang_name='$lng')
-");
+{$PREFFIX}_static
+INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
+WHERE ({$PREFFIX}_page.page_name='$pagename') and (lang_code='$lng')
+";
     
-//    $res=mysql_query("select static_code,static_name$lng,static_text$lng from {$PREFFIX}_static where static_code=$code");
+    $res=mysql_query($query);
     list($static_text,$static_pos,$static_seo_title,$static_seo_desc,$static_seo_key,$static_abstact, $static_url,$static_name)=mysql_fetch_array($res);
     $a=array("text"=>$static_text,
              "pos"=>$static_pos,
@@ -576,9 +575,121 @@ function GetFirstpicstr($pcode)
 
 function GetNextLang($lan)
 {  
-  if ($lan==1) return ("en"); else return ("ru"); 
+  if ($lan==1) return ("en"); else return ("ru");   
+}
+
+function GetCurrentLang($lan)
+{
+	if ($lan==2) return ("_en"); else return "";
+}
+
+function GetActiveLang($lan)
+{
+	global $lng;
+	if ($lan==$lng) return ("a"); else return ("");
+}
+
+function Translate($lan,$subj)
+{
+    global $dict;
+	if ($lan==2) $temp=$dict[$subj];
+	if ($temp=="") $temp=$subj;
+	return ($temp);
+}
+
+function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
+//catalogpage - страница перехода	
+	global $PREFFIX;	
+	$catalogshort="SELECT DISTINCT
+	{$PREFFIX}_equip.equip_code,
+	{$PREFFIX}_equip.equip_parent,
+	{$PREFFIX}_static.static_code,
+	{$PREFFIX}_static.static_name,
+	{$PREFFIX}_equip.equip_pos
+	FROM {$PREFFIX}_static
+	INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
+	INNER JOIN {$PREFFIX}_equip ON {$PREFFIX}_page.page_code = {$PREFFIX}_equip.page_code
+	WHERE (lang_code='$langcode') and (page_active>0)
+	ORDER BY equip_pos";
+
+	$query = mysql_query("$catalogshort") or  die("Ошибка выборки каталога ".$catalogshort);
+	while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos)= mysql_fetch_array($query)) {
+	if ($equip_parent == '0') { //echo $equip_code."  ".$equip_parent. " ". $static_name."<BR>";
+		$one_lvl[] = array ($equip_code, $equip_parent, $static_code,$static_name);
+	} else { //echo "Child ". $equip_code." ".$equip_parent. " ". $static_name ."<BR>";
+		$next_lvl[] = array ($equip_code, $equip_parent, $static_code,$static_name);
+	}
+	}
+	print '<ul id="tree_one">';
+	foreach ($one_lvl as $key){
+      print '<li><a href="'.$catalogpage.'?'.$key[2].'">'.$key[3].'</a>';
+      if ($opensubcode==$key[0])
+       view_tree_next_level($key[0], $next_lvl);
+      print '</li>';
+	}
+	print '</ul>';
+	}
+
+
+	function view_tree_next_level($family, $next_lvl) {
+	foreach ($next_lvl as $key) {
+	if ($key[1]==$family) {
+	        print '<ul id="tree_one"> <li><a href="'.$catalogpage.'?'.$key[2].'">'.$key[3].'</a>';
+        view_tree_next_level($key[0], $next_lvl);
+        print '</li></ul>';
+	   }
+	   }
+	}
+	
+	
+/*
+ * 
+ * 
+ *function view_tree($langname) {
+  	$catalogshort="SELECT DISTINCT
+					consul_equip.equip_code,
+  	                consul_equip.equip_parent,
+					consul_static.static_code,
+					consul_static.static_name
+					FROM consul_static 
+					INNER JOIN consul_page ON consul_page.page_code = consul_static.page_code 
+					INNER JOIN consul_equip ON consul_page.page_code = consul_equip.page_code 
+					INNER JOIN consul_lang ON consul_lang.lang_code=consul_static.lang_code
+					WHERE (lang_name='$langname') and (page_active>0)
+					ORDER BY static_name";
   
-}	
+    $query = mysql_query("$catalogshort") or  die("Ошибка выборки каталога ".$catalogshort);
+    while (list($equip_code,$equip_parent,$static_code,$static_name)= mysql_fetch_array($query)) {       
+      if ($equip_parent == '0') { //echo $equip_code."  ".$equip_parent. " ". $static_name."<BR>";
+        $one_lvl[] = array ($equip_code, $equip_parent, $static_code,$static_name);
+      } else { //echo "Child ". $equip_code." ".$equip_parent. " ". $static_name ."<BR>";
+        $next_lvl[] = array ($equip_code, $equip_parent, $static_code,$static_name);
+      }
+    }
+    print '<ul id="tree_one">';
+    foreach ($one_lvl as $key){
+      print '<li><a href="static_page.php?'.$key[2].'">'.$key[3].'</a>';
+    view_tree_next_level($key[0], $next_lvl);
+      print '</li>';
+    }
+    print '</ul>';
+  }
+
+
+  function view_tree_next_level($family, $next_lvl) {
+    foreach ($next_lvl as $key) {
+      if ($key[1]==$family) {
+        print '<ul id="tree_one"> <li><a href="static_page.php?'.$key[2].'">'.$key[3].'</a>';
+        view_tree_next_level($key[0], $next_lvl);
+        print '</li></ul>';
+      }
+    }
+  }
+
+ * 
+ * 
+ */	
+
 //************  George Sergeev *********
   
 

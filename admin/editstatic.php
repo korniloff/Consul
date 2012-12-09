@@ -3,7 +3,8 @@
 
     
 //    if (!intval($page_code)) {header("Location: index.php");die();}
-//    if(!isAllowed("rtext")) {die("У Вас недостаточно прав для просмотра этой страницы");}    
+//    if(!isAllowed("rtext")) {die("У Вас недостаточно прав для просмотра этой страницы");}   
+$err=0; 
     if (!empty($oper))
     {
     	$err=0;
@@ -52,8 +53,10 @@
     		
 */    		
     		
-    		$query="update {$PREFFIX}_static set static_name='".mysql_escape_string($static_name)."', static_text='".mysql_escape_string($static_text)."',static_abstract='.mysql_escape_string($static_abstract).'		
-    		where (static_code=$static_code)";
+    		$query="update {$PREFFIX}_static set static_name='".mysql_escape_string($static_name).
+    		       "', static_text='".mysql_escape_string($static_text).
+    		       "',static_abstract='".mysql_escape_string($static_abstract).
+    		       "' where (static_code=$static_code)";
     		$result=mysql_query($query) or $err=3;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
       	
     		if(!$err)
@@ -64,7 +67,7 @@
     	}
     	// Проверяем загружен ли файл
     	
-    	if ($_FILES['pdffile'])
+    	if (($_FILES['pdffile']) and ($_FILES["pdffile"]["name"]!=""))
     	{
     		// Если файл загружен успешно, перемещаем его
     		// из временной директории в конечную
@@ -211,7 +214,7 @@ function alertContents(httpRequest) {
   if ($err==4) print'<tr><td class=smalltext align=center style="color:red;"> Ошибка обновления имени файла документации</td></tr>';
   if ($err==5) print'<tr><td class=smalltext align=center style="color:red;"> Ошибка загрузки файла документации</td></tr>';
 ?>
-      <tr><td class=lmenutext align=center><a href="<?=$_SESSION["pageback"]?>">[ назад ]</a><br>
+      <tr><td class=lmenutext align=center> <a href="<?=$_SESSION["pageback"]?>">[ назад ]</a><br>
 </table>
 
 
@@ -229,6 +232,7 @@ function alertContents(httpRequest) {
  <tr><td height=10></td></tr>
  <tr>
   <td bgcolor=#f9f9f9 style='padding:5px'>
+  <center><input type=submit class=smalltext value='сохранить изменения'></center> <BR>
   <table Border=0 CellSpacing=0 CellPadding=0>
      <tr><td class=lmenutext><a>Заголовок страницы  [<?=$langname;?>] :</a><br>
        <input type=text name='static_name' style="width:630px;" value="<?=$static_name; ?>"><p>
@@ -268,7 +272,7 @@ function alertContents(httpRequest) {
   </td>
  </tr>
  <tr><td height=10 bgcolor=#f9f9f9 height=0></td></tr>
- <tr><td bgcolor=#f9f9f9 ><center><input type=submit class=smalltext value='сохранить изменения' )></td></tr>
+ <tr><td bgcolor=#f9f9f9 ><center><input type=submit class=smalltext value='сохранить изменения'></td></tr>
  <tr><td height=10 bgcolor=#f9f9f9 height=0></td></tr>
  <tr><td height=10 height=0></td></tr>
 </table>
