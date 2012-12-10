@@ -610,7 +610,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
 	INNER JOIN {$PREFFIX}_equip ON {$PREFFIX}_page.page_code = {$PREFFIX}_equip.page_code
 	WHERE (lang_code='$langcode') and (page_active>0)
-	ORDER BY equip_pos";
+	ORDER BY equip_parent,equip_pos";
 
 	$query = mysql_query("$catalogshort") or  die("Ошибка выборки каталога ".$catalogshort);
 	while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos)= mysql_fetch_array($query)) {
@@ -713,6 +713,41 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	*
 	*
 	*/
+
+	
+	function getEquipList($langcode,$catalogpage, $parentcode=0) {
+		//catalogpage - страница перехода
+		global $PREFFIX;
+		$catalogquery="SELECT DISTINCT
+		{$PREFFIX}_equip.equip_code,
+		{$PREFFIX}_equip.equip_parent,
+		{$PREFFIX}_static.static_code,
+		{$PREFFIX}_static.static_name,
+		{$PREFFIX}_equip.equip_pos,
+		{$PREFFIX}_picture.picbig
+		
+		FROM {$PREFFIX}_static
+		INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
+		INNER JOIN {$PREFFIX}_equip ON {$PREFFIX}_page.page_code = {$PREFFIX}_equip.page_code
+		LEFT JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
+		WHERE (lang_code='$langcode') and (page_active>0) and (equip_parent=$parentcode)
+		ORDER BY equip_pos";
+	
+		$query = mysql_query("$catalogquery") or  die("Ошибка выборки каталога ".$catalogshort);
+		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$picbig)= mysql_fetch_array($query)) 
+		{
+			if ((!isset($picbig)) or ($picbig=="")) $picbig='nullequip.gif'; 
+			print "<div class=mсitem>";
+			print "<div class=mсpic><a href='".$catalogpage."'><img src='images/".$picbig."' alt='".$static_name."'></a></div>";
+			print "<h2><a href='".$catalogpage."'>".$static_name."</a></h2>";
+			print "</div>";
+				
+		} 
+		
+		
+	}
+	
+	
 	
 	//************  George Sergeev *********
 	
