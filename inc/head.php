@@ -4,7 +4,7 @@
 
    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251"/>
 
-   <base href="<?=$mainurl;?>/"> 
+   <base href="<?=$mainurl;?>/">
 
 <?
 if (strlen($meta_title)>0)  echo"<title>$meta_title</title>\n";
@@ -18,7 +18,7 @@ else echo"<META NAME='Keywords' CONTENT=''>\n";
 ?>
 
    <link rel=stylesheet href="css/styles.css" type="text/css">
-   <link rel="stylesheet" type="text/css" href="highslide/highslide.css" >
+   <link href="css/lightbox.css" rel="stylesheet" />
 
    <script language="JavaScript" src='js/common.js'></script>
 
