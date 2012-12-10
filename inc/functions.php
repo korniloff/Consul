@@ -2,20 +2,20 @@
 
 
 function  varHardtest($varname)
-{                             
+{
    if (!isset($varname)) header("Location: 404.html");
    if (!is_numeric($varname)) header("Location: 404.html");
-   if ($varname<0) header("Location: 404.html");                    
-}                   
-        
+   if ($varname<0) header("Location: 404.html");
+}
+
 function  varLitetest($varname)
-{                             
+{
    if ($id)
    {
      if (!is_numeric($varname)) header("Location: 404.html");
-     if ($varname<0) header("Location: 404.html");                    
+     if ($varname<0) header("Location: 404.html");
    }
-}          
+}
 
 
 function  DevideFile($filename,&$name,&$ext)
@@ -68,7 +68,7 @@ FROM
 INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
 WHERE ({$PREFFIX}_page.page_name='$pagename') and (lang_code='$lng')
 ";
-    
+
     $res=mysql_query($query);
     list($static_text,$static_pos,$static_seo_title,$static_seo_desc,$static_seo_key,$static_abstact, $static_url,$static_name)=mysql_fetch_array($res);
     $a=array("text"=>$static_text,
@@ -164,12 +164,12 @@ return 0;
    {
      if ($TOYUSER["code"]) $f="unit_regprice"; else $f="unit_price";
      $codes="0";
-     foreach ($_SESSION['cart'] as $key=>$val) $codes.=",".$key;    
+     foreach ($_SESSION['cart'] as $key=>$val) $codes.=",".$key;
      $cartquery="select unit_code,$f from {$PREFFIX}_shopunit where unit_code in ($codes)";
      $r=mysql_query("$cartquery") or die("Error 198");
      while(list($unit_code,$price)=mysql_fetch_array($r))
      {$cnt+=$_SESSION['cart'][$unit_code];    $tot+=$_SESSION['cart'][$unit_code]*$price;  }
-     
+
      return "В корзине: <span>".intval($cnt)." товаров</span><br/>На сумму: <span>".floatval($tot)." грн.</span>";
    }
    else return "В корзине: <span>0 товаров</span><br/>На сумму: <span>0 грн.</span>";
@@ -202,8 +202,8 @@ function addhighslide($instr)
   }
   return($rez_text);
 }
-  
-  
+
+
 function send_mime_mail($name_from, // имя отправителя
                         $email_from, // email отправителя
                         $name_to, // имя получателя
@@ -233,8 +233,8 @@ function mime_header_encode($str, $data_charset, $send_charset) {
   }
   return '=?' . $send_charset . '?B?' . base64_encode($str) . '?=';
 }
-  
-  
+
+
 
 function GetFirstBigpic($pcode)
 {
@@ -244,13 +244,13 @@ function GetFirstBigpic($pcode)
             $picres=mysql_query ($picquery) or die ("Не могу выбрать изображения. Ошибка в запросе. ");
             $num_pics=mysql_num_rows($picres);
             $picsmall="";
-            if ($num_pics) 
+            if ($num_pics)
             {
               list($picsmall)=mysql_fetch_array($picres);
               $picsmall="images/".$picsmall;
             }
   return($picsmall);
-}   
+}
 
 
 function GetFirstSBigpic($pcode)
@@ -261,20 +261,20 @@ function GetFirstSBigpic($pcode)
             $picres=mysql_query ($picquery) or die ("Не могу выбрать изображения. Ошибка в запросе. ");
             $num_pics=mysql_num_rows($picres);
             $picsmall="";
-            if ($num_pics) 
+            if ($num_pics)
             {
               list($picsmall)=mysql_fetch_array($picres);
               $picsmall="images/".$picsmall;
             }
   return($picsmall);
-}   
+}
 
-                 
-                 
+
+
 function GetUnitGallery($pcode)
 {
-  global $PREFFIX;                                     
-      
+  global $PREFFIX;
+
   $gallery="";
   $picquery="select picsmall,picbig,piccomment from {$PREFFIX}_picture where page_code=$pcode order by picpos limit 1,1000";
   $picres=mysql_query ($picquery) or die ("Не могу выбрать изображения. Ошибка в запросе.");
@@ -288,15 +288,15 @@ function GetUnitGallery($pcode)
         $gallery=$gallery."
                 <div class=unitgalleryitem>
                   <a class='highslide' onclick='return hs.expand(this)' href='images/$picbig' target=_blank><img src='images/$picsmall' border=0>
-                     <div class=view>увеличить >></div>     
-                  </a><div class='highslide-caption'>$piccomment</div>      
+                     <div class=view>увеличить >></div>
+                  </a><div class='highslide-caption'>$piccomment</div>
                 </div>
         ";
       }
       $gallery=$gallery."</center></div>";
 
-  } 
-  
+  }
+
   return($gallery);
 }
 
@@ -304,10 +304,10 @@ function GetUnitGallery($pcode)
 function getMenuParent($code)
 {
     global $PREFFIX;
-   
+
     $pres=mysql_query("select category_parent from {$PREFFIX}_shopcategory where category_code=$code");
-    list($c_p)=mysql_fetch_array($pres);     
-    
+    list($c_p)=mysql_fetch_array($pres);
+
     if ($c_p==0) return $code;
     else getMenuParent($c_p); return $c_p;
 }
@@ -316,7 +316,7 @@ function getMenuParent($code)
 function getShopParentList($code,$rezstr="")
 {
     global $PREFFIX;
-    
+
     $pres=mysql_query("select category_parent,category_name from {$PREFFIX}_shopcategory where category_code=$code");
     list($c_p,$c_n)=mysql_fetch_array($pres);
     if(strlen($c_n)>0) $rezstr=" >> <a href='catalog.php?id=$code'>$c_n</a>".$rezstr;
@@ -326,91 +326,91 @@ function getShopParentList($code,$rezstr="")
 
     return $rezstr;
 }
-  
-  
+
+
 function getpicunitlist($category_code,$resultlist,$brand)
-{                                                                       
+{
     global $PREFFIX, $siterate, $sitediscount;
-    
+
     if ($brand!=0) $tail=" and {$PREFFIX}_shopunit.brand_code=$brand ";
     else $tail="";
 
-    $topunutquery="select unit_code,unit_name,unit_price,page_code,{$PREFFIX}_brands.brand_name,{$PREFFIX}_brands.brand_code,{$PREFFIX}_brands.brand_money 
-                   from {$PREFFIX}_shopunit 
-                     left join {$PREFFIX}_brands on ({$PREFFIX}_brands.brand_code={$PREFFIX}_shopunit.brand_code) 
+    $topunutquery="select unit_code,unit_name,unit_price,page_code,{$PREFFIX}_brands.brand_name,{$PREFFIX}_brands.brand_code,{$PREFFIX}_brands.brand_money
+                   from {$PREFFIX}_shopunit
+                     left join {$PREFFIX}_brands on ({$PREFFIX}_brands.brand_code={$PREFFIX}_shopunit.brand_code)
                    where unit_active=1 and category_code=$category_code $tail
                    order by unit_pos";
     $topunutres=mysql_query ($topunutquery) or die ("Не могу выбрать топ-предметы. Ошибка в запросе.");
     $num_topunuts=mysql_num_rows($topunutres);
     while(list($unit_code,$unit_name,$unit_price,$page_code,$brand_name,$brand_code,$brand_money)=mysql_fetch_array($topunutres))
     {
-       $unit_link="unit.php?id=$unit_code";  
+       $unit_link="unit.php?id=$unit_code";
        $unit_cost=getcost($unit_price,$brand_money,$sitediscount);
        $unit_cost=sprintf("%01.2f", $unit_cost);
-       
+
        $unit_pic=GetFirstBigPic($page_code);
-       
+
        if (strlen($brand_name)>0) $brand_aname=" - ".$brand_name;
 
        if (strlen($unit_pic)>0) $unit_pic="<center><div class=mhpic><center><a href='".$unit_link."'><img src='".$unit_pic."' alt='$unit_name $brand_name' title='$unit_name $brand_aname' border=0></a></center></div></center>";
-       
-       
 
-       $resultlist=$resultlist."   
-          <div class=topunititem> 
+
+
+       $resultlist=$resultlist."
+          <div class=topunititem>
              <div class=mhtitle><a href='$unit_link'><h4><center>$unit_name</center></h4></a></div>
              $unit_pic
              <CENTER><div class=unitprice>$unit_cost <span>грн.</span></div></CENTER>
-             
+
              <div class-buttons>
-                <div class=morebut><a href='$unit_link'><img src='graph/more.png' border=0 alt='подробнее'></a></div> 
+                <div class=morebut><a href='$unit_link'><img src='graph/more.png' border=0 alt='подробнее'></a></div>
                 <div class=orderbut><a class=pointer onclick=\"ShowAdd('addunit.php?code=$unit_code')\"><img src='graph/buy.png' border=0 alt='купить'></a></div>
              </div>
           </div>
        ";
     }
-    
+
 
    $catquery="select category_code from {$PREFFIX}_shopcategory where category_active=1 and category_parent=$category_code order by category_pos";
    $categoryres=mysql_query ($catquery) or die ("Не могу выбрать потомков. Ошибка в запросе.");
    while(list($c_code)=mysql_fetch_array($categoryres))
    {
      $resultlist=getpicunitlist($c_code,$resultlist,$brand);
-   }                                          
-   
-   return $resultlist;
-}   
-   
+   }
 
-   
-   
+   return $resultlist;
+}
+
+
+
+
 function getunittable($category_code,$resultlist,$brand)
-{                                                                       
+{
     global $PREFFIX, $siterate, $sitediscount;
-    
+
     if ($brand!=0) $tail=" and {$PREFFIX}_shopunit.brand_code=$brand ";
     else $tail="";
 
-    $topunutquery="select unit_code,unit_name,unit_price,unit_power,unit_area,unit_text,page_code,{$PREFFIX}_brands.brand_name,{$PREFFIX}_brands.brand_code,{$PREFFIX}_brands.brand_money 
-                   from {$PREFFIX}_shopunit 
-                     left join {$PREFFIX}_brands on ({$PREFFIX}_brands.brand_code={$PREFFIX}_shopunit.brand_code) 
+    $topunutquery="select unit_code,unit_name,unit_price,unit_power,unit_area,unit_text,page_code,{$PREFFIX}_brands.brand_name,{$PREFFIX}_brands.brand_code,{$PREFFIX}_brands.brand_money
+                   from {$PREFFIX}_shopunit
+                     left join {$PREFFIX}_brands on ({$PREFFIX}_brands.brand_code={$PREFFIX}_shopunit.brand_code)
                    where unit_active=1 and category_code=$category_code $tail
                    order by unit_pos";
     $topunutres=mysql_query ($topunutquery) or die ("Не могу выбрать топ-предметы. Ошибка в запросе.");
     $num_topunuts=mysql_num_rows($topunutres);
     while(list($unit_code,$unit_name,$unit_price,$unit_power,$unit_area,$unit_text,$page_code,$brand_name,$brand_code,$brand_money)=mysql_fetch_array($topunutres))
     {
-       if (strlen($unit_text)>0) $unit_link="<a href='unit.php?id=$unit_code'>";  else $unit_link="<a>"; 
+       if (strlen($unit_text)>0) $unit_link="<a href='unit.php?id=$unit_code'>";  else $unit_link="<a>";
 
        $unit_cost=getcost($unit_price,$brand_money,$sitediscount);
        $unit_cost=sprintf("%01.2f", $unit_cost);
-       
+
        if ($unit_power==0) $unit_power_str="-"; else $unit_power_str=$unit_power;
        if ($unit_area==0) $unit_area_str="-"; else $unit_area_str=$unit_area;
 
-       $resultlist=$resultlist."   
+       $resultlist=$resultlist."
           <tr bgcolor=#ffffff align=center >
-           
+
              <td class=nametd>".$unit_link."<h4>$unit_name</h4></a></td>
              <td>$brand_name</td>
              <td>$unit_power_str</td>
@@ -419,32 +419,32 @@ function getunittable($category_code,$resultlist,$brand)
              <td><a class=pointer onclick=\"ShowAdd('addunit.php?code=$unit_code')\"><img src='graph/buy.png' border=0 alt='купить'></a></td>
 
           </tr>
-          
+
        ";
     }
-    
+
 
    $catquery="select category_code from {$PREFFIX}_shopcategory where category_active=1 and category_parent=$category_code order by category_pos";
    $categoryres=mysql_query ($catquery) or die ("Не могу выбрать потомков. Ошибка в запросе.");
    while(list($c_code)=mysql_fetch_array($categoryres))
    {
      $resultlist=getunittable($c_code,$resultlist,$brand);
-   }                                          
-   
+   }
+
    return $resultlist;
-}   
-   
-   
-   
+}
+
+
+
 
 function getCatBrandList($category_code,$resultlist,$cat_code)
 {
-    global $PREFFIX,$brand,$barr;                                     
-    
-    $topunutquery="select brand_name,{$PREFFIX}_brands.brand_code 
-                   from {$PREFFIX}_shopunit 
-                     left join {$PREFFIX}_brands on ({$PREFFIX}_brands.brand_code={$PREFFIX}_shopunit.brand_code) 
-                   where unit_active=1 and category_code=$category_code 
+    global $PREFFIX,$brand,$barr;
+
+    $topunutquery="select brand_name,{$PREFFIX}_brands.brand_code
+                   from {$PREFFIX}_shopunit
+                     left join {$PREFFIX}_brands on ({$PREFFIX}_brands.brand_code={$PREFFIX}_shopunit.brand_code)
+                   where unit_active=1 and category_code=$category_code
                    group by {$PREFFIX}_brands.brand_code";
     $topunutres=mysql_query ($topunutquery) or die ("Не могу выбрать топ-предметы. Ошибка в запросе.");
     $num_topunuts=mysql_num_rows($topunutres);
@@ -452,44 +452,44 @@ function getCatBrandList($category_code,$resultlist,$cat_code)
     {
        $brandinarray=1; $bcount=0;
        foreach($barr as $index => $val) {if ($val==$brand_code) $brandinarray=0; $bcount++;}
-       
+
        if($brandinarray==1)
        {
          $barr[$bcount]=$brand_code;
-         
+
          if ($brand_code==$brand) $bclass="class«randbutton";
          else  $bclass="class=brandbutton";
 
-         $resultlist=$resultlist."   
+         $resultlist=$resultlist."
             <div ".$bclass."><a href='catalog.php?id=$cat_code&brand=$brand_code'>$brand_name</a></div>
          ";
        }
     }
-    
+
    $catquery="select category_code from {$PREFFIX}_shopcategory where category_active=1 and category_parent=$category_code order by category_pos";
    $categoryres=mysql_query ($catquery) or die ("Не могу выбрать потомков. Ошибка в запросе.");
    while(list($c_code)=mysql_fetch_array($categoryres))
    {
      $resultlist=getCatBrandList($c_code,$resultlist,$cat_code);
-   }                                          
-   
+   }
+
   return $resultlist;
-  
-  
 
-}   
-                                                     
-                                                     
+
+
+}
 
 
 
 
-                                                     
-function printpageline($pq,$this,$id='')              
+
+
+
+function printpageline($pq,$this,$id='')
 {
   if ($pq>1)
   {
-    echo"<div class=pageline>Страницы: "; 
+    echo"<div class=pageline>Страницы: ";
     for ($i=1;$i<$pq+1;$i++)
      {
        $y=$i-1;
@@ -498,28 +498,28 @@ function printpageline($pq,$this,$id='')
        if (strlen($id)>0) echo"$t1 <a href='$PHP_SELF?id=$id&page=$y'>$i</a> $t2 ";
        else echo"$t1 <a href='$PHP_SELF?page=$y'>$i</a> $t2 ";
      }
-    echo"</div>";                                                                    
+    echo"</div>";
   }
-}     
-  
-  
-function getcost($p,$siterate,$sitediscount)              
-{                  
+}
+
+
+function getcost($p,$siterate,$sitediscount)
+{
   global $REURO;
   global $RUSD;
-  
-  if ($siterate==0) $thisprice=$p;  
-  if ($siterate==1) $thisprice=$p*$REURO;  
-  if ($siterate==2) $thisprice=$p*$RUSD; 
-  
+
+  if ($siterate==0) $thisprice=$p;
+  if ($siterate==1) $thisprice=$p*$REURO;
+  if ($siterate==2) $thisprice=$p*$RUSD;
+
   $thisdiscount=$p*$sitediscount/100;
   $cost=$thisprice-$thisdiscount;
   $cost=round($cost,2);
 
   return($cost);
-}  
-                                                     
-                                                     
+}
+
+
 function GetFirstFpic($pcode)
 {
   global $PREFFIX;
@@ -528,15 +528,15 @@ function GetFirstFpic($pcode)
             $picres=mysql_query ($picquery) or die ("Не могу выбрать изображения. Ошибка в запросе. ");
             $num_pics=mysql_num_rows($picres);
             $picsmall_str="";
-            if ($num_pics) 
+            if ($num_pics)
             {
               list($picbig,$piccoment)=mysql_fetch_array($picres);
               $pic_str="<img src='images/$picbig' border=0 alt='$piccoment'>";
             }
   return($pic_str);
-}              
+}
 
- 
+
 function GetFirstpic($pcode)
 {
   global $PREFFIX;
@@ -545,13 +545,13 @@ function GetFirstpic($pcode)
             $picres=mysql_query ($picquery) or die ("Не могу выбрать изображения. Ошибка в запросе. ");
             $num_pics=mysql_num_rows($picres);
             $picsmall_str="";
-            if ($num_pics) 
+            if ($num_pics)
             {
               list($picbig,$piccoment)=mysql_fetch_array($picres);
               $pic_str="<img src='images/$picbig' border=0 alt='$piccoment'>";
             }
   return($pic_str);
-}    
+}
 
 
 
@@ -563,19 +563,19 @@ function GetFirstpicstr($pcode)
             $picres=mysql_query ($picquery) or die ("Не могу выбрать изображения. Ошибка в запросе. ");
             $num_pics=mysql_num_rows($picres);
             $picsmall_str="";
-            if ($num_pics) 
+            if ($num_pics)
             {
               list($picsmall,$picbig,$piccoment)=mysql_fetch_array($picres);
               $picsmall_str="<a href='images/$picbig' traget=_blank class='highslide' onclick='return hs.expand(this)'><img src='images/$picsmall' border=0 alt='$piccoment'></a><div class='highslide-caption'>$piccomment</div>";
             }
   return($picsmall_str);
-}               
+}
 
-//************  George Sergeev ********* 
+//************  George Sergeev *********
 
 function GetNextLang($lan)
-{  
-  if ($lan==1) return ("en"); else return ("ru");   
+{
+  if ($lan==1) return ("en"); else return ("ru");
 }
 
 function GetCurrentLang($lan)
@@ -598,8 +598,8 @@ function Translate($lan,$subj)
 }
 
 function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
-//catalogpage - страница перехода	
-	global $PREFFIX;	
+//catalogpage - страница перехода
+	global $PREFFIX;
 	$catalogshort="SELECT DISTINCT
 	{$PREFFIX}_equip.equip_code,
 	{$PREFFIX}_equip.equip_parent,
@@ -640,15 +640,16 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	   }
 	   }
 	}
-	
-	
+
+
 	function getlastnews($lang=1)
 	{
-		global $PREFFIX;	
+		global $PREFFIX;
 		$lastnewsquery="SELECT
 		{$PREFFIX}_news.news_code,
 		{$PREFFIX}_news.news_date,
 		{$PREFFIX}_static.static_abstract,
+		{$PREFFIX}_static.static_name,
 		{$PREFFIX}_picture.picsmall
 		FROM
 		{$PREFFIX}_news
@@ -660,12 +661,12 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		limit 3 ";
 
 		$query = mysql_query("$lastnewsquery") or  die("Ошибка выборки новости ".$lastnewsquery);
-		while (list($news_code,$news_date,$static_abstract,$picture_picsmall)= mysql_fetch_array($query)) 
-			$a[] = array ($news_code,$news_date,$static_abstract,$picture_picsmall);
-		return $a;	
+		while (list($news_code,$news_date,$static_abstract,$static_name,$picture_picsmall)= mysql_fetch_array($query))
+			$a[] = array ($news_code,$news_date,$static_abstract,$picture_picsmall,$static_name);
+		return $a;
 	}
 
-	
+
 	/*
 	 *
 	*
@@ -681,7 +682,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	INNER JOIN consul_lang ON consul_lang.lang_code=consul_static.lang_code
 	WHERE (lang_name='$langname') and (page_active>0)
 	ORDER BY static_name";
-	
+
 	$query = mysql_query("$catalogshort") or  die("Ошибка выборки каталога ".$catalogshort);
 	while (list($equip_code,$equip_parent,$static_code,$static_name)= mysql_fetch_array($query)) {
 	if ($equip_parent == '0') { //echo $equip_code."  ".$equip_parent. " ". $static_name."<BR>";
@@ -698,8 +699,8 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	}
 	print '</ul>';
 	}
-	
-	
+
+
 	function view_tree_next_level($family, $next_lvl) {
 	foreach ($next_lvl as $key) {
 	if ($key[1]==$family) {
@@ -709,12 +710,12 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	}
 	}
 	}
-	
+
 	*
 	*
 	*/
 
-	
+
 	function getEquipList($langcode,$catalogpage, $parentcode=0) {
 		//catalogpage - страница перехода
 		global $PREFFIX;
@@ -725,35 +726,35 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		{$PREFFIX}_static.static_name,
 		{$PREFFIX}_equip.equip_pos,
 		{$PREFFIX}_picture.picbig
-		
+
 		FROM {$PREFFIX}_static
 		INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
 		INNER JOIN {$PREFFIX}_equip ON {$PREFFIX}_page.page_code = {$PREFFIX}_equip.page_code
 		LEFT JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
 		WHERE (lang_code='$langcode') and (page_active>0) and (equip_parent=$parentcode)
 		ORDER BY equip_pos";
-	
+
 		$query = mysql_query("$catalogquery") or  die("Ошибка выборки каталога ".$catalogshort);
-		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$picbig)= mysql_fetch_array($query)) 
+		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$picbig)= mysql_fetch_array($query))
 		{
-			if ((!isset($picbig)) or ($picbig=="")) $picbig='nullequip.gif'; 
+			if ((!isset($picbig)) or ($picbig=="")) $picbig='nullequip.gif';
 			print "<div class=mсitem>";
 			print "<div class=mсpic><a href='".$catalogpage."'><img src='images/".$picbig."' alt='".$static_name."'></a></div>";
 			print "<h2><a href='".$catalogpage."'>".$static_name."</a></h2>";
 			print "</div>";
-				
-		} 
-		
-		
+
+		}
+
+
 	}
-	
-	
-	
+
+
+
 	//************  George Sergeev *********
-	
-	
+
+
 	?>
-		
-	
-  
+
+
+
 
