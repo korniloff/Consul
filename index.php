@@ -21,7 +21,7 @@ include ("inc/head.php");
 
           <!-- хлебные крошки -->
           <div class=krohi>
-             <a href=$PHP_SELF> <?=Translate($LANG,'Добро пожаловать');?>!</a>
+             <a href=<?=$PHP_SELF?>> <?=Translate($LANG,'Добро пожаловать');?>!</a>
           </div>
           <!-- конец хлебных крошек  -->
 

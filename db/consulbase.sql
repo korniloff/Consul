@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.3
+-- version 3.5.1
 -- http://www.phpmyadmin.net
 --
--- Хост: localhost
--- Время создания: Дек 10 2012 г., 12:39
--- Версия сервера: 5.1.50
--- Версия PHP: 5.3.14
+-- Хост: 127.0.0.1
+-- Время создания: Дек 10 2012 г., 14:26
+-- Версия сервера: 5.5.25
+-- Версия PHP: 5.3.13
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -63,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `consul_dict` (
   `dict_ru` varchar(250) NOT NULL,
   `dict_en` varchar(250) NOT NULL,
   PRIMARY KEY (`dict_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=14 ;
 
 --
 -- Дамп данных таблицы `consul_dict`
@@ -81,7 +82,8 @@ INSERT INTO `consul_dict` (`dict_code`, `dict_ru`, `dict_en`) VALUES
 (9, 'Каталог оборудования', 'Equipment catalog'),
 (10, 'Новости и события', 'News and events'),
 (11, 'Контактная информация', 'Contact Information'),
-(12, 'Добро пожаловать', 'Welcome');
+(12, 'Добро пожаловать', 'Welcome'),
+(13, 'Оборудование', 'Equipment');
 
 -- --------------------------------------------------------
 
@@ -352,3 +354,7 @@ INSERT INTO `consul_static` (`static_code`, `page_code`, `static_name`, `static_
 (56, 34, 'РАСПРОДАЖА АКСЕССУАРОВ SAILOR 5000 СЕРИИ', '<p><span>В связи с началом поставок&nbsp;&nbsp;Sailor&nbsp;6000 Серии и со снятием с производства&nbsp;Sailor&nbsp;5000 Серии компания Телемар Россия информирует вас, что в период с 12 марта 2012 года до окончания наличия товара на складе в Санкт-Петербурге, будет проходить распродажа аксессуаров&nbsp;Sailor&nbsp;5000 Серии:&nbsp;</span></p>\r\n<p>&nbsp;</p>\r\n<table class="koTable" style="width: 73%;" border="1" cellspacing="0" cellpadding="0">\r\n<tbody>\r\n<tr class="odd">\r\n<td nowrap="nowrap">403606E-003</td>\r\n<td nowrap="nowrap">Opt. NMEA Adapter / NMEA адаптер</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">8050080006</td>\r\n<td nowrap="nowrap">EB5008 Extension Box for RT5022/RT5020 / Расширительная коробка</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">8050090006</td>\r\n<td nowrap="nowrap">CB5009 Connection Box for RT5022/RT5020 / Соединительная коробка</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">402049A</td>\r\n<td nowrap="nowrap">SAILOR H2049A VDR Connection Boks for RT2048 / Соединительная коробка</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">8050000009</td>\r\n<td nowrap="nowrap">SAILOR CU5000 Semi-intelligent control unit, Blue, incl. handset, cable and mounting kit<br />Блок дистанционного управления</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">739814</td>\r\n<td nowrap="nowrap">Flush mounting kit for RT5022/RT5020 / Монтажная рамка</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">405070A</td>\r\n<td nowrap="nowrap">SAILOR 5070 Loudspeaker / Громкоговоритель</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">405100-920</td>\r\n<td nowrap="nowrap">CU5100 Opt. 920 Panel Mounting Kit / Кронштейн панельного монтажа</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">401701A</td>\r\n<td nowrap="nowrap">Shunt Box complete / &nbsp;Шунтирующая коробка</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">403616D</td>\r\n<td nowrap="nowrap">TT-3616D Interconnection Box / Cоединительная коробка</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">403026-101</td>\r\n<td nowrap="nowrap">1&rdquo; Pole mount kit / Трубный кронштейн 1"</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">80465611</td>\r\n<td nowrap="nowrap">SAILOR CH4656 Battery charger 24V/10A, black / Автоматическое зарядное устройство</td>\r\n</tr>\r\n</tbody>\r\n</table>', 0, NULL, NULL, NULL, 1, '<p><span>В связи с началом поставок&nbsp;&nbsp;Sailor&nbsp;6000 Сериина складе в Санкт-Петербурге, будет проходить распродажа аксессуаров&nbsp;Sailor&nbsp;5000 Серии:&nbsp;</span></p>', NULL),
 (57, 35, 'Контактная информация', '<p><strong>ООО &laquo;ВЭК КОНСУЛ&raquo;</strong><br /><strong>Адрес:</strong></p>\r\n<p>99055. Украина, г. Севастополь<br />ул. Генерала Острякова 4/21<br /><a href="https://maps.google.ru/maps?q=%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0+4&amp;hl=ru&amp;ie=UTF8&amp;sll=55.354135,40.297852&amp;sspn=12.518162,43.286133&amp;hnear=%D0%BF%D1%80%D0%BE%D1%81%D0%BF.+%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D0%BB%D0%B0+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0,+4,+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%B3%D0%BE%D1%80%D0%BE%D0%B4+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0&amp;t=m&amp;z=16" target="_blank">схема проезда</a><a> &raquo;</a></p>\r\n<p><strong>Телефон:</strong> +38 (0692) 65-76-85</p>\r\n<p><strong>Факс:</strong> +38 (0692) 44-82-378</p>\r\n<p><strong>Мобильный:</strong> +38 (050) 393-26-78</p>\r\n<p><strong>E-mail:</strong> <a href="mailto:office@consul-marine.com.ua">office@consul-marine.com.ua</a></p>\r\n<p><strong>Skype:</strong> <a>consul-marine</a></p>', 0, NULL, NULL, NULL, 1, '', NULL),
 (58, 35, 'Contacts', '<p><strong>CONSUL CO., LTD</strong></p>\r\n<p><strong>Address:</strong></p>\r\n<p>Ostryakova 4/21<br />Sebastopol, Ukraine, 99055. &nbsp;<br /><a href="https://maps.google.ru/maps?q=%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0+4&amp;hl=ru&amp;ie=UTF8&amp;sll=55.354135,40.297852&amp;sspn=12.518162,43.286133&amp;hnear=%D0%BF%D1%80%D0%BE%D1%81%D0%BF.+%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D0%BB%D0%B0+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0,+4,+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%B3%D0%BE%D1%80%D0%BE%D0%B4+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0&amp;t=m&amp;z=16" target="_blank">map &raquo;</a></p>\r\n<p><strong>Phone:</strong> +38 (0692) 65-76-85</p>\r\n<p><strong>Fax:</strong> +38 (0692) 44-82-378<br /> <br /><strong>Phone mobile:</strong> +38 (050) 393-26-78</p>\r\n<p><strong>E-mail:</strong> <a href="mailto:office@consul-marine.com.ua">office@consul-marine.com.ua</a></p>\r\n<p><strong>Skype:</strong> <a>consul-marine</a></p>', 0, NULL, NULL, NULL, 2, '', NULL);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
