@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Дек 10 2012 г., 14:26
+-- Время создания: Дек 10 2012 г., 16:06
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `consul_dict` (
   `dict_ru` varchar(250) NOT NULL,
   `dict_en` varchar(250) NOT NULL,
   PRIMARY KEY (`dict_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=15 ;
 
 --
 -- Дамп данных таблицы `consul_dict`
@@ -83,7 +83,8 @@ INSERT INTO `consul_dict` (`dict_code`, `dict_ru`, `dict_en`) VALUES
 (10, 'Новости и события', 'News and events'),
 (11, 'Контактная информация', 'Contact Information'),
 (12, 'Добро пожаловать', 'Welcome'),
-(13, 'Оборудование', 'Equipment');
+(13, 'Оборудование', 'Equipment'),
+(14, 'подробнее', 'details');
 
 -- --------------------------------------------------------
 
