@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 10 2012 г., 00:09
+-- Время создания: Дек 10 2012 г., 12:39
 -- Версия сервера: 5.1.50
 -- Версия PHP: 5.3.14
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `consul_dict` (
   `dict_ru` varchar(250) NOT NULL,
   `dict_en` varchar(250) NOT NULL,
   PRIMARY KEY (`dict_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=13 ;
 
 --
 -- Дамп данных таблицы `consul_dict`
@@ -80,7 +80,8 @@ INSERT INTO `consul_dict` (`dict_code`, `dict_ru`, `dict_en`) VALUES
 (8, 'ООО «ВЭК КОНСУЛ»', 'CONSUL CO., LTD'),
 (9, 'Каталог оборудования', 'Equipment catalog'),
 (10, 'Новости и события', 'News and events'),
-(11, 'Контактная информация', 'Contact Information');
+(11, 'Контактная информация', 'Contact Information'),
+(12, 'Добро пожаловать', 'Welcome');
 
 -- --------------------------------------------------------
 
@@ -262,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `consul_picture` (
   `piccomment_en` text,
   PRIMARY KEY (`picture_code`),
   UNIQUE KEY `picture_code` (`picture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=19 ;
 
 --
 -- Дамп данных таблицы `consul_picture`
@@ -273,7 +274,16 @@ INSERT INTO `consul_picture` (`picture_code`, `page_code`, `picsmall`, `picbig`,
 (2, 2, 'small.jpg', 'big.jpg', 2, 'ПАРМ', 'PARM'),
 (6, 5, 'small3.jpg', 'big3.jpg', 1, '', ''),
 (7, 33, 'small7.jpg', 'big7.jpg', 1, '', ''),
-(8, 34, 'small8.jpg', 'big8.jpg', 1, '', '');
+(8, 34, 'small8.jpg', 'big8.jpg', 1, '', ''),
+(10, 7, 'small10.jpg', 'big10.jpg', 1, '', ''),
+(11, 19, 'small11.jpg', 'big11.jpg', 1, '', ''),
+(12, 20, 'small12.jpg', 'big12.jpg', 1, '', ''),
+(13, 21, 'small13.jpg', 'big13.jpg', 1, '', ''),
+(14, 22, 'small14.jpg', 'big14.jpg', 1, '', ''),
+(15, 25, 'small15.jpg', 'big15.jpg', 1, '', ''),
+(16, 23, 'small16.jpg', 'big16.jpg', 1, '', ''),
+(17, 24, 'small17.jpg', 'big17.jpg', 1, '', ''),
+(18, 6, 'small18.jpg', 'big18.jpg', 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -306,17 +316,10 @@ INSERT INTO `consul_static` (`static_code`, `page_code`, `static_name`, `static_
 (13, 2, 'Consul Company', '<p>CONSUL company was founded in 2001. The company''s activity is based on the latest technology in electronics, advanced scientific knowledge and vast experience of our professionals. Our philosophy is to take a flexible approach to the needs of our customers, high responsibility and professionalism in the development of projects. We value our reputation as a reliable partner!</p>', 0, 'page', 'description', 'keywords', 2, '.mysql_escape_string().', NULL),
 (14, 1, 'тест', '<p>Это тест.<img title="Хмурюсь" src="http://localhost/consul/admin/editor/tiny_mce/plugins/emotions/img/smiley-frown.gif" alt="Хмурюсь" border="0" /></p>', 0, 'Тест', 'Тестовое описание', 'тестовые ключевые слова', 1, NULL, NULL),
 (15, 1, 'test', '<p>this is test&nbsp;<img title="Краснею" src="http://localhost/consul/admin/editor/tiny_mce/plugins/emotions/img/smiley-embarassed.gif" alt="Краснею" border="0" /></p>', 0, NULL, NULL, NULL, 2, NULL, NULL),
-(16, 12, 'Морской навигатор Samsung 18', '<p>Морские навигаторы GPS Samsung отличная вещь</p>\r\n<p><img src="/consul/img/4d72f0859d0d6f4e2b8f23296ea1f9c2.JPG" alt="200px-3И-НЕ_74LS(К555)" width="200" height="165" /></p>', 0, NULL, NULL, NULL, 1, NULL, NULL),
 (17, 6, 'Авторулевые', '', 0, NULL, NULL, NULL, 1, '', NULL),
 (18, 6, 'Autopilots', '', 0, NULL, NULL, NULL, 2, '', NULL),
-(19, 6, 'Sea naviagte', '<p>Sea navigate use for navigate</p>', 0, NULL, NULL, NULL, 2, NULL, NULL),
-(20, 8, 'Garmin - это круто', '<p>Garmin лучший нафигатор<img src="/consul/img/logo.gif" alt="logo" width="344" height="70" /></p>', 0, NULL, NULL, NULL, 1, NULL, NULL),
-(21, 9, 'Навигатор Garmin RS 232 ', '<p>Навигатор это навигатор</p>', 0, NULL, NULL, NULL, 1, NULL, NULL),
-(22, 9, 'Garmin RS 232', '<p>Garmin RS 232 is garmin</p>', 0, NULL, NULL, NULL, 2, NULL, NULL),
 (23, 7, 'АРБ, РЛО, УКВ-носимые', '', 0, NULL, NULL, NULL, 1, '', '../files/Copy of Invoice - Professional (Cool).gdoc'),
 (24, 7, 'EPIRB, SART, VHF portable', '', 0, NULL, NULL, NULL, 2, '', NULL),
-(25, 18, 'Щит защитный', '<p>456</p>', 0, NULL, NULL, NULL, 1, '<p>123</p>', ''),
-(26, 18, 'Protected board', '<p>Protected board</p>', 0, NULL, NULL, NULL, 2, '<p>Protected board</p>', ''),
 (27, 19, 'Гирокомпасы', '', 0, NULL, NULL, NULL, 1, '', NULL),
 (28, 19, 'Gyrocompasses', '', 0, NULL, NULL, NULL, 2, '', NULL),
 (29, 27, 'Регистраторы данных рейса', '', 0, NULL, NULL, NULL, 1, '', NULL),
