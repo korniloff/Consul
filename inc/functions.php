@@ -734,7 +734,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		WHERE (lang_code='$langcode') and (page_active>0) and (equip_parent=$parentcode)
 		ORDER BY equip_pos";
 
-		$query = mysql_query("$catalogquery") or  die("Ошибка выборки каталога ".$catalogshort);
+		$query = mysql_query("$catalogquery") or  die("Ошибка выборки каталога ".$catalogquery);
 		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$picbig)= mysql_fetch_array($query))
 		{
 			if ((!isset($picbig)) or ($picbig=="")) $picbig='nullequip.gif';
@@ -748,7 +748,24 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 
 	}
 
-
+    function GetGallery ($pagename,$lang)
+    {   global $PREFFIX;
+        if ($lang==2)$suf="_en"; else $suf="";
+		$galquery="SELECT
+		{$PREFFIX}_picture.picbig,
+		{$PREFFIX}_picture.picpos,
+		{$PREFFIX}_picture.piccomment".$suf.
+		" FROM  {$PREFFIX}_picture
+		  INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
+		  WHERE {$PREFFIX}_page.page_name='".$pagename."' ORDER BY picpos";
+       $query = mysql_query("$galquery") or  die("Ошибка выборки галереи ".$galquery);
+		while (list($picbig,$picpos,$piccomment)= mysql_fetch_array($query))
+		{
+         print "<div class=sertgalleryitem>";
+         print "<div class=sgpic><a href='images/".$picbig."' title='".$piccomment."' rel='lightbox[sert]' target=_blank><img src='images/".$picbig."' alt='".$piccomment."' border=0></a></div>";
+         print "</div>";
+        }
+    }
 
 	//************  George Sergeev *********
 

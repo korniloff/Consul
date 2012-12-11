@@ -24,64 +24,20 @@ include ("inc/head.php");
           <!-- хлебные крошки -->
           <div class=krohi>
              <!-- <a href=<?=$PHP_SELF?>> <?=Translate($LANG,'Добро пожаловать');?>!</a> -->
-             <a href='<?=$mainurl;?>'>Компания "Консул"</a>  <span>/</span>  <a>Услуги</a>
+             <a href='<?=$mainurl;?>'><?=Translate($LANG,'Компания "Консул"');?></a>  <span>/</span>  <a><?=Translate($LANG,'Услуги');?></a>
           </div>
           <!-- конец хлебных крошек  -->
-
-          <h1>Заголовок страницы</h1>
+<?php   $topstatic=getStatic('service',$LANG);
+         echo" <h1>".$topstatic['name']."</h1>";
+?>
           <div class=pnewstext>
-            Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.             Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.
-            Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.             Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.
-            Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.             Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.
-            Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.             Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.
-            Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.             Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.
-            Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.             Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.
-            Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.             Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги. Текст страницы услуги.
+               <? echo $topstatic['text']; ?>
           </div>
 
           <!-- если галерея сертификатов не пуста -->
           <div class=sertgallery>
 
-             <div class=sertgalleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=sgpic><a href='images/sert_big.jpg' title='Комментарий к изображению' rel='lightbox[sert]' target=_blank><img src='images/sert_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
-             <div class=sertgalleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=sgpic><a href='images/sert_big.jpg' title='Комментарий к изображению' rel='lightbox[sert]' target=_blank><img src='images/sert_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
-             <div class=sertgalleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=sgpic><a href='images/sert_big.jpg' title='Комментарий к изображению' rel='lightbox[sert]' target=_blank><img src='images/sert_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
-             <div class=sertgalleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=sgpic><a href='images/sert_big.jpg' title='Комментарий к изображению' rel='lightbox[sert]' target=_blank><img src='images/sert_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
-             <div class=sertgalleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=sgpic><a href='images/sert_big.jpg' title='Комментарий к изображению' rel='lightbox[sert]' target=_blank><img src='images/sert_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
-             <div class=sertgalleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=sgpic><a href='images/sert_big.jpg' title='Комментарий к изображению' rel='lightbox[sert]' target=_blank><img src='images/sert_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
-             <div class=sertgalleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=sgpic><a href='images/sert_big.jpg' title='Комментарий к изображению' rel='lightbox[sert]' target=_blank><img src='images/sert_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
-             <div class=sertgalleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=sgpic><a href='images/sert_big.jpg' title='Комментарий к изображению' rel='lightbox[sert]' target=_blank><img src='images/sert_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
+            <?php GetGallery ('service',$LANG); ?>
           </div>
           <!-- конец галереи -->
 

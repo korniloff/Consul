@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Дек 10 2012 г., 16:06
+-- Время создания: Дек 11 2012 г., 23:55
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -64,27 +64,28 @@ CREATE TABLE IF NOT EXISTS `consul_dict` (
   `dict_ru` varchar(250) NOT NULL,
   `dict_en` varchar(250) NOT NULL,
   PRIMARY KEY (`dict_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=16 ;
 
 --
 -- Дамп данных таблицы `consul_dict`
 --
 
 INSERT INTO `consul_dict` (`dict_code`, `dict_ru`, `dict_en`) VALUES
-(1, 'главная', 'main'),
-(2, 'о компании', 'about us'),
-(3, 'новости', 'news'),
-(4, 'услуги', 'service'),
-(5, 'оборудование', 'equipment'),
-(6, 'партнеры', 'partners'),
-(7, 'контакты', 'contacts'),
+(1, 'Главная', 'Main'),
+(2, 'O компании', 'About us'),
+(3, 'Новости', 'News'),
+(4, 'Услуги', 'Service'),
+(5, 'Oборудование', 'Equipment'),
+(6, 'Партнеры', 'Partners'),
+(7, 'Контакты', 'Сontacts'),
 (8, 'ООО «ВЭК КОНСУЛ»', 'CONSUL CO., LTD'),
 (9, 'Каталог оборудования', 'Equipment catalog'),
 (10, 'Новости и события', 'News and events'),
 (11, 'Контактная информация', 'Contact Information'),
 (12, 'Добро пожаловать', 'Welcome'),
 (13, 'Оборудование', 'Equipment'),
-(14, 'подробнее', 'details');
+(14, 'подробнее', 'details'),
+(15, 'Компания "Консул"', '"Consul" Company');
 
 -- --------------------------------------------------------
 
@@ -142,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `consul_lang` (
   `lang_direct` char(1) NOT NULL DEFAULT 'l',
   `lang_charset` varchar(20) NOT NULL DEFAULT 'windows-1251',
   PRIMARY KEY (`lang_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `consul_lang`
@@ -190,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `consul_page` (
   `page_url` varchar(255) CHARACTER SET cp1251 DEFAULT NULL,
   `page_type` varchar(10) NOT NULL DEFAULT 'static',
   PRIMARY KEY (`page_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
 
 --
 -- Дамп данных таблицы `consul_page`
@@ -223,7 +224,9 @@ INSERT INTO `consul_page` (`page_code`, `page_name`, `page_active`, `page_url`, 
 (32, 'Гирокомпас Меридиан', 1, '', 'catalog'),
 (33, 'КОМПАНИЯ "НАВМАРИН" ЗАВЕРШИЛА РАЗРАБОТКУ И ПРИСТУПИЛА К ВЫПУСКУ ДВУХ МОДЕЛЕЙ КОММУТАТОРОВ СИГНАЛОВ NMEA-СООБЩЕНИЙ NAVCOM BETA-100 И BETA-110', 1, 'http://www.korabel.ru/news/comments/kompaniya_navmarin_zavershila_razrabotku_i_pristupila_k_vipusku_dvuh_modeley_kommutatorov_signalov_nmea-soobshcheniy_navcom_beta-100_i_beta-110.html', 'news'),
 (34, 'РАСПРОДАЖА АКСЕССУАРОВ SAILOR 5000 СЕРИИ', 1, 'http://www.korabel.ru/news/comments/rasprodazha_aksessuarov_sailor_5000_serii.html', 'news'),
-(35, 'contacts', 1, NULL, 'static');
+(35, 'contacts', 1, NULL, 'static'),
+(36, 'service', 1, NULL, 'static'),
+(37, 'about us', 1, NULL, 'static');
 
 -- --------------------------------------------------------
 
@@ -266,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `consul_picture` (
   `piccomment_en` text,
   PRIMARY KEY (`picture_code`),
   UNIQUE KEY `picture_code` (`picture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=21 ;
 
 --
 -- Дамп данных таблицы `consul_picture`
@@ -286,7 +289,9 @@ INSERT INTO `consul_picture` (`picture_code`, `page_code`, `picsmall`, `picbig`,
 (15, 25, 'small15.jpg', 'big15.jpg', 1, '', ''),
 (16, 23, 'small16.jpg', 'big16.jpg', 1, '', ''),
 (17, 24, 'small17.jpg', 'big17.jpg', 1, '', ''),
-(18, 6, 'small18.jpg', 'big18.jpg', 1, '', '');
+(18, 6, 'small18.jpg', 'big18.jpg', 1, '', ''),
+(19, 36, 'small19.jpg', 'big19.jpg', 1, 'Сертификат 1', 'Sertificate 1'),
+(20, 36, 'small20.jpg', 'big20.jpg', 2, 'Сертификат 2', 'Sertificat 2');
 
 -- --------------------------------------------------------
 
@@ -308,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `consul_static` (
   `static_abstract` text,
   `static_url` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`static_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=59 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=63 ;
 
 --
 -- Дамп данных таблицы `consul_static`
@@ -354,7 +359,11 @@ INSERT INTO `consul_static` (`static_code`, `page_code`, `static_name`, `static_
 (55, 34, 'ACCESSORIES SALE SAILOR 5000 Series', '<p><span data-mce-mark="1">ВIn connection with the start of deliveries Sailor 6000 Series and with the removal of a Sailor 5000 Series production company Telemar Russia to inform you that in the period from 12 March 2012 until the end of availability of goods in a warehouse in St. Petersburg, will be held on Sale accessories Sailor 5000 Series:</span></p>\r\n<table class="koTable" style="width: 73%;" border="1" cellspacing="0" cellpadding="0">\r\n<tbody>\r\n<tr class="odd">\r\n<td nowrap="nowrap">403606E-003</td>\r\n<td nowrap="nowrap">Opt. NMEA Adapter / NMEA адаптер</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">8050080006</td>\r\n<td nowrap="nowrap">EB5008 Extension Box for RT5022/RT5020 / Расширительная коробка</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">8050090006</td>\r\n<td nowrap="nowrap">CB5009 Connection Box for RT5022/RT5020 / Соединительная коробка</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">402049A</td>\r\n<td nowrap="nowrap">SAILOR H2049A VDR Connection Boks for RT2048 / Соединительная коробка</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">8050000009</td>\r\n<td nowrap="nowrap">SAILOR CU5000 Semi-intelligent control unit, Blue, incl. handset, cable and mounting kit<br />Блок дистанционного управления</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">739814</td>\r\n<td nowrap="nowrap">Flush mounting kit for RT5022/RT5020</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">405070A</td>\r\n<td nowrap="nowrap">SAILOR 5070 Loudspeaker</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">405100-920</td>\r\n<td nowrap="nowrap">CU5100 Opt. 920 Panel Mounting Kit&nbsp;</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">401701A</td>\r\n<td nowrap="nowrap">Shunt Box complete&nbsp;</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">403616D</td>\r\n<td nowrap="nowrap">TT-3616D Interconnection Box&nbsp;</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">403026-101</td>\r\n<td nowrap="nowrap">1&rdquo; Pole mount kit&nbsp;</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">80465611</td>\r\n<td nowrap="nowrap">SAILOR CH4656 Battery charger 24V/10A, black&nbsp;</td>\r\n</tr>\r\n</tbody>\r\n</table>', 0, NULL, NULL, NULL, 2, '<p>In connection with the start of deliveries Sailor 6000 Series and with the removal of a Sailor 5000 Series production company Telemar Russia to inform you that in the period from 12 March 2012 until the end of availability of goods in a warehouse in St. Petersburg, will be held on Sale accessories Sailor 5000 Series</p>', NULL),
 (56, 34, 'РАСПРОДАЖА АКСЕССУАРОВ SAILOR 5000 СЕРИИ', '<p><span>В связи с началом поставок&nbsp;&nbsp;Sailor&nbsp;6000 Серии и со снятием с производства&nbsp;Sailor&nbsp;5000 Серии компания Телемар Россия информирует вас, что в период с 12 марта 2012 года до окончания наличия товара на складе в Санкт-Петербурге, будет проходить распродажа аксессуаров&nbsp;Sailor&nbsp;5000 Серии:&nbsp;</span></p>\r\n<p>&nbsp;</p>\r\n<table class="koTable" style="width: 73%;" border="1" cellspacing="0" cellpadding="0">\r\n<tbody>\r\n<tr class="odd">\r\n<td nowrap="nowrap">403606E-003</td>\r\n<td nowrap="nowrap">Opt. NMEA Adapter / NMEA адаптер</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">8050080006</td>\r\n<td nowrap="nowrap">EB5008 Extension Box for RT5022/RT5020 / Расширительная коробка</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">8050090006</td>\r\n<td nowrap="nowrap">CB5009 Connection Box for RT5022/RT5020 / Соединительная коробка</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">402049A</td>\r\n<td nowrap="nowrap">SAILOR H2049A VDR Connection Boks for RT2048 / Соединительная коробка</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">8050000009</td>\r\n<td nowrap="nowrap">SAILOR CU5000 Semi-intelligent control unit, Blue, incl. handset, cable and mounting kit<br />Блок дистанционного управления</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">739814</td>\r\n<td nowrap="nowrap">Flush mounting kit for RT5022/RT5020 / Монтажная рамка</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">405070A</td>\r\n<td nowrap="nowrap">SAILOR 5070 Loudspeaker / Громкоговоритель</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">405100-920</td>\r\n<td nowrap="nowrap">CU5100 Opt. 920 Panel Mounting Kit / Кронштейн панельного монтажа</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">401701A</td>\r\n<td nowrap="nowrap">Shunt Box complete / &nbsp;Шунтирующая коробка</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">403616D</td>\r\n<td nowrap="nowrap">TT-3616D Interconnection Box / Cоединительная коробка</td>\r\n</tr>\r\n<tr class="odd">\r\n<td nowrap="nowrap">403026-101</td>\r\n<td nowrap="nowrap">1&rdquo; Pole mount kit / Трубный кронштейн 1"</td>\r\n</tr>\r\n<tr class="even">\r\n<td nowrap="nowrap">80465611</td>\r\n<td nowrap="nowrap">SAILOR CH4656 Battery charger 24V/10A, black / Автоматическое зарядное устройство</td>\r\n</tr>\r\n</tbody>\r\n</table>', 0, NULL, NULL, NULL, 1, '<p><span>В связи с началом поставок&nbsp;&nbsp;Sailor&nbsp;6000 Сериина складе в Санкт-Петербурге, будет проходить распродажа аксессуаров&nbsp;Sailor&nbsp;5000 Серии:&nbsp;</span></p>', NULL),
 (57, 35, 'Контактная информация', '<p><strong>ООО &laquo;ВЭК КОНСУЛ&raquo;</strong><br /><strong>Адрес:</strong></p>\r\n<p>99055. Украина, г. Севастополь<br />ул. Генерала Острякова 4/21<br /><a href="https://maps.google.ru/maps?q=%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0+4&amp;hl=ru&amp;ie=UTF8&amp;sll=55.354135,40.297852&amp;sspn=12.518162,43.286133&amp;hnear=%D0%BF%D1%80%D0%BE%D1%81%D0%BF.+%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D0%BB%D0%B0+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0,+4,+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%B3%D0%BE%D1%80%D0%BE%D0%B4+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0&amp;t=m&amp;z=16" target="_blank">схема проезда</a><a> &raquo;</a></p>\r\n<p><strong>Телефон:</strong> +38 (0692) 65-76-85</p>\r\n<p><strong>Факс:</strong> +38 (0692) 44-82-378</p>\r\n<p><strong>Мобильный:</strong> +38 (050) 393-26-78</p>\r\n<p><strong>E-mail:</strong> <a href="mailto:office@consul-marine.com.ua">office@consul-marine.com.ua</a></p>\r\n<p><strong>Skype:</strong> <a>consul-marine</a></p>', 0, NULL, NULL, NULL, 1, '', NULL),
-(58, 35, 'Contacts', '<p><strong>CONSUL CO., LTD</strong></p>\r\n<p><strong>Address:</strong></p>\r\n<p>Ostryakova 4/21<br />Sebastopol, Ukraine, 99055. &nbsp;<br /><a href="https://maps.google.ru/maps?q=%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0+4&amp;hl=ru&amp;ie=UTF8&amp;sll=55.354135,40.297852&amp;sspn=12.518162,43.286133&amp;hnear=%D0%BF%D1%80%D0%BE%D1%81%D0%BF.+%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D0%BB%D0%B0+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0,+4,+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%B3%D0%BE%D1%80%D0%BE%D0%B4+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0&amp;t=m&amp;z=16" target="_blank">map &raquo;</a></p>\r\n<p><strong>Phone:</strong> +38 (0692) 65-76-85</p>\r\n<p><strong>Fax:</strong> +38 (0692) 44-82-378<br /> <br /><strong>Phone mobile:</strong> +38 (050) 393-26-78</p>\r\n<p><strong>E-mail:</strong> <a href="mailto:office@consul-marine.com.ua">office@consul-marine.com.ua</a></p>\r\n<p><strong>Skype:</strong> <a>consul-marine</a></p>', 0, NULL, NULL, NULL, 2, '', NULL);
+(58, 35, 'Contacts', '<p><strong>CONSUL CO., LTD</strong></p>\r\n<p><strong>Address:</strong></p>\r\n<p>Ostryakova 4/21<br />Sebastopol, Ukraine, 99055. &nbsp;<br /><a href="https://maps.google.ru/maps?q=%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0+4&amp;hl=ru&amp;ie=UTF8&amp;sll=55.354135,40.297852&amp;sspn=12.518162,43.286133&amp;hnear=%D0%BF%D1%80%D0%BE%D1%81%D0%BF.+%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D0%BB%D0%B0+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0,+4,+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%B3%D0%BE%D1%80%D0%BE%D0%B4+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0&amp;t=m&amp;z=16" target="_blank">map &raquo;</a></p>\r\n<p><strong>Phone:</strong> +38 (0692) 65-76-85</p>\r\n<p><strong>Fax:</strong> +38 (0692) 44-82-378<br /> <br /><strong>Phone mobile:</strong> +38 (050) 393-26-78</p>\r\n<p><strong>E-mail:</strong> <a href="mailto:office@consul-marine.com.ua">office@consul-marine.com.ua</a></p>\r\n<p><strong>Skype:</strong> <a>consul-marine</a></p>', 0, NULL, NULL, NULL, 2, '', NULL),
+(59, 36, 'Услуги компании Консул', '<p><span>Мы постоянно расширяем спектр предлагаемых услуг и ассортимент всех видов товара, но принцип нашей работы остается неизменным: долгосрочные и взаимовыгодные отношения со всеми нынешними и будущими клиентами, так же осуществляется индивидуальный подход.</span><span><br /><br /><br /></span></p>', 0, NULL, NULL, NULL, 1, '', NULL),
+(60, 36, 'Consul Company service', '<p>We are constantly expanding the range of services and range of all kinds of goods, but the principle of our work is the same: long-term and mutually beneficial relationships with all current and future customers, as well an individual approach.</p>', 0, NULL, NULL, NULL, 2, '', NULL),
+(61, 37, 'О нас', '<p>Компания КОНСУЛ была основано в 2001 году. Деятельность компании основана на использовании новейших технологий в области радиоэлектроники, передовых научных достижений и богатого опыта наших специалистов. Наша философия заключается в гибком подходе к потребностям наших клиентов, высокой ответственности и профессионализме в развитии проектов. Мы дорожим репутацией нашей компании как надежного партнера!</p>', 0, NULL, NULL, NULL, 1, '', NULL),
+(62, 37, 'about us', '<p>CONSUL company was founded in 2001. The company''s activity is based on the latest technology in electronics, advanced scientific knowledge and vast experience of our professionals. Our philosophy is to take a flexible approach to the needs of our customers, high responsibility and professionalism in the development of projects. We value our reputation as a reliable partner!</p>', 0, NULL, NULL, NULL, 2, '', NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
