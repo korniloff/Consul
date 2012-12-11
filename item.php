@@ -87,6 +87,26 @@ include ("inc/head.php");
             Текст страницы предмета. Текст страницы предмета. Текст страницы предмета.
             </p>
 
+            <div class=itemadd>
+               <h3>Дополнительная информация: </h3>
+               <div class=itemaddlink>Документация <название предмета>: <a href="">скачать (.pdf, 12Мб)</a></div>
+               <div class=itemaddlink>Интернет-сайт производителя: <a href="" target=_blank>www.сайт-производителя.com</a></div>
+            </div>
+
+            <div class=pagenavigate>
+
+             <div class=pnlinks>
+                 <a href="">&laquo; предыдущий</a>
+                 <span><a>|</a></span>
+                 <a href="">следующий &raquo;</a>
+               </div>
+
+               <div class=alllinks>
+                 <a href="">Все обрудование "Наименование подраздела"</a>
+               </div>
+
+            </div>
+
 
           </div><br/>
 
