@@ -38,7 +38,7 @@ include ("inc/head.php");
 
           <!-- если галерея сертификатов не пуста -->
           <div class=sertgallery>
-			 <?php GetGallery ('about us',$LANG); ?>
+			 <?php PrintGallery ('about us',$LANG,'sertgalleryitem','sgpic'); ?>
           </div>
           <!-- конец галереи -->
 

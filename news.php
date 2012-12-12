@@ -8,7 +8,7 @@ $meta_key = заголовок новости если не перекрыта на статике
 */
 $newsid=$_GET['id'];
 $newsitem=getnewsbyid($LANG,$newsid);
-list($news_date,$news_name,$news_abstract,$news_text,$meta_title,$meta_desc,$meta_desc,$meta_key,$pagecode)=$newsitem;
+list($news_date,$news_name,$news_abstract,$news_text,$meta_title,$meta_desc,$meta_key,$pagecode,$pagename)=$newsitem;
 include ("inc/head.php");
 //Branch GeorgeFront
 ?>
@@ -50,28 +50,8 @@ include ("inc/head.php");
 
           <!-- если у новости есть галерея -->
           <div class=gallery>
-
-             <div class=galleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=gpic><a href='images/news_big.jpg' title='Комментарий к изображению' rel='lightbox[news]' target=_blank><img src='images/news_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
-             <div class=galleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=gpic><a href='images/news_big.jpg' title='Комментарий к изображению' rel='lightbox[news]' target=_blank><img src='images/news_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
-             <div class=galleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=gpic><a href='images/news_big.jpg' title='Комментарий к изображению' rel='lightbox[news]' target=_blank><img src='images/news_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
-             <div class=galleryitem>
-                <!-- news_big.jpg - значение поля picbig -->
-                <div class=gpic><a href='images/news_big.jpg' title='Комментарий к изображению' rel='lightbox[news]' target=_blank><img src='images/news_big.jpg' alt='Комментарий к изображению' border=0></a></div>
-             </div>
-
-          </div>
+			 <?php PrintGallery ($pagename,$LANG,'galleryitem','gpic'); ?>
+           </div>
           <!-- конец галереи -->
 
           <!-- навигация по страницам -->

@@ -657,7 +657,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		LEFT JOIN {$PREFFIX}_static ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
 		LEFT JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
 		WHERE {$PREFFIX}_static.lang_code=$lang
-		ORDER BY news_date DESC ";
+		ORDER BY news_date DESC, {$PREFFIX}_picture.picpos ASC ";
 		if (isset($limit))	$lastnewsquery=$lastnewsquery."LIMIT $limit";
 
 		$query = mysql_query("$lastnewsquery") or  die("Ошибка выборки новости ".$lastnewsquery);
@@ -678,7 +678,8 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		{$PREFFIX}_static.static_seo_title,
 		{$PREFFIX}_static.static_seo_desc,
 		{$PREFFIX}_static.static_seo_key,		
-		{$PREFFIX}_page.page_code		
+		{$PREFFIX}_page.page_code,
+		{$PREFFIX}_page.page_name	
 		FROM
 		{$PREFFIX}_news
 		LEFT JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_news.page_code
@@ -771,17 +772,24 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 
 	}
 
-    function GetGallery ($pagename,$lang)
-    {   global $PREFFIX;
-        if ($lang==2)$suf="_en"; else $suf="";
+	function GetGallery ($pagename,$lang)
+	{
+		global $PREFFIX;
+		if ($lang==2)$suf="_en"; else $suf="";
 		$galquery="SELECT
 		{$PREFFIX}_picture.picbig,
 		{$PREFFIX}_picture.picpos,
 		{$PREFFIX}_picture.piccomment".$suf.
 		" FROM  {$PREFFIX}_picture
-		  INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
-		  WHERE {$PREFFIX}_page.page_name='".$pagename."' ORDER BY picpos";
-       $query = mysql_query("$galquery") or  die("Ошибка выборки галереи ".$galquery);
+		INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
+		WHERE {$PREFFIX}_page.page_name='".$pagename."' ORDER BY picpos";
+				$query = mysql_query("$galquery") or  die("Ошибка выборки галереи ".$galquery);
+		return $query;
+	}
+	
+    function PrintGallery ($pagename,$lang, $outdiv='sertgalleryitem',$insdiv='sgpic')
+    {  
+    	$query=GetGallery($pagename, $lang);
 		while (list($picbig,$picpos,$piccomment)= mysql_fetch_array($query))
 		{
          print "<div class=sertgalleryitem>";
@@ -790,6 +798,8 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
         }
     }
 
+    
+    
 	//************  George Sergeev *********
 
 
