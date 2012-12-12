@@ -13,9 +13,12 @@
 
     <!-- меню языков -->
     <div class=langmenu>
-
-        <a href='<?=$PHP_SELF?>?ln=en'><div class=<?=GetActiveLang("en")?>en></div> </a> <!-- class=aen при активном english -->
-        <a href='<?=$PHP_SELF?>?ln=ru'><div class=<?=GetActiveLang("ru")?>ru></div> </a> <!-- class=aen при активном english -->
+        <?php
+          if (count($_GET)) $tok='&'; else $tok='?';       
+          $lastquest="http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'].$tok;          
+        ?> 
+        <a href='<?=$lastquest?>ln=en'><div class=<?=GetActiveLang("en")?>en></div> </a> <!-- class=aen при активном english -->
+        <a href='<?=$lastquest?>ln=ru'><div class=<?=GetActiveLang("ru")?>ru></div> </a> <!-- class=aen при активном english -->
                             <!-- class=ru при активном english -->
     </div>
     <!-- конец меню языков -->

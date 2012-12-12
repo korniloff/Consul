@@ -658,7 +658,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		LEFT JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
 		WHERE {$PREFFIX}_static.lang_code=$lang
 		ORDER BY news_date DESC ";
-		if ($limit)	$lastnewsquery=$lastnewsquery."LIMIT $limit";
+		if (isset($limit))	$lastnewsquery=$lastnewsquery."LIMIT $limit";
 
 		$query = mysql_query("$lastnewsquery") or  die("Ошибка выборки новости ".$lastnewsquery);
 		while (list($news_code,$news_date,$static_abstract,$static_name,$picture_picsmall)= mysql_fetch_array($query))
@@ -666,6 +666,29 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		return $a;
 	}
 
+	
+	function getnewsbyid($lang, $idnews)
+	{
+		global $PREFFIX;
+		$newsquery="SELECT
+		{$PREFFIX}_news.news_date,
+		{$PREFFIX}_static.static_name,
+		{$PREFFIX}_static.static_abstract,
+		{$PREFFIX}_static.static_text,
+		{$PREFFIX}_static.static_seo_title,
+		{$PREFFIX}_static.static_seo_desc,
+		{$PREFFIX}_static.static_seo_key,		
+		{$PREFFIX}_page.page_code		
+		FROM
+		{$PREFFIX}_news
+		LEFT JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_news.page_code
+		LEFT JOIN {$PREFFIX}_static ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
+		LEFT JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
+		WHERE ({$PREFFIX}_static.lang_code=$lang) and ({$PREFFIX}_news.news_code=$idnews) ";
+	
+		$query = mysql_query("$newsquery") or  die("Ошибка выборки новости ".$newsquery);
+		return mysql_fetch_array($query);	
+	}
 
 	/*
 	 *

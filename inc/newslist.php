@@ -1,66 +1,51 @@
           <!-- список новостей/ 10 новостей на странице -->
           <div class=newlistsarea>
 
-              <!--  блок новости -->
-              <div class=newslistitem>
-                 <div class=nlpic><a href='news.php?id=<код новости>'><img src='images/small3.jpg' alt='Заголовок новости' border=0></a></div>
+          <?php
+             $per_page=10;
+             if (!isset($curr_page)) $curr_page=0;             
+             $news=getlastnews($LANG);
+             $num_rows=count($news);
+             if($num_rows)
+             {
+             	$page_quant=ceil($num_rows / $per_page); //всего страниц
+             	$start_pos=$curr_page*$per_page;
+             	if ($start_pos+$per_page<$num_rows) $end_pos=$start_pos+$per_page;
+             	else $end_pos=$num_rows;
+             	for ($x=$start_pos; $x<$end_pos; $x++)
+                {              	
+                 $newsitem=$news[$x];
+                 print '<div class=newslistitem>';
+                 $picname=$newsitem[3];
+                 if ($picname=="") $picname=nullnews.gif;
+           ?>
+                  
+                 <div class=nlpic><a href='news.php?id=<?=$newsitem[0]?>'><img src='images/<?=$picname?>' alt='<?=$newsitem[4]?>' border=0></a></div>
                  <div class=nltext>
-                   <h2><a href='news.php?id=<код новости>'>Заголовок новости</a></h2>
-                   <div class=nldate>26.11.2012</div>
-                   Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости.
-                   Аннотация новости.
-                   <div class=nlmore><a href='news.php?id=<код новости>'>подробнее »</a></div>
+                   <h2><a href='news.php?id=<?=$newsitem[0]?>'><?=$newsitem[4]?></a></h2>
+                   <div class=nldate><?=$newsitem[1]?></div>
+                   <?=$newsitem[2]?>
+                   <div class=nlmore><a href='news.php?id=<?=$newsitem[0]?>'><?=Translate($LANG,'подробнее');?> »</a></div>
                  </div>
-              </div>
-              <!--  конец блока новости -->
-
-
-              <div class=newslistitem>
-                 <div class=nlpic><a href='news.php?id=<код новости>'><img src='images/small3.jpg' alt='Заголовок новости' border=0></a></div>
-                 <div class=nltext>
-                   <h2><a href='news.php?id=<код новости>'>Заголовок новости</a></h2>
-                   <div class=nldate>26.11.2012</div>
-                   Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости.
-                   Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости.
-                   Аннотация новости.
-                   <div class=nlmore><a href='news.php?id=<код новости>'>подробнее »</a></div>
                  </div>
-              </div>
+           <?php
+                 } // for 
+             } //if
+            ?>
 
-
-              <div class=newslistitem>
-                 <div class=nlpic><a href='news.php?id=<код новости>'><img src='images/small3.jpg' alt='Заголовок новости' border=0></a></div>
-                 <div class=nltext>
-                   <h2><a href='news.php?id=<код новости>'>Заголовок новости</a></h2>
-                   <div class=nldate>26.11.2012</div>
-                   Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости.
-                   Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости.
-                   Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости.
-                   Аннотация новости.
-                   <div class=nlmore><a href='news.php?id=<код новости>'>подробнее »</a></div>
-                 </div>
-              </div>
-
-              <div class=newslistitem>
-                 <div class=nlpic><a href='news.php?id=<код новости>'><img src='images/small3.jpg' alt='Заголовок новости' border=0></a></div>
-                 <div class=nltext>
-                   <h2><a href='news.php?id=<код новости>'>Заголовок новости</a></h2>
-                   <div class=nldate>26.11.2012</div>
-                   Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости.
-                   Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости.
-                   Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости.
-                   Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости. Аннотация новости.
-                   Аннотация новости.
-                   <div class=nlmore><a href='news.php?id=<код новости>'>подробнее »</a></div>
-                 </div>
-              </div>
-
-
-
+ 
           </div>
           <!-- конец списка новостей -->
 
 
           <div class=pageline>
-            Страницы: <span><a href=''>1</a></span> <b>2</b> <span><a href=''>3</a></span> <span><a href=''>4</a></span>
-          </div>
+            Страницы: <span>
+            <?php 
+            for ($i=1;$i<$page_quant+1;$i++)
+ 			{
+   			  $y=$i-1;
+   			  if ($curr_page==$y) {$t1="<b>";$t2="</b>";} else {$t1="";$t2="";}
+   			  echo"<a href=$PHP_SELF?curr_page=$y>$t1 $i $t2|</a>&nbsp";
+ 			} 
+ 			?>
+          </span> </div>
