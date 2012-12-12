@@ -642,7 +642,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	}
 
 
-	function getlastnews($lang=1)
+	function getlastnews($lang, $limit)
 	{
 		global $PREFFIX;
 		$lastnewsquery="SELECT
@@ -657,8 +657,8 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		LEFT JOIN {$PREFFIX}_static ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
 		LEFT JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
 		WHERE {$PREFFIX}_static.lang_code=$lang
-		ORDER BY news_date DESC
-		limit 3 ";
+		ORDER BY news_date DESC ";
+		if ($limit)	$lastnewsquery=$lastnewsquery."LIMIT $limit";
 
 		$query = mysql_query("$lastnewsquery") or  die("Ошибка выборки новости ".$lastnewsquery);
 		while (list($news_code,$news_date,$static_abstract,$static_name,$picture_picsmall)= mysql_fetch_array($query))
