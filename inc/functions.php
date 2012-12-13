@@ -642,7 +642,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	}
 
 
-	function getlastnews($lang, $limit)
+	function getlastnews($lang, $limit=0)
 	{
 		global $PREFFIX;
 		$lastnewsquery="SELECT
@@ -658,7 +658,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		LEFT JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
 		WHERE {$PREFFIX}_static.lang_code=$lang
 		ORDER BY news_date DESC, {$PREFFIX}_picture.picpos ASC ";
-		if (isset($limit))	$lastnewsquery=$lastnewsquery."LIMIT $limit";
+		if ($limit)	$lastnewsquery=$lastnewsquery."LIMIT $limit";
 
 		$query = mysql_query("$lastnewsquery") or  die("Ошибка выборки новости ".$lastnewsquery);
 		while (list($news_code,$news_date,$static_abstract,$static_name,$picture_picsmall)= mysql_fetch_array($query))
@@ -666,7 +666,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		return $a;
 	}
 
-	
+
 	function getnewsbyid($lang, $idnews)
 	{
 		global $PREFFIX;
@@ -677,18 +677,18 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		{$PREFFIX}_static.static_text,
 		{$PREFFIX}_static.static_seo_title,
 		{$PREFFIX}_static.static_seo_desc,
-		{$PREFFIX}_static.static_seo_key,		
+		{$PREFFIX}_static.static_seo_key,
 		{$PREFFIX}_page.page_code,
-		{$PREFFIX}_page.page_name	
+		{$PREFFIX}_page.page_name
 		FROM
 		{$PREFFIX}_news
 		LEFT JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_news.page_code
 		LEFT JOIN {$PREFFIX}_static ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
 		LEFT JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
 		WHERE ({$PREFFIX}_static.lang_code=$lang) and ({$PREFFIX}_news.news_code=$idnews) ";
-	
+
 		$query = mysql_query("$newsquery") or  die("Ошибка выборки новости ".$newsquery);
-		return mysql_fetch_array($query);	
+		return mysql_fetch_array($query);
 	}
 
 	/*
@@ -751,7 +751,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		{$PREFFIX}_equip.equip_pos,
 		{$PREFFIX}_picture.picbig,
 		{$PREFFIX}_static.static_abstract
-		
+
 		FROM {$PREFFIX}_static
 		INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
 		INNER JOIN {$PREFFIX}_equip ON {$PREFFIX}_page.page_code = {$PREFFIX}_equip.page_code
@@ -786,7 +786,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 			print "<div class=".$pre."pic><a href='".$catalogquest."'><img src='images/".$picbig."' alt='".$static_name."'></a></div>";
 			if ($abst) print "<div class=typetext>";
 			print "<h2><a href='".$catalogquest."'>".$static_name."</a></h2>";
-			if ($abst) 
+			if ($abst)
 			 {
 			 	print $static_abst;
 			 	print "<div class=more><a href='".$catalogquest."'>".Translate($langcode,'подробнее')." »</a></div>";
@@ -812,9 +812,9 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		$query = mysql_query("$galquery") or  die("Ошибка выборки галереи ".$galquery);
 		return $query;
 	}
-	
+
     function PrintGallery ($pagename,$lang, $outdiv='sertgalleryitem',$insdiv='sgpic')
-    {  
+    {
     	$query=GetGallery($pagename, $lang);
 		while (list($picbig,$picpos,$piccomment)= mysql_fetch_array($query))
 		{
@@ -824,7 +824,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
         }
     }
 
-    
+
 	function GetPartners ($langcode,$onmain=false)
 	{
 		global $PREFFIX;
@@ -838,27 +838,27 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
          FROM
          {$PREFFIX}_partner
          INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_partner.page_code = {$PREFFIX}_page.page_code
-         INNER JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code 
-         INNER JOIN {$PREFFIX}_static ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code  
+         INNER JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
+         INNER JOIN {$PREFFIX}_static ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
          WHERE ({$PREFFIX}_static.lang_code=$langcode)";
 		if ($onmain) $partnerquery=$partnerquery." AND (partner_onmain>0)";
 		$partnerquery=$partnerquery." ORDER BY partner_pos ASC";
 		$query = mysql_query("$partnerquery") or  die("Ошибка выборки партнера ".$partnerquery);
 		return $query;
-   }  
+   }
 
-   
+
    function PrintPartner ($langcode, $onmain, $typeout,$startpage=0)
    {
    	$per_page=10;
    	$query=GetPartners($langcode,$onmain); $i=0;
    	while (list($partner_pos,$partner_onmain,$partner_url, $static_name, $static_abstract, $picbig)= mysql_fetch_array($query))
    	{
-   		
+
    	    switch  ($typeout)
-   	    { 
+   	    {
    	    	case  0: print "<div class=tpitem><a href='".$partner_url."' traget=_blank>";
-   	    	         print "<img src='images/".$picbig."' alt='".$static_name."' border=0></a></div>"; 
+   	    	         print "<img src='images/".$picbig."' alt='".$static_name."' border=0></a></div>";
    	    	         break;
    	    	case  1: if (($i>=$startpage*$per_page) and ($i<($startpage+1)*$per_page))
    	    	{
@@ -870,13 +870,13 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
    	    		print "<div class=plmore><a href='".$partner_url."'>".$partner_url."</a></div>";
    	    		print "</div>";
    	    		print "</div>";
-   	    	}; break;   	    		
-   	    }	
+   	    	}; break;
+   	    }
    		$i++;
    	}
    	return ceil($i/$per_page);
    }
-    
+
 	//************  George Sergeev *********
 
 

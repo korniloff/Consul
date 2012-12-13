@@ -6,7 +6,10 @@ $meta_title = заголовок раздела если не перекрыта на статике
 $meta_desc = аннотация раздела если не перекрыта на статике
 $meta_key = заголовок раздела, перечисление подразделов, через запятую, если не перекрыта на статике
 */
-
+$mainstatic=getStatic('main',$LANG);
+$meta_title=$mainstatic['seo_title'];
+$meta_desc=$mainstatic['seo_desc'];
+$meta_key=$mainstatic['seo_key'];
 include ("inc/head.php");
 //Branch GeorgeFront
 ?>

@@ -1,5 +1,9 @@
 <?php
 include("inc/settings.php");
+$aboutstatic=getStatic('about us',$LANG);
+$meta_title=$aboutstatic['seo_title'];
+$meta_desc=$aboutstatic['seo_desc'];
+$meta_key=$aboutstatic['seo_key'];
 include ("inc/head.php");
 //Branch GeorgeFront
 ?>
@@ -28,11 +32,11 @@ include ("inc/head.php");
              <a href='<?=$mainurl;?>'><?=Translate($LANG,'Компания "Консул"');?></a>  <span>/</span>  <a><?=Translate($LANG,'O компании');?></a>
           </div>
           <!-- конец хлебных крошек  -->
-<?php   $topstatic=getStatic('about us',$LANG);
-         echo" <h1>".$topstatic['name']."</h1>";
+<?php
+         echo" <h1>".$aboutstatic['name']."</h1>";
 ?>
           <div class=pnewstext>
-               <? echo $topstatic['text']; ?>
+               <? echo $aboutstatic['text']; ?>
           </div>
 
 

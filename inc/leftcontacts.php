@@ -2,10 +2,10 @@
          <div class=contactarea>
             <h5><?=Translate($LANG,'Контактная информация');?></h5>
             <div class=addresstext>
-                   <?php   $topstatic=getStatic('contacts',$LANG);
-                     echo $topstatic['text']; ?>
-            
-            <!--  
+                   <?php   $leftstatic=getStatic('contacts',$LANG);
+                     echo $leftstatic['text']; ?>
+
+            <!--
                 <b>ООО «ВЭК КОНСУЛ»</b><br>
                 <p>
                     <b>Адрес:</b>

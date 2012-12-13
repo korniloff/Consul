@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.3
+-- version 3.5.1
 -- http://www.phpmyadmin.net
 --
--- Хост: localhost
--- Время создания: Дек 13 2012 г., 19:39
--- Версия сервера: 5.1.50
--- Версия PHP: 5.3.14
+-- Хост: 127.0.0.1
+-- Время создания: Дек 14 2012 г., 00:35
+-- Версия сервера: 5.5.25
+-- Версия PHP: 5.3.13
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -63,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `consul_dict` (
   `dict_ru` varchar(250) NOT NULL,
   `dict_en` varchar(250) NOT NULL,
   PRIMARY KEY (`dict_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=25 ;
 
 --
 -- Дамп данных таблицы `consul_dict`
@@ -84,7 +85,16 @@ INSERT INTO `consul_dict` (`dict_code`, `dict_ru`, `dict_en`) VALUES
 (12, 'Добро пожаловать', 'Welcome'),
 (13, 'Оборудование', 'Equipment'),
 (14, 'подробнее', 'details'),
-(15, 'Компания "Консул"', '"Consul" Company');
+(15, 'Компания "Консул"', '"Consul" Company'),
+(16, 'Сообщение успешно отправлено', 'Send success'),
+(17, 'Благодарим за интерес к нашим предложениям', 'Thank you for your interest in our proposals'),
+(18, 'Отправить сообщение', 'Send message'),
+(19, 'Ваше имя', 'Name'),
+(20, 'Страна', 'Country'),
+(21, 'Телефон', 'Phone'),
+(22, 'Сообщение', 'Message'),
+(23, 'необходимо заполнить все поля формы', 'fill in all fields'),
+(24, 'отправить форму', 'send form');
 
 -- --------------------------------------------------------
 
@@ -190,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `consul_page` (
   `page_url` varchar(255) CHARACTER SET cp1251 DEFAULT NULL,
   `page_type` varchar(10) NOT NULL DEFAULT 'static',
   PRIMARY KEY (`page_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
 --
 -- Дамп данных таблицы `consul_page`
@@ -226,7 +236,8 @@ INSERT INTO `consul_page` (`page_code`, `page_name`, `page_active`, `page_url`, 
 (35, 'contacts', 1, NULL, 'static'),
 (36, 'service', 1, NULL, 'static'),
 (37, 'about us', 1, NULL, 'static'),
-(38, 'Norwegian Seafood Council', 1, '', 'partner');
+(38, 'Norwegian Seafood Council', 1, '', 'partner'),
+(39, 'main', 1, NULL, 'static');
 
 -- --------------------------------------------------------
 
@@ -320,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `consul_static` (
   `static_abstract` text,
   `static_url` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`static_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=69 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=71 ;
 
 --
 -- Дамп данных таблицы `consul_static`
@@ -369,11 +380,17 @@ INSERT INTO `consul_static` (`static_code`, `page_code`, `static_name`, `static_
 (58, 35, 'Contacts', '<p><strong>CONSUL CO., LTD</strong></p>\r\n<p><strong>Address:</strong></p>\r\n<p>Ostryakova 4/21<br />Sebastopol, Ukraine, 99055. &nbsp;<br /><a href="https://maps.google.ru/maps?q=%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0+4&amp;hl=ru&amp;ie=UTF8&amp;sll=55.354135,40.297852&amp;sspn=12.518162,43.286133&amp;hnear=%D0%BF%D1%80%D0%BE%D1%81%D0%BF.+%D0%93%D0%B5%D0%BD%D0%B5%D1%80%D0%B0%D0%BB%D0%B0+%D0%9E%D1%81%D1%82%D1%80%D1%8F%D0%BA%D0%BE%D0%B2%D0%B0,+4,+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%B3%D0%BE%D1%80%D0%BE%D0%B4+%D0%A1%D0%B5%D0%B2%D0%B0%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C,+%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D0%B0&amp;t=m&amp;z=16" target="_blank">map &raquo;</a></p>\r\n<p><strong>Phone:</strong> +38 (0692) 65-76-85</p>\r\n<p><strong>Fax:</strong> +38 (0692) 44-82-378<br /> <br /><strong>Phone mobile:</strong> +38 (050) 393-26-78</p>\r\n<p><strong>E-mail:</strong> <a href="mailto:office@consul-marine.com.ua">office@consul-marine.com.ua</a></p>\r\n<p><strong>Skype:</strong> <a>consul-marine</a></p>', 0, NULL, NULL, NULL, 2, '', NULL),
 (59, 36, 'Услуги компании Консул', '<p><span>Мы постоянно расширяем спектр предлагаемых услуг и ассортимент всех видов товара, но принцип нашей работы остается неизменным: долгосрочные и взаимовыгодные отношения со всеми нынешними и будущими клиентами, так же осуществляется индивидуальный подход.</span><span><br /><br /><br /></span></p>', 0, NULL, NULL, NULL, 1, '', NULL),
 (60, 36, 'Consul Company service', '<p>We are constantly expanding the range of services and range of all kinds of goods, but the principle of our work is the same: long-term and mutually beneficial relationships with all current and future customers, as well an individual approach.</p>', 0, NULL, NULL, NULL, 2, '', NULL),
-(61, 37, 'О нас', '<p>Компания КОНСУЛ была основано в 2001 году. Деятельность компании основана на использовании новейших технологий в области радиоэлектроники, передовых научных достижений и богатого опыта наших специалистов. Наша философия заключается в гибком подходе к потребностям наших клиентов, высокой ответственности и профессионализме в развитии проектов. Мы дорожим репутацией нашей компании как надежного партнера!</p>', 0, NULL, NULL, NULL, 1, '', NULL),
-(62, 37, 'about us', '<p>CONSUL company was founded in 2001. The company''s activity is based on the latest technology in electronics, advanced scientific knowledge and vast experience of our professionals. Our philosophy is to take a flexible approach to the needs of our customers, high responsibility and professionalism in the development of projects. We value our reputation as a reliable partner!</p>', 0, NULL, NULL, NULL, 2, '', NULL),
+(61, 37, 'О нас', '<p>Компания КОНСУЛ была основано в 2001 году. Деятельность компании основана на использовании новейших технологий в области радиоэлектроники, передовых научных достижений и богатого опыта наших специалистов. Наша философия заключается в гибком подходе к потребностям наших клиентов, высокой ответственности и профессионализме в развитии проектов. Мы дорожим репутацией нашей компании как надежного партнера!</p>', 0, 'Компания Консул', 'Компания Консул', 'Компания Консул электрооборудование суда', 1, '', NULL),
+(62, 37, 'about us', '<p>CONSUL company was founded in 2001. The company''s activity is based on the latest technology in electronics, advanced scientific knowledge and vast experience of our professionals. Our philosophy is to take a flexible approach to the needs of our customers, high responsibility and professionalism in the development of projects. We value our reputation as a reliable partner!</p>', 0, 'Consul company', 'Consul Company Sebastopol', 'Consul company Sebastopol sea equipment', 2, '', NULL),
 (63, 38, 'Norwegian Seafood Council', '', 0, NULL, NULL, NULL, 1, '<p><span>Норвежский совет по морепродуктов представлена &#8203;&#8203;в 13 странах.&nbsp;</span><span class="goog-text-highlight">В большинстве из этих рынков НСК использовать собственные веб-сайты потребителя как часть комплекса маркетинга СМИ.&nbsp;</span><span><br /></span></p>', NULL),
 (64, 38, 'Norwegian Seafood Council', '', 0, NULL, NULL, NULL, 2, '<p><span>The Norwegian Seafood Council is represented in 13 markets. In most of these markets NSC use own consumer websites as part of the marketing media mix. This article contains a list of all consumer websites.</span></p>', NULL),
 (65, 16, 'Газпром', '', 0, NULL, NULL, NULL, 1, '<p><strong>ОАО &laquo;Газпро&#769;м&raquo;</strong><span>&nbsp;&mdash;&nbsp;</span><a title="Россия" href="http://ru.wikipedia.org/wiki/%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F">российская</a><span>&nbsp;энергетическая компания, занимающаяся геологоразведкой, добычей, транспортировкой, хранением, переработкой и реализацией газа, газового конденсата и нефти, а также производством и сбытом тепло- и электроэнергии. Крупнейшая компания в&nbsp;</span><a title="Россия" href="http://ru.wikipedia.org/wiki/%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F">России</a><span>&nbsp;(</span><a class="mw-redirect" title="Список крупнейших компаний России журнала &laquo;Эксперт&raquo;" href="http://ru.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D0%BA%D1%80%D1%83%D0%BF%D0%BD%D0%B5%D0%B9%D1%88%D0%B8%D1%85_%D0%BA%D0%BE%D0%BC%D0%BF%D0%B0%D0%BD%D0%B8%D0%B9_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8_%D0%B6%D1%83%D1%80%D0%BD%D0%B0%D0%BB%D0%B0_%C2%AB%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D1%82%C2%BB">по данным журнала &laquo;Эксперт&raquo;</a><span>)</span><sup id="cite_ref-exp1_1-0" class="reference"><a href="http://ru.wikipedia.org/wiki/%D0%93%D0%B0%D0%B7%D0%BF%D1%80%D0%BE%D0%BC#cite_note-exp1-1">[1]</a></sup><span>, крупнейшая газовая компания мира, владеет самой протяжённой&nbsp;</span><a class="new" title="Газотранспортная система (страница отсутствует)" href="http://ru.wikipedia.org/w/index.php?title=%D0%93%D0%B0%D0%B7%D0%BE%D1%82%D1%80%D0%B0%D0%BD%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%BD%D0%B0%D1%8F_%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0&amp;action=edit&amp;redlink=1">газотранспортной системой</a><span>&nbsp;(более 160 000 км)</span><sup id="cite_ref-2" class="reference"><a href="http://ru.wikipedia.org/wiki/%D0%93%D0%B0%D0%B7%D0%BF%D1%80%D0%BE%D0%BC#cite_note-2">[2]</a></sup><span>. Является мировым лидером отрасли</span><sup id="cite_ref-3" class="reference"><a href="http://ru.wikipedia.org/wiki/%D0%93%D0%B0%D0%B7%D0%BF%D1%80%D0%BE%D0%BC#cite_note-3">[3]</a></sup><span>. Согласно списку</span><a title="Forbes Global 2000" href="http://ru.wikipedia.org/wiki/Forbes_Global_2000">Forbes Global 2000</a><span>&nbsp;(</span><a title="2012 год" href="http://ru.wikipedia.org/wiki/2012_%D0%B3%D0%BE%D0%B4">2012 год</a><span>), &laquo;Газпром&raquo; по выручке занимает 15-е место среди мировых компаний</span><sup id="cite_ref-4" class="reference"><a href="http://ru.wikipedia.org/wiki/%D0%93%D0%B0%D0%B7%D0%BF%D1%80%D0%BE%D0%BC#cite_note-4">[4]</a></sup><span>. Согласно рейтингу журнала Forbes, &laquo;Газпром&raquo; по итогам 2011 года стал самой прибыльной компанией мира</span></p>', NULL),
 (66, 16, 'Gazprom', '', 0, NULL, NULL, NULL, 2, '<p>"Gazprom" - Russian energy company engaged in exploration, production, transportation, storage, processing and marketing of gas, gas condensate and oil, as well as the production and marketing of heat and electric power. The largest company in Russia (according to the "Expert") [1], the largest gas company in the world, has the most extensive transmission system (more than 160 000 km). [2] Is a world leader in the industry. [3] According to the list of Forbes Global 2000 (2012 year), "Gazprom" for revenue ranks 15th among the world''s companies. [4] According to the rating of Forbes, &laquo;Gazprom&raquo; in 2011 has become the most profitable company in the world</p>', NULL),
 (67, 15, 'ЦК КПСС', '', 0, NULL, NULL, NULL, 1, '<p><strong>Центральный комитет&nbsp;<a title="Коммунистическая партия Советского Союза" href="http://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BC%D0%BC%D1%83%D0%BD%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F_%D0%BF%D0%B0%D1%80%D1%82%D0%B8%D1%8F_%D0%A1%D0%BE%D0%B2%D0%B5%D1%82%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_%D0%A1%D0%BE%D1%8E%D0%B7%D0%B0">Коммунистической партии Советского Союза</a></strong><span>&nbsp;(до весны&nbsp;</span><a class="mw-redirect" title="1917" href="http://ru.wikipedia.org/wiki/1917">1917</a><span>: ЦК РСДРП;&nbsp;</span><a class="mw-redirect" title="1917" href="http://ru.wikipedia.org/wiki/1917">1917</a><span>&mdash;</span><a class="mw-redirect" title="1918" href="http://ru.wikipedia.org/wiki/1918">1918</a><span>&nbsp;ЦК РСДРП(б);</span><a class="mw-redirect" title="1918" href="http://ru.wikipedia.org/wiki/1918">1918</a><span>&mdash;</span><a class="mw-redirect" title="1925" href="http://ru.wikipedia.org/wiki/1925">1925</a><span>&nbsp;ЦК РКП(б);&nbsp;</span><a class="mw-redirect" title="1925" href="http://ru.wikipedia.org/wiki/1925">1925</a><span>&mdash;</span><a class="mw-redirect" title="1952" href="http://ru.wikipedia.org/wiki/1952">1952</a><span>&nbsp;ЦК ВКП(б))&nbsp;&mdash; высший партийный орган в промежутках между съездами партии. Наибольший по численности состав ЦК КПСС (412 членов) был избран на&nbsp;</span><a title="XXVIII съезд КПСС" href="http://ru.wikipedia.org/wiki/XXVIII_%D1%81%D1%8A%D0%B5%D0%B7%D0%B4_%D0%9A%D0%9F%D0%A1%D0%A1">XXVIII съезде КПСС</a></p>', NULL),
-(68, 15, 'CC CPSU', '', 0, NULL, NULL, NULL, 2, '<p>The Central Committee of the Communist Party of the Soviet Union (until the spring of 1917: the CC, 1917-1918 RSDLP (b), 1918-1925 RCP (b), 1925-1952 Central Committee of the CPSU (b)) - the highest party organ in between Congresses . The largest in size of the Central Committee of the CPSU (412 members) was elected to the XXVIII Congress of the CPSU</p>', NULL);
+(68, 15, 'CC CPSU', '', 0, NULL, NULL, NULL, 2, '<p>The Central Committee of the Communist Party of the Soviet Union (until the spring of 1917: the CC, 1917-1918 RSDLP (b), 1918-1925 RCP (b), 1925-1952 Central Committee of the CPSU (b)) - the highest party organ in between Congresses . The largest in size of the Central Committee of the CPSU (412 members) was elected to the XXVIII Congress of the CPSU</p>', NULL),
+(69, 39, '', '', 0, 'Компания Консул. Главная страница', 'Компания Консул специализируется на продаже морского электрооборудования', 'Консул компания Севастополь электрооборудование суда', 1, NULL, NULL),
+(70, 39, '', '', 0, 'Consul Company. Main Page', 'Consul company', 'Consul sea ship', 2, NULL, NULL);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
