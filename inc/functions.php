@@ -740,7 +740,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	*/
 
 
-	function getEquipList($langcode,$catalogpage, $parentcode=0) {
+	function getEquipList($langcode,$catalogpage, $parentcode=0, $typeprint=0) {
 		//catalogpage - страница перехода
 		global $PREFFIX;
 		$catalogquery="SELECT DISTINCT
@@ -749,8 +749,9 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		{$PREFFIX}_static.static_code,
 		{$PREFFIX}_static.static_name,
 		{$PREFFIX}_equip.equip_pos,
-		{$PREFFIX}_picture.picbig
-
+		{$PREFFIX}_picture.picbig,
+		{$PREFFIX}_static.static_abstract
+		
 		FROM {$PREFFIX}_static
 		INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
 		INNER JOIN {$PREFFIX}_equip ON {$PREFFIX}_page.page_code = {$PREFFIX}_equip.page_code
@@ -759,14 +760,39 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		ORDER BY equip_pos";
 
 		$query = mysql_query("$catalogquery") or  die("Ошибка выборки каталога ".$catalogquery);
-		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$picbig)= mysql_fetch_array($query))
+		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$picbig,$static_abst)= mysql_fetch_array($query))
 		{
+			$catalogquest=$catalogpage."?id=".$equip_code;
 			if ((!isset($picbig)) or ($picbig=="")) $picbig='nullequip.gif';
-			print "<div class=mсitem>";
-			print "<div class=mсpic><a href='".$catalogpage."'><img src='images/".$picbig."' alt='".$static_name."'></a></div>";
-			print "<h2><a href='".$catalogpage."'>".$static_name."</a></h2>";
+			switch ($typeprint)
+			{
+				case 0:	print "<div class=mсitem>";
+			            print "<div class=mсpic><a href='".$catalogquest."'><img src='images/".$picbig."' alt='".$static_name."'></a></div>";
+			            print "<h2><a href='".$catalogquest."'>".$static_name."</a></h2>";
+			            print "</div>";
+			            break;
+				case 1: print "	<div class=typeitem>";
+			            print "<div class=typepic><a href='".$catalogquest."'><img src='images/".$picbig."' alt='".$static_name."'></a></div>";
+					    print "<div class=typetext>";
+			            print "<h2><a href='".$catalogquest."'>".$static_name."</a></h2>";
+			            print $static_abst;
+					    print "<div class=more><a href='".$catalogquest."'>".Translate($langcode,'подробнее')." »</a></div>";
+					    print "</div>";
+					    print "</div>";
+					    break;
+			}
+			/*
+			print "<div class=".$pre."item>";
+			print "<div class=".$pre."pic><a href='".$catalogquest."'><img src='images/".$picbig."' alt='".$static_name."'></a></div>";
+			if ($abst) print "<div class=typetext>";
+			print "<h2><a href='".$catalogquest."'>".$static_name."</a></h2>";
+			if ($abst) 
+			 {
+			 	print $static_abst;
+			 	print "<div class=more><a href='".$catalogquest."'>".Translate($langcode,'подробнее')." »</a></div>";
+			 }
 			print "</div>";
-
+            */
 		}
 
 
@@ -783,7 +809,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		" FROM  {$PREFFIX}_picture
 		INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
 		WHERE {$PREFFIX}_page.page_name='".$pagename."' ORDER BY picpos";
-				$query = mysql_query("$galquery") or  die("Ошибка выборки галереи ".$galquery);
+		$query = mysql_query("$galquery") or  die("Ошибка выборки галереи ".$galquery);
 		return $query;
 	}
 	
@@ -792,13 +818,64 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
     	$query=GetGallery($pagename, $lang);
 		while (list($picbig,$picpos,$piccomment)= mysql_fetch_array($query))
 		{
-         print "<div class=sertgalleryitem>";
-         print "<div class=sgpic><a href='images/".$picbig."' title='".$piccomment."' rel='lightbox[sert]' target=_blank><img src='images/".$picbig."' alt='".$piccomment."' border=0></a></div>";
+         print "<div class=".$outdiv.">";
+         print "<div class=".$insdiv."><a href='images/".$picbig."' title='".$piccomment."' rel='lightbox[sert]' target=_blank><img src='images/".$picbig."' alt='".$piccomment."' border=0></a></div>";
          print "</div>";
         }
     }
 
     
+	function GetPartners ($langcode,$onmain=false)
+	{
+		global $PREFFIX;
+		$partnerquery="    SELECT
+         {$PREFFIX}_partner.partner_pos,
+         {$PREFFIX}_partner.partner_onmain,
+         {$PREFFIX}_partner.partner_url,
+         {$PREFFIX}_static.static_name,
+         {$PREFFIX}_static.static_abstract,
+         {$PREFFIX}_picture.picbig
+         FROM
+         {$PREFFIX}_partner
+         INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_partner.page_code = {$PREFFIX}_page.page_code
+         INNER JOIN {$PREFFIX}_picture ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code 
+         INNER JOIN {$PREFFIX}_static ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code  
+         WHERE ({$PREFFIX}_static.lang_code=$langcode)";
+		if ($onmain) $partnerquery=$partnerquery." AND (partner_onmain>0)";
+		$partnerquery=$partnerquery." ORDER BY partner_pos ASC";
+		$query = mysql_query("$partnerquery") or  die("Ошибка выборки партнера ".$partnerquery);
+		return $query;
+   }  
+
+   
+   function PrintPartner ($langcode, $onmain, $typeout,$startpage=0)
+   {
+   	$per_page=10;
+   	$query=GetPartners($langcode,$onmain); $i=0;
+   	while (list($partner_pos,$partner_onmain,$partner_url, $static_name, $static_abstract, $picbig)= mysql_fetch_array($query))
+   	{
+   		
+   	    switch  ($typeout)
+   	    { 
+   	    	case  0: print "<div class=tpitem><a href='".$partner_url."' traget=_blank>";
+   	    	         print "<img src='images/".$picbig."' alt='".$static_name."' border=0></a></div>"; 
+   	    	         break;
+   	    	case  1: if (($i>=$startpage*$per_page) and ($i<($startpage+1)*$per_page))
+   	    	{
+   	    		print " <div class=partnerlistitem>";
+   	    		print " <div class=plpic><a href='".$partner_url."'><img src='images/".$picbig."' alt='".$static_name."' border=0></a></div>";
+   	    		print " <div class=pltext>";
+   	    		print "<h2><a href='".$partner_url."'>".$static_name."</a></h2>";
+   	    		print $static_abstract;
+   	    		print "<div class=plmore><a href='".$partner_url."'>".$partner_url."</a></div>";
+   	    		print "</div>";
+   	    		print "</div>";
+   	    	}; break;   	    		
+   	    }	
+   		$i++;
+   	}
+   	return ceil($i/$per_page);
+   }
     
 	//************  George Sergeev *********
 
