@@ -1,13 +1,20 @@
 <?php
 include("inc/settings.php");
 
-/*
-$meta_title = заголовок подраздела если не перекрыта на статике
-$meta_desc = аннотация подраздела если не перекрыта на статике
-$meta_key = заголовок подраздела, перечисление моделей, через запятую, если не перекрыта на статике
-*/
+$id=$_GET['id'];
+
+
+$catalogstatic=getCatalogStatic($id, $LANG);
+$meta_title=$catalogstatic['seo_title'];
+$meta_desc=$catalogstatic['seo_desc'];
+$meta_key=$catalogstatic['seo_key'];
+
 
 include ("inc/head.php");
+$parentid=getParentId($id);
+$parentstatic=getCatalogStatic($parentid,$LANG);
+$opensub=true;
+$opensubcode=$parentid;
 //Branch GeorgeFront
 ?>
 
@@ -28,15 +35,15 @@ include ("inc/head.php");
 
           <!-- хлебные крошки -->
           <div class=krohi>
-             <!-- <a href=<?=$PHP_SELF?>> <?=Translate($LANG,'Добро пожаловать');?>!</a> -->
-             <a href='<?=$mainurl;?>'>Компания "Консул"</a>  <span>/</span>  <a href='equipment.php'>Обрудование</a> <span>/</span>  <a>Наименование раздела</a> <span>/</span>  <a>Наименование подраздела</a>
+              </a>  <span>/</span>  <a href='equipment.php'><?=Translate($LANG,'Оборудование');?></a> <span>/</span> <a href="catalog.php?id=<?=$parentid?>"><?=$parentstatic['name']?></a><a><?=$catalogstatic['name']?></a>
+             
           </div>
           <!-- конец хлебных крошек  -->
 
-          <h1>Наименование подраздела</h1>
+          <h1><?=$catalogstatic['name']?></h1>
 
           <div class=pnewstext>
-            Текст страницы если введен в админе. Текст страницы если введен в админе. Текст страницы если введен в админе. Текст страницы если введен в админе. Текст страницы если введен в админе. Текст страницы если введен в админе.  Текст страницы если введен в админе. Текст страницы если введен в админе. Текст страницы если введен в админе. Текст страницы если введен в админе. Текст страницы если введен в админе. Текст страницы если введен в админе.
+            <?=$catalogstatic['text']?>
           </div><br/>
 
           <?

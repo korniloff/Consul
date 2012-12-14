@@ -317,9 +317,7 @@ $max_pos++;
     <td width="50"><?=SortTitle("Активность","page_active",$sortby,$sortdir);?></td>
 <!--      <td width="180"><?=SortTitle("URL","equip_URL",$sortby,$sortdir);?></td>
 -->
-  <?php    
-  if (!$equip_parent) print ' <td width=40>Подкаталог</td>';
-    ?>
+    <td width=40>Подкаталог</td>
     <td width=40>Текст</td>
     <td width=40>SEO</td>
     <td width=30>Фото</td>
@@ -347,7 +345,6 @@ $num_rows=mysql_num_rows($res);  //Количество строк
     //     echo"<TD align=center class=smalltext ondblclick='change_line(\"$checkname\",\"F#$checkname#equip_url#string\");' id=\"F#$checkname#equip_url#string\">".Show($equip_url)."</TD>\n"; 
     //    echo"<TD align=center class=smalltext align=center  ondblclick='change_line(\"$checkname\",\"F#$checkname#static_pos#int\");' id=\"F#$checkname#static_pos#int\">".Show($static_pos)."</TD>\n";
     //     <а href="javascript:toFunction(10,'text')" >Ссылка</а>
-         if (!$equip_parent)
          echo"<td align=center ><a href='javascript:GotoSub($equip_code)'><img height='20' width='20' src='graph/subitem.gif' border=0 title='Подкаталог'></a></td>";
          echo"<td align=center ><a href='editstatic.php?page_code=$page_code&page_name=$page_name'><img height='20' width='20' src='graph/edit.gif' border=0 title='Текст страницы'></a></td>";
          echo"<td align=center ><a href='editseo.php?page_code=$page_code&page_name=$page_name'><img height='20' width='20' src='graph/edit.gif' border=0 title='SEO'></a></td>";

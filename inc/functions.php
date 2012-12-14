@@ -51,7 +51,7 @@ function prepare($st)
   return $st;
 }
 
-function getStatic($pagename,$lng="ru")
+function getStatic($pagename,$lng)
 {
 	global $PREFFIX;
 	$query= "SELECT
@@ -66,7 +66,7 @@ function getStatic($pagename,$lng="ru")
 FROM
 {$PREFFIX}_static
 INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
-WHERE ({$PREFFIX}_page.page_name='$pagename') and (lang_code='$lng')
+WHERE ({$PREFFIX}_page.page_name='$pagename') and (lang_code=$lng)
 ";
 
     $res=mysql_query($query);
@@ -81,6 +81,40 @@ WHERE ({$PREFFIX}_page.page_name='$pagename') and (lang_code='$lng')
     		 "name"=>$static_name
              );
     return $a;
+}
+
+function getCatalogStatic($id,$lng)
+{
+	
+	global $PREFFIX;
+	$query= "SELECT
+	{$PREFFIX}_page.page_name	
+	FROM
+	{$PREFFIX}_page
+	INNER JOIN {$PREFFIX}_equip ON {$PREFFIX}_equip.page_code = {$PREFFIX}_page.page_code
+	WHERE ({$PREFFIX}_equip.equip_code=$id) LIMIT 1";	
+	$res=mysql_query($query) or die ('Ошибка выборки раздела каталога '.$query);
+	if (mysql_num_rows($res)>0) 
+	{
+		list($pagename)=mysql_fetch_array($res);
+		return getStatic($pagename, $lng);
+	}
+}
+
+function getParentId($id)
+{
+	global $PREFFIX;
+	$query= "SELECT
+	{$PREFFIX}_equip.equip_parent
+	FROM
+	{$PREFFIX}_equip
+	WHERE ({$PREFFIX}_equip.equip_code=$id)";
+	$res=mysql_query($query) or die ('Ошибка выборки родительского каталога '.$query);
+	if (mysql_num_rows($res)>0)
+	{
+	list($parentid)=mysql_fetch_array($res);
+	return $parentid;
+	}	
 }
 
 
@@ -620,9 +654,9 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		$next_lvl[] = array ($equip_code, $equip_parent, $static_code,$static_name);
 	}
 	}
-	print '<ul id="tree_one">';
+	print '<ul>';
 	foreach ($one_lvl as $key){
-      print '<li><a href="'.$catalogpage.'?'.$key[2].'">'.$key[3].'</a>';
+      print '<li><a href="catalog.php?id='.$key[0].'">'.$key[3].'</a>';
       if ($opensubcode==$key[0])
        view_tree_next_level($key[0], $next_lvl);
       print '</li>';
@@ -631,14 +665,12 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	}
 
 
-	function view_tree_next_level($family, $next_lvl) {
-	foreach ($next_lvl as $key) {
-	if ($key[1]==$family) {
-	        print '<ul id="tree_one"> <li><a href="'.$catalogpage.'?'.$key[2].'">'.$key[3].'</a>';
-        view_tree_next_level($key[0], $next_lvl);
-        print '</li></ul>';
-	   }
-	   }
+	function view_tree_next_level($family, $next_lvl) 
+	{
+		print '<ul>';	
+		foreach ($next_lvl as $key) if ($key[1]==$family) 
+	       print '<li><a href="models.php?id='.$key[0].'">'.$key[3].'</a> </li>';
+ 	   print '</ul>';
 	}
 
 
@@ -750,8 +782,10 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		{$PREFFIX}_static.static_name,
 		{$PREFFIX}_equip.equip_pos,
 		{$PREFFIX}_picture.picbig,
-		{$PREFFIX}_static.static_abstract
-
+		{$PREFFIX}_static.static_abstract,
+		{$PREFFIX}_page.page_url,
+		{$PREFFIX}_static.static_url
+		
 		FROM {$PREFFIX}_static
 		INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
 		INNER JOIN {$PREFFIX}_equip ON {$PREFFIX}_page.page_code = {$PREFFIX}_equip.page_code
@@ -760,7 +794,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		ORDER BY equip_pos";
 
 		$query = mysql_query("$catalogquery") or  die("Ошибка выборки каталога ".$catalogquery);
-		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$picbig,$static_abst)= mysql_fetch_array($query))
+		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$picbig,$static_abst,$page_url)= mysql_fetch_array($query))
 		{
 			$catalogquest=$catalogpage."?id=".$equip_code;
 			if ((!isset($picbig)) or ($picbig=="")) $picbig='nullequip.gif';
@@ -780,6 +814,29 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 					    print "</div>";
 					    print "</div>";
 					    break;
+				case 2: print "<div class=modelitem>";
+			            print "<div class=mlpic> <a href='".$catalogquest."'><img src='images/".$picbig."' alt='".$static_name."'></a></div>";
+						print "<div class=mltext>";
+			            print "<h2><a href='".$catalogquest."'>".$static_name."</a></h2>";
+			            if ($page_url)	print "<div class=mllink><a href='".$page_url."' target=_blank>.$page_url.</a></div>";
+						print $static_abst;
+						print "<div class=nlmore><a href='".$page_url."'>документация</a> <span>|</span> <a href='".$catalogquest."'>подробная информация »</a></div>";
+						print "	</div>";
+						print "	</div>";
+						break;	
+/*
+						<!--  блок модели -->
+						<div class=modelitem>
+						<div class=mlpic><a href='item.php?id=<код модели>'><img src='images/item1.jpg' alt='Наименование модели' border=0></a></div>
+								<div class=mltext>
+								<h2><a href='item.php?id=<код модели>'>Наименование модели</a></h2>
+										<div class=mllink><a href='www.сайт-модели.com' target=_blank>www.сайт-производителя-модели.com</a></div>
+												Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели.
+												Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели. Аннотация модели.
+												<div class=nlmore><a href='ссылка на файл'>документация</a> <span>|</span> <a href='item.php?id=<код модели>'>подробная информация »</a></div>
+												</div>
+												</div>
+												<!--  конец блока модели --> */
 			}
 			/*
 			print "<div class=".$pre."item>";

@@ -28,5 +28,7 @@ if (isset($_GET['ln']))
 
 $lng=$_SESSION['lng'];
 $LANG=$_SESSION['LANG'];
+$opensub=false;
+$opensubcode=0;
 // echo"$lng++<br>";
 ?>
