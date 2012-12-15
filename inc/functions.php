@@ -777,6 +777,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	function getEquipList($langcode,$catalogpage, $parentcode=0, $typeprint=0, $startpage=0) {
 		//catalogpage - страница перехода
 		global $PREFFIX;
+		global $mainurl;
 		$catalogquery="SELECT DISTINCT
 		{$PREFFIX}_equip.equip_code,
 		{$PREFFIX}_equip.equip_parent,
@@ -798,7 +799,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		$query = mysql_query("$catalogquery") or  die("Ошибка выборки каталога ".$catalogquery);
 		$per_page=10;
 		$i=0;
-		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$picbig,$static_abst,$page_url)= mysql_fetch_array($query))
+		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$picbig,$static_abst,$page_url,$static_url)= mysql_fetch_array($query))
 		{
 			$catalogquest=$catalogpage."?id=".$equip_code;
 			if ((!isset($picbig)) or ($picbig=="")) $picbig='nullequip.gif';
@@ -826,7 +827,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 			            print "<h2><a href='".$catalogquest."'>".$static_name."</a></h2>";
 			            if ($page_url)	print "<div class=mllink><a href='".$page_url."' target=_blank>.$page_url.</a></div>";
 						print $static_abst;
-						print "<div class=nlmore><a href='".$page_url."'>документация</a> <span>|</span> <a href='".$catalogquest."'>подробная информация »</a></div>";
+						print "<div class=nlmore><a href='$mainurl$static_url'>документация</a> <span>|</span> <a href='".$catalogquest."'>подробная информация »</a></div>";
 						print "	</div>";
 						print "	</div>"; 
 				       }
@@ -887,8 +888,45 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
          print "</div>";
         }
     }
-
-
+    
+    function ItemGallery($itemid,$lang)
+    {
+    	global $PREFFIX;
+    	$query= "SELECT
+    	{$PREFFIX}_page.page_name
+    	FROM
+    	{$PREFFIX}_page
+    	INNER JOIN {$PREFFIX}_equip ON {$PREFFIX}_equip.page_code = {$PREFFIX}_page.page_code
+    	WHERE ({$PREFFIX}_equip.equip_code=$itemid) LIMIT 1";
+    	$res=mysql_query($query) or die ('Ошибка выборки раздела каталога '.$query);
+    	if (mysql_num_rows($res)>0)
+    	{
+    	list($pagename)=mysql_fetch_array($res);
+    	return getStatic($pagename, $lng);
+    	}
+    	$galquery=GetGallery($pagename, $lang); //Выбрали рисунки и комментарии к ним
+    	if (mysql_num_rows($galquery)>0)
+    	{	
+    	   list($picbig,$picpos,$piccomment)= mysql_fetch_array($query); //Выбрали первое
+    	   print "<div class=itembpic id=ibp0><a href='".$picbig."' title='".$piccomment."' rel='lightbox[item]' target=_blank><img src='".$picbig."'  alt='".$piccomment."' border=0></a></div>";
+    	   while (list($picbig,$picpos,$piccomment)= mysql_fetch_array($query))
+    		  $itemgal[] = array ($picbig,$picpos,$piccomment);
+    	   foreach  ($itemgal as $itempic)
+    	   {
+    	   	print "<div class=itembpic id=ibp1 style='display:none;'><a href='".$itempic[0]."' title='".$itempic[2]."' rel='lightbox[item]' target=_blank><img src='images/".$itempic[0]."  alt='".$itempic[2]."' border=0></a></div>";   	   		
+    	   }
+    	   print "<div class=roomiconlist>";
+    	   print "<div class=roomiconarea>";
+    	   $sz=count($itempic);
+    	   for ($i=0;$i<$sz;$i++)
+    	   {
+    	   	print "<div class=itemicon onclick=showpic(".$i.",".$sz.")><img src='images/".$itempic[$i][0]."' border=0></div>";
+    	   }
+    	   print "</div>";
+    	   print "</div>";
+    	}
+    }
+ 
 	function GetPartners ($langcode,$onmain=false)
 	{
 		global $PREFFIX;

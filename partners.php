@@ -23,7 +23,7 @@ include ("inc/head.php");
           <!-- хлебные крошки -->
           <div class=krohi>
             <a href='<?=$mainurl;?>'><?=Translate($LANG,'Компания "Консул"');?>
-             </a>  <span>/</span>  <a><?=Translate($LANG,'Партнеры');?></a> <span>/</span>                       
+             </a>  <span>/</span>  <a><?=Translate($LANG,'Партнеры');?></a>                       
           </div>
           <!-- конец хлебных крошек  -->
 

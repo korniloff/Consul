@@ -59,12 +59,13 @@ include ("inc/head.php");
           </div>
           <!-- конец хлебных крошек  -->
 
-          <h1>Наименование предмета</h1>
+          <h1><?=$catalogstatic['name']?></h1>
 
           <div class=pnewstext>
 
             <div class=itemgallery>
-
+                <?php ItemGallery($id,$lang);?>
+                <!--  
                 <div class=itembpic id=ibp0><a href='images/item1.jpg' title='Комментарий к изображению' rel='lightbox[item]' target=_blank><img src="images/item1.jpg"  alt='комментарий к изображению' border=0></a></div>
                 <div class=itembpic id=ibp1 style='display:none;'><a href='images/item1-1.jpg' title='Комментарий к изображению' rel='lightbox[item]' target=_blank><img src="images/item1-1.jpg"  alt='комментарий к изображению' border=0></a></div>
                 <div class=itembpic id=ibp2 style='display:none;'><a href='images/item1-2.jpg' title='Комментарий к изображению' rel='lightbox[item]' target=_blank><img src="images/item1-2.jpg"  alt='комментарий к изображению' border=0></a></div>
@@ -77,7 +78,8 @@ include ("inc/head.php");
                         <div class=itemicon onclick=showpic(2,4)><img src="images/item1-2.jpg" border=0></div>
                         <div class=itemicon onclick=showpic(3,4)><img src="images/item1-3.jpg" border=0></div>
                     </div>
-                </div>
+                </div>  
+                -->
 
             </div>
 
@@ -90,7 +92,7 @@ include ("inc/head.php");
                	print "<div class=itemaddlink>".Translate($LANG,'Документация')." ".$catalogstatic['name']."  :"; 
                 print "<a href='".$catalogstatic['static_url']."' ".Translate($LANG,'скачать')." (.pdf, 12Мб)</a></div>";
                 if ($catalogstatic['page_url'])
-                    print "<div class=itemaddlink>".Translate($LANG,'Интернет-сайт производителя').": <a href='".$catalogstatic['page_url']."' target=_blank>www.сайт-производителя.com</a></div>";
+                    print "<div class=itemaddlink>".Translate($LANG,'Интернет-сайт производителя').": <a href='".$catalogstatic['page_url']."' target=_blank>".$catalogstatic['page_url']."</a></div>";
                ?>                            
             </div>
 

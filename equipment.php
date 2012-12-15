@@ -26,9 +26,9 @@ include ("inc/head.php");
 
           <!-- хлебные крошки -->
           <div class=krohi>
-             <!-- <a href=<?=$PHP_SELF?>> <?=Translate($LANG,'Добро пожаловать');?>!</a> -->
+            
             <a href='<?=$mainurl;?>'><?=Translate($LANG,'Компания "Консул"');?>
-             </a>  <span>/</span>  <a href='equipment.php'><?=Translate($LANG,'Оборудование');?></a> <span>/</span>               
+             </a>  <span>/</span>  <a href='equipment.php'><?=Translate($LANG,'Оборудование');?></a>          
           </div>
           <!-- конец хлебных крошек  -->
 
