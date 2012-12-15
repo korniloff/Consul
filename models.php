@@ -37,7 +37,7 @@ $opensubcode=$parentid;
           <!-- хлебные крошки -->
           <div class=krohi>
           <a href='<?=$mainurl;?>'><?=Translate($LANG,'Компания "Консул"');?>
-              </a>  <span>/</span>  <a href='equipment.php'><?=Translate($LANG,'Оборудование');?></a> <span>/</span> <a href="catalog.php?id=<?=$parentid?>"><?=$parentstatic['name']?></a><a><?=$catalogstatic['name']?></a>
+              </a>  <span>/</span>  <a href='equipment.php'><?=Translate($LANG,'Оборудование');?></a> <span>/</span> <a href="catalog.php?id=<?=$parentid?>"><?=$parentstatic['name']?></a><span>/</span><a><?=$catalogstatic['name']?></a>
              
           </div>
           <!-- конец хлебных крошек  -->

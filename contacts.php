@@ -31,8 +31,7 @@ include ("inc/head.php");
           <div class=krohi>
              <!-- <a href=<?=$PHP_SELF?>> <?=Translate($LANG,'Добро пожаловать');?>!</a> -->
             <a href='<?=$mainurl;?>'><?=Translate($LANG,'Компания "Консул"');?>
-             </a>  <span>/</span>  <a href='contacts.php'><?=Translate($LANG,'Контактная информация');?></a> <span>/</span>
-
+             </a>  <span>/</span>  <a href='contacts.php'><?=Translate($LANG,'Контактная информация');?></a> 
           </div>
           <!-- конец хлебных крошек  -->
 

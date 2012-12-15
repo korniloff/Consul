@@ -64,7 +64,7 @@ include ("inc/head.php");
           <div class=pnewstext>
 
             <div class=itemgallery>
-                <?php ItemGallery($id,$lang);?>
+                <?php ItemGallery($id,$LANG);?>
                 <!--  
                 <div class=itembpic id=ibp0><a href='images/item1.jpg' title='Комментарий к изображению' rel='lightbox[item]' target=_blank><img src="images/item1.jpg"  alt='комментарий к изображению' border=0></a></div>
                 <div class=itembpic id=ibp1 style='display:none;'><a href='images/item1-1.jpg' title='Комментарий к изображению' rel='lightbox[item]' target=_blank><img src="images/item1-1.jpg"  alt='комментарий к изображению' border=0></a></div>
@@ -99,9 +99,18 @@ include ("inc/head.php");
             <div class=pagenavigate>
 
              <div class=pnlinks>
-                 <a href="">&laquo; предыдущий</a>
+                 
+                 <?php  $previd=GetPrevEquip($id,$parentid);
+                     if ($previd>0)
+                     echo "<a href='item.php?id=$previd'>&laquo; ".Translate($LANG,'предыдущий')." &raquo;</a>";
+                     else echo Translate($LANG,'предыдущий');
+                 ?>
                  <span><a>|</a></span>
-                 <a href="">следующий &raquo;</a>
+                 <?php  $nextid=GetNexEquip($id,$parentid);
+                     if ($nextid>0)
+                     echo "<a href='item.php?id=$nextid'>".Translate($LANG,'следующий')." &raquo;</a>";
+                     else echo Translate($LANG,'следующий');
+                 ?>
                </div>
 
                <div class=alllinks>

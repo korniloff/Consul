@@ -45,6 +45,7 @@ include ("inc/head.php");
           <div class=pnewstext>
 
             <p>
+               <?=ConvertDate($news_date);?> <BR>
                <?=$news_text ?>
             </p>
 
@@ -59,13 +60,22 @@ include ("inc/head.php");
             <div class=pagenavigate>
 
              <div class=pnlinks>
-                 <a href="">&laquo; предыдущая</a>
+                 
+                 <?php  $previd=GetPrevNews($newsid, $news_date);
+                     if ($previd>0)
+                     echo "<a href='news.php?id=$previd'>&laquo;".Translate($LANG,'предыдующая')." </a>";
+                     else echo Translate($LANG,'предыдущая');
+                 ?>                                
                  <span><a>|</a></span>
-                 <a href="">следующая &raquo;</a>
+                 <?php  $nextid=GetNextNews($newsid, $news_date);
+                     if ($nextid>0)
+                     echo "<a href='news.php?id=$nextid'>".Translate($LANG,'следующая')."&raquo;</a>";
+                     else echo Translate($LANG,'следующая');
+                 ?>                                
                </div>
 
                <div class=alllinks>
-                 <a href="">Все новости</a>
+                 <a href="allnews.php"><?=Translate($LANG,'Все новости')?></a>
                </div>
 
             </div>

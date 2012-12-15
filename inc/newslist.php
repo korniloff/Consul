@@ -23,7 +23,7 @@
                  <div class=nlpic><a href='news.php?id=<?=$newsitem[0]?>'><img src='images/<?=$picname?>' alt='<?=$newsitem[4]?>' border=0></a></div>
                  <div class=nltext>
                    <h2><a href='news.php?id=<?=$newsitem[0]?>'><?=$newsitem[4]?></a></h2>
-                   <div class=nldate><?=$newsitem[1]?></div>
+                   <div class=nldate><?=ConvertDate($newsitem[1])?></div>
                    <?=$newsitem[2]?>
                    <div class=nlmore><a href='news.php?id=<?=$newsitem[0]?>'><?=Translate($LANG,'подробнее');?> »</a></div>
                  </div>
@@ -39,13 +39,16 @@
 
 
           <div class=pageline>
-            Страницы: <span>
             <?php
-            for ($i=1;$i<$page_quant+1;$i++)
- 			{
-   			  $y=$i-1;
-   			  if ($curr_page==$y) {$t1="<b>";$t2="</b>";} else {$t1="";$t2="";}
-   			  echo"<a href=$PHP_SELF?curr_page=$y>$t1 $i $t2|</a>&nbsp";
- 			}
+            if ($page_quant>1)
+            {	
+              echo "Страницы: <span>";
+              for ($i=1;$i<$page_quant+1;$i++)
+ 			  {
+   			    $y=$i-1;
+   			    if ($curr_page==$y) {$t1="<b>";$t2="</b>";} else {$t1="";$t2="";}
+   			    echo"<a href=$PHP_SELF?curr_page=$y>$t1 $i $t2|</a>&nbsp";
+ 			  }
+            }
  			?>
           </span> </div>
