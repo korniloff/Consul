@@ -4,6 +4,7 @@ $contactstatic=getStatic('contacts',$LANG);
 $meta_title=$contactstatic['seo_title'];
 $meta_desc=$contactstatic['seo_desc'];
 $meta_key=$contactstatic['seo_key'];
+$menuindex=7;
 include ("inc/head.php");
 //Branch GeorgeFront
 ?>

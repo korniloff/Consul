@@ -62,7 +62,8 @@ function getStatic($pagename,$lng)
 {$PREFFIX}_static.static_seo_key,
 {$PREFFIX}_static.static_abstract,
 {$PREFFIX}_static.static_url,
-{$PREFFIX}_static.static_name
+{$PREFFIX}_static.static_name,
+{$PREFFIX}_page.page_url
 FROM
 {$PREFFIX}_static
 INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
@@ -70,7 +71,7 @@ WHERE ({$PREFFIX}_page.page_name='$pagename') and (lang_code=$lng)
 ";
 
     $res=mysql_query($query);
-    list($static_text,$static_pos,$static_seo_title,$static_seo_desc,$static_seo_key,$static_abstact, $static_url,$static_name)=mysql_fetch_array($res);
+    list($static_text,$static_pos,$static_seo_title,$static_seo_desc,$static_seo_key,$static_abstact, $static_url,$static_name,$page_url)=mysql_fetch_array($res);
     $a=array("text"=>$static_text,
              "pos"=>$static_pos,
              "seo_title"=>$static_seo_title,
@@ -78,7 +79,8 @@ WHERE ({$PREFFIX}_page.page_name='$pagename') and (lang_code=$lng)
     		 "seo_key"=>$static_seo_key,
     		 "abstract"=>$static_abstact,
     		 "url"=>$static_url,
-    		 "name"=>$static_name
+    		 "name"=>$static_name,
+    		 "page_url"=>$page_url
              );
     return $a;
 }
@@ -772,7 +774,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	*/
 
 
-	function getEquipList($langcode,$catalogpage, $parentcode=0, $typeprint=0) {
+	function getEquipList($langcode,$catalogpage, $parentcode=0, $typeprint=0, $startpage=0) {
 		//catalogpage - страница перехода
 		global $PREFFIX;
 		$catalogquery="SELECT DISTINCT
@@ -794,6 +796,8 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		ORDER BY equip_pos";
 
 		$query = mysql_query("$catalogquery") or  die("Ошибка выборки каталога ".$catalogquery);
+		$per_page=10;
+		$i=0;
 		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$picbig,$static_abst,$page_url)= mysql_fetch_array($query))
 		{
 			$catalogquest=$catalogpage."?id=".$equip_code;
@@ -814,7 +818,9 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 					    print "</div>";
 					    print "</div>";
 					    break;
-				case 2: print "<div class=modelitem>";
+				case 2:  if (($i>=$startpage*$per_page) and ($i<($startpage+1)*$per_page))
+				       {
+					    print "<div class=modelitem>";
 			            print "<div class=mlpic> <a href='".$catalogquest."'><img src='images/".$picbig."' alt='".$static_name."'></a></div>";
 						print "<div class=mltext>";
 			            print "<h2><a href='".$catalogquest."'>".$static_name."</a></h2>";
@@ -822,7 +828,8 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 						print $static_abst;
 						print "<div class=nlmore><a href='".$page_url."'>документация</a> <span>|</span> <a href='".$catalogquest."'>подробная информация »</a></div>";
 						print "	</div>";
-						print "	</div>";
+						print "	</div>"; 
+				       }
 						break;	
 /*
 						<!--  блок модели -->
@@ -851,7 +858,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 			print "</div>";
             */
 		}
-
+     return (ceil($i/$per_page));
 
 	}
 
@@ -934,6 +941,17 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
    	return ceil($i/$per_page);
    }
 
+   
+   function mark ($curpage,$samplepage,$start)
+   {
+   	 if ($curpage-$samplepage) return "";
+   	 else 
+   	 {
+   	 	if ($start>0) return "<b>"; else return "</b>";
+   	 }
+   	 	 
+   }
+   
 	//************  George Sergeev *********
 
 

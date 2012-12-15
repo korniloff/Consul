@@ -4,6 +4,7 @@ $aboutstatic=getStatic('about us',$LANG);
 $meta_title=$aboutstatic['seo_title'];
 $meta_desc=$aboutstatic['seo_desc'];
 $meta_key=$aboutstatic['seo_key'];
+$menuindex=2;
 include ("inc/head.php");
 //Branch GeorgeFront
 ?>

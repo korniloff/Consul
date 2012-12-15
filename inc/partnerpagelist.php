@@ -23,13 +23,16 @@
 
 
           <div class=pageline>
-          Страницы:
-            <?php 
+          <?php           
+            if ($pagecount>1)
+            {	
+            echo "Страницы:";            
             for ($i=1;$i<$pagecount+1;$i++)
  			{
    			  $y=$i-1;
    			  if ($curr_page==$y) {$t1="<b>";$t2="</b>";} else {$t1="";$t2="";}
    			  echo"<a href=$PHP_SELF?curr_page=$y>$t1 $i $t2|</a>&nbsp";
  			} 
+            }
  			?>
           </div>

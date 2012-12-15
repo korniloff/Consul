@@ -1,5 +1,6 @@
 <?php
 include("inc/settings.php");
+$menuindex=6;
 include ("inc/head.php");
 //Branch GeorgeFront
 ?>

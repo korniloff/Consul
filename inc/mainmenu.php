@@ -1,13 +1,13 @@
     <!-- главное меню -->
     <!-- активный раздел выделяется <b></b>, последний раздел выделяется <span></span> -->
     <div class=topmenu>
-         <div class=mitem><b><li><a href='<?=$mainurl;?>'><?=Translate($LANG,'Главная');?></a></li></b></div>
-         <div class=mitem><li><a href='about.php'><?=Translate($LANG,'O компании');?></a></li></div>
-         <div class=mitem><li><a href='allnews.php'><?=Translate($LANG,'Новости');?></a></li></div>
-         <div class=mitem><li><a href='service.php'><?=Translate($LANG,'Услуги');?></a></li></div>
-         <div class=mitem><li><a href='equipment.php'><?=Translate($LANG,'Оборудование');?></a></li></div>
-         <div class=mitem><li><a href='partners.php'><?=Translate($LANG,'Партнеры');?></a></li></div>
-         <div class=mitem><span><li><a href='contacts.php'><?=Translate($LANG,'Контакты');?></a></li></span></div>
+         <div class=mitem><?=mark($menuindex,1,1);?><li><a href='<?=$mainurl;?>'><?=Translate($LANG,'Главная');?></a></li><?=mark($menuindex,1,0);?></div>
+         <div class=mitem><?=mark($menuindex,2,1);?><li><a href='about.php'><?=Translate($LANG,'O компании');?></a></li><?=mark($menuindex,2,0);?></div>
+         <div class=mitem><?=mark($menuindex,3,1);?><li><a href='allnews.php'><?=Translate($LANG,'Новости');?></a></li><?=mark($menuindex,3,0);?></div>
+         <div class=mitem><?=mark($menuindex,4,1);?><li><a href='service.php'><?=Translate($LANG,'Услуги');?></a></li><?=mark($menuindex,4,0);?></div>
+         <div class=mitem><?=mark($menuindex,5,1);?><li><a href='equipment.php'><?=Translate($LANG,'Оборудование');?></a></li><?=mark($menuindex,5,0);?></div>
+         <div class=mitem><?=mark($menuindex,6,1);?><li><a href='partners.php'><?=Translate($LANG,'Партнеры');?></a></li><?=mark($menuindex,6,0);?></div>
+         <div class=mitem><span><?=mark($menuindex,7,1);?><li><a href='contacts.php'><?=Translate($LANG,'Контакты');?></a></li><?=mark($menuindex,7,0);?></span></div>
     </div>
     <!-- конец главного меню -->
 

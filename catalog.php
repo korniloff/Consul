@@ -14,6 +14,7 @@ $catalogstatic=getCatalogStatic($id, $LANG);
 $meta_title=$catalogstatic['seo_title'];
 $meta_desc=$catalogstatic['seo_desc'];
 $meta_key=$catalogstatic['seo_key'];
+$menuindex=5;
 
 include ("inc/head.php");
 //Branch GeorgeFront
@@ -37,6 +38,7 @@ include ("inc/head.php");
           <!-- хлебные крошки -->
           <div class=krohi>
              <!-- <a href=<?=$PHP_SELF?>> <?=Translate($LANG,'Добро пожаловать');?>!</a> -->
+            <a href='<?=$mainurl;?>'><?=Translate($LANG,'Компания "Консул"');?> 
             </a>  <span>/</span>  <a href='equipment.php'><?=Translate($LANG,'Оборудование');?></a> <span>/</span> <a><?=$catalogstatic['name']?></a>
           </div>
           <!-- конец хлебных крошек  -->

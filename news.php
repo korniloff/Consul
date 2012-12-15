@@ -8,6 +8,7 @@ $meta_key = заголовок новости если не перекрыта на статике
 */
 $newsid=$_GET['id'];
 $newsitem=getnewsbyid($LANG,$newsid);
+$menuindex=3;
 list($news_date,$news_name,$news_abstract,$news_text,$meta_title,$meta_desc,$meta_key,$pagecode,$pagename)=$newsitem;
 include ("inc/head.php");
 //Branch GeorgeFront
