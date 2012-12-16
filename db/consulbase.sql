@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 16 2012 г., 01:08
+-- Время создания: Дек 16 2012 г., 19:57
 -- Версия сервера: 5.1.50
 -- Версия PHP: 5.3.14
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `consul_dict` (
   `dict_ru` varchar(250) NOT NULL,
   `dict_en` varchar(250) NOT NULL,
   PRIMARY KEY (`dict_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=39 ;
 
 --
 -- Дамп данных таблицы `consul_dict`
@@ -102,7 +102,12 @@ INSERT INTO `consul_dict` (`dict_code`, `dict_ru`, `dict_en`) VALUES
 (30, 'Все оборудование', 'All equipment by'),
 (31, 'следующая', 'next'),
 (32, 'Все новости', 'All news'),
-(33, 'предыдующая', 'previous');
+(33, 'предыдующая', 'previous'),
+(34, 'Введите, пожалуйста, Ваше имя', 'Enter your name, please'),
+(35, 'Введите, пожалуйста, E-Mail', 'Enter E-Mail,please'),
+(36, 'Введите, пожалуйста, страну', 'Enter country,please'),
+(37, 'Введите, пожалуйста, телефон', 'Enter phone, please'),
+(38, 'Введите, пожалуйста, сообщение', 'Type message, please');
 
 -- --------------------------------------------------------
 
