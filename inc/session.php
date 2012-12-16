@@ -1,6 +1,6 @@
 <? session_start(); 
 $thisurl=$_SERVER['REQUEST_URI'];
-if(!isset($_GET['ln']) and (!isset($_SESSION['LANG'])))
+if (!isset($_SESSION['LANG']))
 		{		
          $_SESSION['LANG']=1;
          $_SESSION['lng']="ru";

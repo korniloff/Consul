@@ -1,12 +1,50 @@
 function isEmpty(str) {
-   for (var i = 0; i < str.length; i++)
-      if (" " != str.charAt(i))
-          return false;
-      return true;
+    if (encodeURI(str).length  <  1)
+   {
+     alert("Введите, пожалуйста, Ваше имя!");
+     contform.clientname.focus();
+     return  false;
+   } else return true;
 }
 
 function send()
 {
+str  =  contform.clientname.value;
+   if (encodeURI(str).length  <  1)
+   {
+     alert("Введите, пожалуйста, Ваше имя!");
+     contform.clientname.focus();
+     return  false;
+   }
+str  =  contform.clientmail.value;
+   if (encodeURI(str).length  <  1)
+   {
+     alert("Введите, пожалуйста, E-Mail!");
+     contform.clientmail.focus();
+     return  false;
+   }
+str  =  contform.clientcountry.value;
+   if (encodeURI(str).length  <  1)
+   {
+     alert("Введите, пожалуйста, страну!");
+     contform.clientcountry.focus();
+     return  false;
+   }
+str  =  contform.clientphone.value;
+   if (encodeURI(str).length  <  1)
+   {
+     alert("Введите, пожалуйста, телефон!");
+     contform.clientphone.focus();
+     return  false;
+   }
+str  =  contform.message.value;
+   if (encodeURI(str).length  <  1)
+   {
+     alert("Введите, пожалуйста, сообщение!");
+     contform.message.focus();
+     return  false;
+   }
+
  
 var data = 'Господин '+ $('#clientname').val()+' E-mail: '+
             $('#clientmail').val() + ' Страна: '+$('#clientcountry').val()+
