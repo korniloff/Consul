@@ -9,9 +9,9 @@ include ("inc/head.php");
 //Branch GeorgeFront
 ?>
 
-<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/jquery-1.8.3.js"></script>
 <script src="js/lightbox.js"></script>
-
+<script type="text/javascript" src="js/senddata.js"></script>
 
 <body>
 
@@ -31,7 +31,7 @@ include ("inc/head.php");
           <div class=krohi>
              <!-- <a href=<?=$PHP_SELF?>> <?=Translate($LANG,'Добро пожаловать');?>!</a> -->
             <a href='<?=$mainurl;?>'><?=Translate($LANG,'Компания "Консул"');?>
-             </a>  <span>/</span>  <a href='contacts.php'><?=Translate($LANG,'Контактная информация');?></a> 
+             </a>  <span>/</span>  <a href='contacts.php'><?=Translate($LANG,'Контактная информация');?></a>
           </div>
           <!-- конец хлебных крошек  -->
 
