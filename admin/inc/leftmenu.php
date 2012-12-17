@@ -1,3 +1,4 @@
+
 <td class=leftpanel>
 
 <table CellSpacing=0 CellPadding=0>
@@ -30,6 +31,13 @@ if(isAllowed(("rnews")) || (isAllowed("requipment")) || (isAllowed("rpartner")))
 	if (isAllowed("rpartner")) echo"<div class=lmenupart>&#187;&nbsp; <b><a href=\"partnerpage.php\">Партнеры</a></b></div>";
 }
  
+if (strstr($_SERVER['PHP_SELF'],"catalogpage.php"))
+{	
+ echo "<p><div class=lmenupart><b>Оборудование</b></div>";
+ echo "<div class='jquery-tree'>";
+view_tree(1);
+echo "</div>";
+}		
 ?>
 
 

@@ -1,6 +1,6 @@
 <?php
 include("inc/settings.php");
-$per_page=50;
+$per_page=30;
 $oper=$_POST['oper'];
 
 if(!isAllowed("rtext")) {die("У Вас недостаточно прав для просмотра этой страницы");}
@@ -261,7 +261,7 @@ echo"</div><br>";
 <table Border=0 CellSpacing=1 class=bluetable CellPadding=4 width=100%>
   <tr class=lmenutext height=20 align=center bgcolor=#ffffff>
     <td width=20>&nbsp;</td>
-    <td width=40><?=SortTitle("Код","dict_code",$sortby,$sortdir);?></td>
+    <td width=50><?=SortTitle("Код","dict_code",$sortby,$sortdir);?></td>
     <td><?=SortTitle("На русском","dict_ru",$sortby,$sortdir);?></td>
     <td><?=SortTitle("На английском","dict_en",$sortby,$sortdir);?></td>
   </tr>

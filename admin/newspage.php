@@ -282,7 +282,7 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
     <td width=20>&nbsp;</td>
     <td width="80"><?=SortTitle("Дата","news_date",$sortby,$sortdir);?></td>
     <td><?=SortTitle("Заголовок","page_name",$sortby,$sortdir);?></td>
-    <td width="50"><?=SortTitle("Активность","page_active",$sortby,$sortdir);?></td>
+    <td width="60"><?=SortTitle("Актив.","page_active",$sortby,$sortdir);?></td>
   <!--    <td width="180"><?=SortTitle("URL","news_URL",$sortby,$sortdir);?></td> -->
     <td width=40>Текст</td>
     <td width=40>SEO</td>

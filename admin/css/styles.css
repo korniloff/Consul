@@ -67,8 +67,8 @@ H4 {text-decoration:none; font-weight:normal; color:#ffffff; padding:0; margin:0
 .submenulink {margin-top:5px; }
 
 p {text-decoration:none; padding:0; margin-top:10px; margin-bottom:0px;}
-ul {text-decoration:none; padding:0; margin-top:5px; margin-bottom:0px; margin-right:0px; margin-left:16px;}
-li {text-decoration:none; padding:0; margin-top:0px; margin-bottom:3px; margin-right:0px; margin-left:0px;}
+ul {text-decoration:none; padding:0; margin-top:5px; margin-bottom:0px; margin-right:0px; margin-left:16px;font-size:10px;}
+li {text-decoration:none; padding:0; margin-top:0px; margin-bottom:3px; margin-right:0px; margin-left:0px;font-size:9px;}
 
 .justtext  {
     text-decoration : none;
@@ -104,3 +104,6 @@ li {text-decoration:none; padding:0; margin-top:0px; margin-bottom:3px; margin-r
 .bg {background-color: #9999FF;}
 .arr {position:relative;top:1px;}
 .space{margin-top:5px;}
+
+
+

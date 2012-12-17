@@ -1,14 +1,15 @@
 <?php
 include("inc/settings.php");
 $per_page=30;
+$maxlevel=2;
 $oper=$_POST['oper'];
 //$equip_parent=$_POST['equip_parent'];
 
 if(!isAllowed("requipment")) {die("У Вас недостаточно прав для просмотра этой страницы");}
-if($sortby) $tmp="&sortby=$sortby&sortdir=$sortdir"; else $tmp="";
+if($sortby) $sortparam="&sortby=$sortby&sortdir=$sortdir"; else $sortparam="";
 if (!isset($equip_parent)) $equip_parent=0;
 if (!isset($curr_page)) $curr_page=0;
-$_SESSION["pageback"]="$PHP_SELF?curr_page=$curr_page&equip_parent=$equip_parent$tmp";
+$_SESSION["pageback"]="$PHP_SELF?curr_page=$curr_page&equip_parent=$equip_parent$sortparam";
 //$backpage="newspage.php";
 if(!($sortby)) $sortby='page_name'; else {$sortby=explode(" ",$sortby);$sortby=$sortby[0];}
 
@@ -42,7 +43,13 @@ $query="insert into {$PREFFIX}_page (page_name,  page_active, page_type) values(
 $result=mysql_query($query) or $err=1;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
 if (!$err)
 {	
-  $page_code=mysql_insert_id();
+ $page_code=mysql_insert_id();
+ $query="insert into {$PREFFIX}_static (page_code,static_name,static_text,lang_code,static_abstract)
+       values($page_code,'".mysql_escape_string($page_name)."','',1,'')";
+  $result=mysql_query($query) or $err=2;
+}
+if (!$err)
+{	
   $res=mysql_query("update {$PREFFIX}_equip set equip_pos=equip_pos+1 where equip_pos>=$equip_pos and {$PREFFIX}_equip.equip_parent=$equip_parent");	
   $query="insert into {$PREFFIX}_equip (equip_pos,equip_url,page_code, equip_parent) values('$equip_pos','$equip_url',$page_code, $equip_parent)";
   $result=mysql_query($query) or $err=1;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
@@ -110,7 +117,7 @@ if (!strcasecmp($oper,"U"))
 //  RenumeratePos("{$PREFFIX}_static","static_code","static_pos","part_code",$part_code);
 
 }//if  (UPD)   
-   header("Location: $PHP_SELF?err=$err&equip_parent=$equip_parent$tmp");
+   header("Location: $PHP_SELF?err=$err&equip_parent=$equip_parent$sortparam");
 }//empty
 ?>
 
@@ -182,7 +189,33 @@ if (confirm('Вы уверены, что хотите удалить элемент каталога?'))
 
 <table Border=0 CellSpacing=0 CellPadding=0 width=100%>
   <tr><td class=pageline>
-     <div class=wmiddletext><a href="main.php">Администрирование сайта</a></div>
+
+<?php 
+//*********************  Поиск по дереву  *******************************
+$ep=$equip_parent;
+$level=0;
+$outs="";
+while ($ep)
+{$level++;
+ $pq="SELECT
+ {$PREFFIX}_equip.equip_code,
+ {$PREFFIX}_equip.equip_parent,
+ {$PREFFIX}_page.page_name
+ FROM
+ {$PREFFIX}_equip
+ INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_equip.page_code = {$PREFFIX}_page.page_code
+ WHERE {$PREFFIX}_equip.equip_code=$ep";
+
+ $res=mysql_query($pq) or die("Incorrect Equip queery: ".$pq) ;
+ list($ec,$ep,$en)=mysql_fetch_array($res);
+ $outs="<a href=$PHP_SELF?equip_parent=$ec$sortparam>$en</a> / ".$outs;
+}
+$outs="<a href=$PHP_SELF>Оборудование</a> / ".$outs;
+echo " <div class=wmiddletext> &nbsp <a href='main.php'>Администрирование сайта</a> / ". $outs."</div>" 
+//*********************  Поиск по дереву  *******************************
+?>
+     
+     
   </td></tr>
 </table>
 &nbsp;
@@ -314,10 +347,11 @@ $max_pos++;
     <td width=20>&nbsp;</td>
     <td><?=SortTitle("Позиция","equip_pos",$sortby,$sortdir);?></td>
     <td><?=SortTitle("Наименование элемента","page_name",$sortby,$sortdir);?></td>
-    <td width="50"><?=SortTitle("Активность","page_active",$sortby,$sortdir);?></td>
+    <td width="60"><?=SortTitle("Актив.","page_active",$sortby,$sortdir);?></td>
 <!--      <td width="180"><?=SortTitle("URL","equip_URL",$sortby,$sortdir);?></td>
 -->
-    <td width=40>Подкаталог</td>
+   <?php if ($level<$maxlevel) echo "<td width=40>Подкаталог</td>";
+   ?>
     <td width=40>Текст</td>
     <td width=40>SEO</td>
     <td width=30>Фото</td>
@@ -345,6 +379,7 @@ $num_rows=mysql_num_rows($res);  //Количество строк
     //     echo"<TD align=center class=smalltext ondblclick='change_line(\"$checkname\",\"F#$checkname#equip_url#string\");' id=\"F#$checkname#equip_url#string\">".Show($equip_url)."</TD>\n"; 
     //    echo"<TD align=center class=smalltext align=center  ondblclick='change_line(\"$checkname\",\"F#$checkname#static_pos#int\");' id=\"F#$checkname#static_pos#int\">".Show($static_pos)."</TD>\n";
     //     <а href="javascript:toFunction(10,'text')" >Ссылка</а>
+         if ($level<$maxlevel) 
          echo"<td align=center ><a href='javascript:GotoSub($equip_code)'><img height='20' width='20' src='graph/subitem.gif' border=0 title='Подкаталог'></a></td>";
          echo"<td align=center ><a href='editstatic.php?page_code=$page_code&page_name=$page_name'><img height='20' width='20' src='graph/edit.gif' border=0 title='Текст страницы'></a></td>";
          echo"<td align=center ><a href='editseo.php?page_code=$page_code&page_name=$page_name'><img height='20' width='20' src='graph/edit.gif' border=0 title='SEO'></a></td>";

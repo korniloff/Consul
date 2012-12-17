@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 16 2012 г., 19:57
+-- Время создания: Дек 17 2012 г., 11:42
 -- Версия сервера: 5.1.50
 -- Версия PHP: 5.3.14
 
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `consul_equip` (
   `equip_url` varchar(250) CHARACTER SET cp1256 DEFAULT NULL,
   `equip_parent` int(11) NOT NULL,
   PRIMARY KEY (`equip_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
 
 --
 -- Дамп данных таблицы `consul_equip`
@@ -155,7 +155,19 @@ INSERT INTO `consul_equip` (`equip_code`, `equip_icon`, `equip_pos`, `page_code`
 (29, NULL, 2, 45, '', 1),
 (30, NULL, 1, 46, '', 28),
 (31, NULL, 1, 47, '', 29),
-(32, NULL, 2, 48, '', 29);
+(32, NULL, 2, 48, '', 29),
+(36, NULL, 1, 52, '', 2),
+(37, NULL, 2, 53, '', 2);
+
+--
+-- Триггеры `consul_equip`
+--
+DROP TRIGGER IF EXISTS `delete_equip`;
+DELIMITER //
+CREATE TRIGGER `delete_equip` BEFORE DELETE ON `consul_equip`
+ FOR EACH ROW DELETE FROM consul_page where consul_page.page_code=OLD.page_code
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -204,6 +216,16 @@ INSERT INTO `consul_news` (`news_code`, `news_date`, `news_url`, `page_code`) VA
 (4, '2012-12-09', 'http://www.korabel.ru/news/comments/kompaniya_navmarin_zavershila_razrabotku_i_pristupila_k_vipusku_dvuh_modeley_kommutatorov_signalov_nmea-soobshcheniy_navcom_beta-100_i_beta-110.html', 33),
 (5, '2012-12-09', 'http://www.korabel.ru/news/comments/rasprodazha_aksessuarov_sailor_5000_serii.html', 34);
 
+--
+-- Триггеры `consul_news`
+--
+DROP TRIGGER IF EXISTS `delete_news`;
+DELIMITER //
+CREATE TRIGGER `delete_news` BEFORE DELETE ON `consul_news`
+ FOR EACH ROW DELETE FROM consul_page where consul_page.page_code=OLD.page_code
+//
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -218,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `consul_page` (
   `page_url` varchar(255) CHARACTER SET cp1251 DEFAULT NULL,
   `page_type` varchar(10) NOT NULL DEFAULT 'static',
   PRIMARY KEY (`page_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=54 ;
 
 --
 -- Дамп данных таблицы `consul_page`
@@ -258,7 +280,19 @@ INSERT INTO `consul_page` (`page_code`, `page_name`, `page_active`, `page_url`, 
 (45, 'Navipilot', 1, '', 'catalog'),
 (46, 'Saura SA-10', 1, 'http://www.nichigosan.co.jp/saura/htm/company.htm', 'catalog'),
 (47, 'Navipilot 4000', 1, 'http://www.sperrymarine.com/products/autopilot-steering-control-systems/navipilot-4000', 'catalog'),
-(48, 'Navipilot 4000 HSC ', 1, 'http://www.sperrymarine.com/products/navipilot-4000-hsc', 'catalog');
+(48, 'Navipilot 4000 HSC ', 1, 'http://www.sperrymarine.com/products/navipilot-4000-hsc', 'catalog'),
+(52, 'АРБ', 1, NULL, 'catalog'),
+(53, 'РЛО', 1, NULL, 'catalog');
+
+--
+-- Триггеры `consul_page`
+--
+DROP TRIGGER IF EXISTS `deletepage`;
+DELIMITER //
+CREATE TRIGGER `deletepage` BEFORE DELETE ON `consul_page`
+ FOR EACH ROW DELETE FROM consul_static where consul_static.page_code=OLD.page_code
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -284,6 +318,16 @@ INSERT INTO `consul_partner` (`partner_code`, `partner_pos`, `partner_onmain`, `
 (1, 1, 0, 15, 'http://dic.academic.ru/dic.nsf/bse/148321/%D0%A6%D0%9A'),
 (2, 2, 1, 16, 'http://www.gazprom.ru/'),
 (3, 3, 1, 38, 'http://en.seafood.no/');
+
+--
+-- Триггеры `consul_partner`
+--
+DROP TRIGGER IF EXISTS `delete_partner`;
+DELIMITER //
+CREATE TRIGGER `delete_partner` BEFORE DELETE ON `consul_partner`
+ FOR EACH ROW DELETE FROM consul_page where consul_page.page_code=OLD.page_code
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -365,7 +409,7 @@ CREATE TABLE IF NOT EXISTS `consul_static` (
   `static_abstract` text,
   `static_url` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`static_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=89 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=94 ;
 
 --
 -- Дамп данных таблицы `consul_static`
@@ -441,4 +485,6 @@ INSERT INTO `consul_static` (`static_code`, `page_code`, `static_name`, `static_
 (85, 47, 'Navipilot 4000', '<p><span><strong>Navipilot 4000&nbsp;</strong>- это авторулевой, управляющий судном по сети NMEA 2000. Предназначен для использования на судах любого типа. Имеет сертификат одобрения Российского Морского Регистра Судоходства. Прибор автоматически адаптируется к характиристикам нагрузок судна и погодным условиям, что обесмечивает экономию топлива и повышение безопасности.&nbsp;<strong>Navipilot 4000&nbsp;</strong>оборудован ярким высокочетким дисплеем, на котором удобно отображается следующая информация:</span></p>\r\n<p>&nbsp;</p>\r\n<ul>\r\n<li><span><span>Текущий курс (цифровой)</span></span></li>\r\n<li><span><span>Установленный курс</span></span></li>\r\n<li><span><span>Переопределение статуса</span></span></li>\r\n<li><span><span>Режим управления (AUTO / MAN / NAV)</span></span></li>\r\n<li><span><span>&nbsp;Параметры:<span class="apple-converted-space">&nbsp;</span></span></span>\r\n<ul>\r\n<li><span><span>- Угол поворота руля</span></span></li>\r\n<li><span><span>- Поворот</span></span></li>\r\n<li><span><span>- Радиус</span></span></li>\r\n<li><span><span>- Погода</span></span></li>\r\n</ul>\r\n</li>\r\n<li><span><span>Выбор предустановленного курса</span></span></li>\r\n<li><span><span>1/10 &deg; шагом набора курса</span></span></li>\r\n</ul>\r\n<p><span><span>&nbsp;</span><span>Дополнительная информация:</span></span><span><br /></span></p>\r\n<ul>\r\n<li><span><span>Режим нагрузки</span></span></li>\r\n<li><span><span>Скорость (AUTO / MAN)</span></span></li>\r\n<li><span><span>Чтобы руля или</span></span></li>\r\n<li><span><span>Фактический угол наклона руля</span></span></li>\r\n<li><span><span>Скорость поворота</span></span></li>\r\n<li><span><span>Сообщения об ошибке</span></span></li>\r\n<li><span><span>Тревога</span></span></li>\r\n<li><span><span>Сигнализация при разнице курсов</span></span></li>\r\n</ul>\r\n<p>&nbsp;</p>', 0, NULL, NULL, NULL, 1, '<p><strong>Navipilot 4000&nbsp;</strong>- это авторулевой, управляющий судном по сети NMEA 2000. Предназначен для использования на судах любого типа. Имеет сертификат одобрения Российского Морского Регистра Судоходства.&nbsp;</p>', '../files/navipilot4000.pdf'),
 (86, 47, 'Navipilot 4000', '<p>The innovative NAVIPILOT 4000 Autopilot is the first marine heading control system which uses ship steering control network technology to control a ship. The NAVIPILOT 4000 Autopilot is capable of turning itself to adapt automatically to the ship&rsquo;s load characteristics and weather conditions for safety and cost saving.</p>\r\n<p><strong>Key benefits:</strong></p>\r\n<ul>\r\n<li>Fully self-tuning, adaptive heading control</li>\r\n<li>Manual selection of steering strategy to suit weather conditions</li>\r\n<li>Rate and radius control modes</li>\r\n<li>Meets the requirements of all major classification societies</li>\r\n<li>\r\n<p>Ease of use with logical arrangement of sealed foil keyboard</p>\r\n</li>\r\n</ul>', 0, NULL, NULL, NULL, 2, '<p><span>The innovative NAVIPILOT 4000 Autopilot is the first marine heading control system which uses ship steering control network technology to control a ship. The NAVIPILOT 4000 Autopilot is capable of turning itself to adapt automatically to the ship&rsquo;s load characteristics and weather conditions for safety and cost saving.</span></p>', '../files/navipilot4000.pdf'),
 (87, 48, 'Navipilot 4000 HSC ', '<p>Морской автопилот является первым официально утвержденному типу морских Автопилот предназначен для применения во всем мире на всех типах судов - водоизмещающих судов, гидросамолетов, высокая скорость однокорпусников и катамаранов.NAVIPILOT HSC Морской автопилот был создан с помощью самых современных компьютерных программ для обеспечения высочайшего экономии топлива и низких эксплуатационных требований.</p>\r\n<p>NAVIPILOT V HSC морской автопилот может быть подключен к любому типу руля, а также струи воды контролем. Созданный с применением самых современных компьютерных программ для обеспечения высочайшего экономии топлива и низких эксплуатационных требований, эта морская автопилот обеспечивает оператору отличный контроль для всех типов судов, включая высокоскоростные суда. Он также превышает требования Резолюции ИМО A.822 (19) высокоскоростных судов (HSC Code).Очень современный дизайн блока управления включает на заказ и четко изложены полупрозрачный жидкокристаллический дисплей, который постоянно указывает всю информацию, требуемую современным требованиям навигации:</p>', 0, NULL, NULL, NULL, 1, '<p><span>Это авторулевой, который можно использовать на скоростных судах.</span></p>', NULL),
-(88, 48, 'Navipilot 4000 HSC ', '<p><span><span>AUTOPILOT - NAVIPILOT V HSC:&nbsp;<span>H</span>igh-<span>S</span>peed&nbsp;<span>C</span>raft Type Approved Marine Autopilot.</span></span></p>\r\n<p><span><span>The NAVIPILOT High Speed Craft Marine Autopilot is the first type approved marine autopilot designed for application worldwide on all types of vessels - displacement ships, hydroplanes, high speed monohulls and catamarans. The NAVIPILOT HSC Marine Autopilot was created with the most modern computer programs to provide the highest fuel economy and low operational demands.</span></span></p>\r\n<p><span><span>NAVIPILOT V HSC marine autopilot can be interfaced to any type of rudder and also water jet control. Created with the most modern computer programs to provide the highest fuel economy and low operational demands, this marine autopilot provides the operator with perfect control for all types of vessels including high-speed craft. It also exceeds the demands of IMO Resolution A.822(19) High-Speed Craft (HSC Code). The very modern design of the control unit includes a tailor-made and clearly laid out transflective liquid crystal display, which permanently indicates all information required by contemporary navigation demands:</span></span></p>\r\n<ul>\r\n<li>\r\n<div><span><span>Current heading</span></span></div>\r\n</li>\r\n<li>\r\n<div><span><span>Set heading (course to steer)</span></span></div>\r\n</li>\r\n<li>\r\n<div><span><span>Rudder angle (analogue &plusmn;35&deg;)</span></span></div>\r\n</li>\r\n<li>\r\n<div><span><span>Steering mode (AUTO/MAN/NAV)</span></span></div>\r\n</li>\r\n<li>\r\n<div><span><span>Parameters for:&nbsp;<br />- rudder limit&nbsp;<br />- weather&nbsp;<br />- rate (&deg;/min.) or radius&nbsp;<br />- speed (knots)&nbsp;<br />- load (%)&nbsp;<br />- off course alarm&nbsp;<br />- magnetic variation</span></span></div>\r\n</li>\r\n</ul>\r\n<p><br /><span><span>Changes in parameter and heading settings are carried out by a single analogue cardinal control disk.</span></span></p>\r\n<p><span><span><span><strong><span>Model Variations</span></strong></span></span></span></p>', 0, NULL, NULL, NULL, 2, '<p>The NAVIPILOT High Speed Craft Marine Autopilot is the first type approved marine autopilot designed for application worldwide on all types of vessels - displacement ships, hydroplanes, high speed monohulls and catamarans.</p>', NULL);
+(88, 48, 'Navipilot 4000 HSC ', '<p><span><span>AUTOPILOT - NAVIPILOT V HSC:&nbsp;<span>H</span>igh-<span>S</span>peed&nbsp;<span>C</span>raft Type Approved Marine Autopilot.</span></span></p>\r\n<p><span><span>The NAVIPILOT High Speed Craft Marine Autopilot is the first type approved marine autopilot designed for application worldwide on all types of vessels - displacement ships, hydroplanes, high speed monohulls and catamarans. The NAVIPILOT HSC Marine Autopilot was created with the most modern computer programs to provide the highest fuel economy and low operational demands.</span></span></p>\r\n<p><span><span>NAVIPILOT V HSC marine autopilot can be interfaced to any type of rudder and also water jet control. Created with the most modern computer programs to provide the highest fuel economy and low operational demands, this marine autopilot provides the operator with perfect control for all types of vessels including high-speed craft. It also exceeds the demands of IMO Resolution A.822(19) High-Speed Craft (HSC Code). The very modern design of the control unit includes a tailor-made and clearly laid out transflective liquid crystal display, which permanently indicates all information required by contemporary navigation demands:</span></span></p>\r\n<ul>\r\n<li>\r\n<div><span><span>Current heading</span></span></div>\r\n</li>\r\n<li>\r\n<div><span><span>Set heading (course to steer)</span></span></div>\r\n</li>\r\n<li>\r\n<div><span><span>Rudder angle (analogue &plusmn;35&deg;)</span></span></div>\r\n</li>\r\n<li>\r\n<div><span><span>Steering mode (AUTO/MAN/NAV)</span></span></div>\r\n</li>\r\n<li>\r\n<div><span><span>Parameters for:&nbsp;<br />- rudder limit&nbsp;<br />- weather&nbsp;<br />- rate (&deg;/min.) or radius&nbsp;<br />- speed (knots)&nbsp;<br />- load (%)&nbsp;<br />- off course alarm&nbsp;<br />- magnetic variation</span></span></div>\r\n</li>\r\n</ul>\r\n<p><br /><span><span>Changes in parameter and heading settings are carried out by a single analogue cardinal control disk.</span></span></p>\r\n<p><span><span><span><strong><span>Model Variations</span></strong></span></span></span></p>', 0, NULL, NULL, NULL, 2, '<p>The NAVIPILOT High Speed Craft Marine Autopilot is the first type approved marine autopilot designed for application worldwide on all types of vessels - displacement ships, hydroplanes, high speed monohulls and catamarans.</p>', NULL),
+(92, 52, 'АРБ', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(93, 53, 'РЛО', '', 0, NULL, NULL, NULL, 1, '', NULL);
