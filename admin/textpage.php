@@ -268,8 +268,8 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
   <tr class=lmenutext align=center  height=20 bgcolor=#ffffff>
     <td width=20>&nbsp;</td>
     <td  align=center ><?=SortTitle("Название страницы","page_name",$sortby,$sortdir);?></td>
-    <td  align=center ><?=SortTitle("Активность","page_active",$sortby,$sortdir);?></td>
-<!--    <td  align=center >URL страницы</td> -->
+<!--    <td  align=center ><?=SortTitle("Активность","page_active",$sortby,$sortdir);?></td>
+    <td  align=center >URL страницы</td> -->
     <td width=130 align=center >Текст страницы</td>
     <td width=60 align=center >SEO</td>
     <td width=60 align=center >Фоторяд</td>
@@ -296,7 +296,7 @@ $res=mysql_query ($mainquery) or die ("Не могу выбрать страницы. Ошибка в запрос
     echo"<TD width=20 align=center ><input type='checkbox' name=\"C#$checkname\" id=\"C#$checkname\"></TD>";
     echo"<TD align=left class=smalltext ondblclick='change_line(\"$checkname\",\"F#$checkname#page_name#string\");' id=\"F#$checkname#page_name#string\">".Show($page_name)."</TD>\n";
 //    echo"<TD align=center class=smalltext id=\"F#$checkname#static_url#string\">".Show($static_url)."</TD>\n";
-    echo"<TD class=smalltext align=center  ondblclick='change_yes_no(\"$checkname\",\"F#$checkname#page_active#int\");' id=\"F#$checkname#page_active#int\">".Show($page_active)."</TD>\n";
+//    echo"<TD class=smalltext align=center  ondblclick='change_yes_no(\"$checkname\",\"F#$checkname#page_active#int\");' id=\"F#$checkname#page_active#int\">".Show($page_active)."</TD>\n";
 //    echo"<TD align=center class=smalltext align=center  ondblclick='change_line(\"$checkname\",\"F#$checkname#static_pos#int\");' id=\"F#$checkname#static_pos#int\">".Show($static_pos)."</TD>\n";
     echo"<td align=center ><a href='editstatic.php?page_code=$page_code&page_name=$page_name'><img height='20' width='20' src='graph/edit.gif' border=0 title='Текст страницы'></a></td>";
     echo"<td align=center ><a href='editseo.php?page_code=$page_code&page_name=$page_name'><img height='20' width='20' src='graph/edit.gif' border=0 title=''></a></td>";
