@@ -11,10 +11,10 @@ $_SESSION["pageback"]="textpage.php?curr_page=$curr_page";
 if(!($sortby)) $sortby='page_name'; else {$sortby=explode(" ",$sortby);$sortby=$sortby[0];}
 
 if(!isset($sortdir)) {$sortdir="1";$realsortdir="ASC"; }
-else 
+else
 {
- if($sortdir==0) {$realsortdir="DESC";} else {$sortdir=1;$realsortdir="ASC";} 
-}                                                                                                   
+ if($sortdir==0) {$realsortdir="DESC";} else {$sortdir=1;$realsortdir="ASC";}
+}
 
 if (!isset($pagetype)) $pagetype="static";
 
@@ -57,11 +57,11 @@ if ($oper=="D")
       if ( ($varName=="C")&&($value=="on"))
       {
          $err=0;
-         
+
          $query = "delete from {$PREFFIX}_page where page_code=$varCode";
          $resultdel = mysql_query($query) or $err+=10;
       }
-  } 
+  }
 }//oper=D
 
 if (!strcasecmp($oper,"U"))
@@ -105,7 +105,7 @@ function Send(a)
 document.data.oper.value=a;
 document.data.submit();
 }
-                
+
 function change_yes_no(Check,Unit){
 Elem=document.getElementById("C#"+Check);
 Elem.checked=true;
@@ -117,7 +117,7 @@ if (value.indexOf('<SELECT')>=0) return ;
 res = "<SELECT style='width:100%' class=smalltext name='"+name+"'><OPTION VALUE=0>нет</OPTION><OPTION VALUE=1>да</OPTION></SELECT>";
 Unit.innerHTML = res;
 }
-                
+
 
 function change_line(Check,Unit)
 {
@@ -135,7 +135,7 @@ Unit.innerHTML = res;
 
 function ConfirmSend(a)
 {
-if (confirm('Вы уверены, что хотите удалить услугу?'))
+if (confirm('Вы уверены, что хотите удалить стрианицу?'))
  {
     document.data.oper.value=a;
     document.data.submit();
@@ -159,7 +159,7 @@ msg=window.open(urlstr,"EditWindow"+code,"toolbar=no,directories=no,menubar=no,s
 
 <table Border=0 CellSpacing=0 CellPadding=0 width=100%>
   <tr><td class=pageline>
-     <div class=wmiddletext><a href="main.php">Администрирование сайта</a> &#187;</div>
+     <div class=wmiddletext><a href="main.php">Администрирование сайта</a> &#187; <a>Текстовые страницы</a></div>
   </td></tr>
 </table>
 &nbsp;
@@ -183,8 +183,8 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
 
 <table class=grayhead Border=0 CellSpacing=0 CellPadding=0 >
  <tr class=normaltext>
-  <td ><div ><h4><?=$part_name;?></h4></div></td>
-  <td align=right class=wmiddletext><a class=submenu onclick="displayform(this,'добавить страницу')">добавить страницу</a></td>  
+  <td ><div ><h4>Текстовые страницы</h4></div></td>
+  <td align=right class=wmiddletext><a class=submenu onclick="displayform(this,'добавить страницу')">добавить страницу</a></td>
  </tr>
 </table>
 
@@ -200,7 +200,7 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
     <td class=lmenutext>Название:</td>
     <td width=5></td>
     <td><input name='page_name' type=text style="width:250px" class=smalltext></td>
- </tr>  
+ </tr>
  </table>
  </td>
 
@@ -252,8 +252,8 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
            <option value="%" <?php if ($pagetype=="%") echo "selected"; ?>> все </option>
         </select>
    </td>
-   
-   <td><input type=button onClick=Send('U') value='изменить отмеченные' class=smalltext></td> 
+
+   <td><input type=button onClick=Send('U') value='изменить отмеченные' class=smalltext></td>
    <td width=5></td>
    <td><input type=button onClick=ConfirmSend('D') value='удалить отмеченные'  class=smalltext></td>
  </tr>
@@ -265,13 +265,13 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
 <center>
 <table Border=0 CellSpacing=1 class=bluetable CellPadding=4 width=100%>
   <tr class=lmenutext align=center  height=20 bgcolor=#ffffff>
-    <td width=20>&nbsp;</td>  
+    <td width=20>&nbsp;</td>
     <td  align=center ><?=SortTitle("Название страницы","page_name",$sortby,$sortdir);?></td>
-    <td  align=center ><?=SortTitle("Активность","page_active",$sortby,$sortdir);?></td>   
+    <td  align=center ><?=SortTitle("Активность","page_active",$sortby,$sortdir);?></td>
 <!--    <td  align=center >URL страницы</td> -->
     <td width=130 align=center >Текст страницы</td>
     <td width=60 align=center >SEO</td>
-    <td width=60 align=center >Фоторяд</td> 
+    <td width=60 align=center >Фоторяд</td>
   </tr>
 
 <?php
@@ -288,13 +288,13 @@ $res=mysql_query ($mainquery) or die ("Не могу выбрать страницы. Ошибка в запрос
     {
     list($page_code,$page_name,$page_active)=mysql_fetch_array($res);
     $checkname=$page_code;
-    
+
     if($page_active) {$page_active="да";$bg="#FFFFFF";} else {$page_active="нет";$bg="#EEEEEE";}
-    
+
     echo"<tr class=edittabletext height=24 bgcolor=$bg>";
     echo"<TD width=20 align=center ><input type='checkbox' name=\"C#$checkname\" id=\"C#$checkname\"></TD>";
     echo"<TD align=left class=smalltext ondblclick='change_line(\"$checkname\",\"F#$checkname#page_name#string\");' id=\"F#$checkname#page_name#string\">".Show($page_name)."</TD>\n";
-//    echo"<TD align=center class=smalltext id=\"F#$checkname#static_url#string\">".Show($static_url)."</TD>\n"; 
+//    echo"<TD align=center class=smalltext id=\"F#$checkname#static_url#string\">".Show($static_url)."</TD>\n";
     echo"<TD class=smalltext align=center  ondblclick='change_yes_no(\"$checkname\",\"F#$checkname#page_active#int\");' id=\"F#$checkname#page_active#int\">".Show($page_active)."</TD>\n";
 //    echo"<TD align=center class=smalltext align=center  ondblclick='change_line(\"$checkname\",\"F#$checkname#static_pos#int\");' id=\"F#$checkname#static_pos#int\">".Show($static_pos)."</TD>\n";
     echo"<td align=center ><a href='editstatic.php?page_code=$page_code&page_name=$page_name'><img height='20' width='20' src='graph/edit.gif' border=0 title='Текст страницы'></a></td>";
@@ -313,7 +313,7 @@ $res=mysql_query ($mainquery) or die ("Не могу выбрать страницы. Ошибка в запрос
  <center>
  <table>
  <tr height=30 >
-   <td><input type=button onClick=Send('U') value='изменить отмеченные' class=smalltext></td> 
+   <td><input type=button onClick=Send('U') value='изменить отмеченные' class=smalltext></td>
    <td width=5></td>
    <td><input type=button onClick=ConfirmSend('D') value='удалить отмеченные'  class=smalltext></td>
  </tr>

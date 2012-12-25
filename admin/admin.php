@@ -136,7 +136,7 @@ Unit.innerHTML = res;
 function editperm(code)
 {
 urlstr='permission.php?admin_code='+code;
-msg=window.open(urlstr,"EditWindow"+code,"toolbar=no,directories=no,menubar=no,scrollbars=yes,status=no,resizable=no,width=1000,height=600");
+msg=window.open(urlstr,"EditWindow"+code,"toolbar=no,directories=no,menubar=no,scrollbars=yes,status=no,resizable=no,width=1000,height=250");
 }
 
 function ConfirmSend(a)

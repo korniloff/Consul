@@ -10,10 +10,10 @@ $_SESSION["pageback"]="newspage.php?curr_page=$curr_page";
 if(!($sortby)) $sortby='news_date'; else {$sortby=explode(" ",$sortby);$sortby=$sortby[0];}
 
 if(!isset($sortdir)) {$sortdir="1";$realsortdir="ASC"; }
-else 
+else
 {
- if($sortdir==0) {$realsortdir="DESC";} else {$sortdir=1;$realsortdir="ASC";} 
-}                                                                                                   
+ if($sortdir==0) {$realsortdir="DESC";} else {$sortdir=1;$realsortdir="ASC";}
+}
 
 
 
@@ -39,7 +39,7 @@ mysql_query("start transaction;");
 $query="insert into {$PREFFIX}_page (page_name,  page_active, page_type) values('$page_name',1,'news')";
 $result=mysql_query($query) or $err=1;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
 if (!$err)
-{	
+{
   $page_code=mysql_insert_id();
   $query="insert into {$PREFFIX}_news (news_date,news_url,page_code) values('$news_date','$news_url',$page_code)";
   $result=mysql_query($query) or $err=1;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
@@ -71,11 +71,11 @@ if ($oper=="D")
          $err=0;
          $query = "delete from {$PREFFIX}_page where page_code=$varCode";
          $resultdel = mysql_query($query) or $err+=10;
-          
+
          $query = "delete from {$PREFFIX}_news where page_code=$varCode";
          $resultdel = mysql_query($query) or $err+=10;
       }
-  } 
+  }
 }//oper=D
 
 if (!strcasecmp($oper,"U"))
@@ -95,7 +95,7 @@ if (!strcasecmp($oper,"U"))
       if ($varName=="F")
       {
          $fieldname=$varField;
-         $tablename=strtok($fieldname,'_'); //Смотрим какую таблицу править      	
+         $tablename=strtok($fieldname,'_'); //Смотрим какую таблицу править
          if ($varType=="string") $tmp="'"; else $tmp="";
          $sqlupd = "update {$PREFFIX}_{$tablename} set $varField=$tmp".$value."$tmp  where page_code=$varCode";
 //         echo"$sqlupd";
@@ -121,7 +121,7 @@ function Send(a)
 document.data.oper.value=a;
 document.data.submit();
 }
-                
+
 function change_yes_no(Check,Unit){
 Elem=document.getElementById("C#"+Check);
 Elem.checked=true;
@@ -133,7 +133,7 @@ if (value.indexOf('<SELECT')>=0) return ;
 res = "<SELECT style='width:100%' class=smalltext name='"+name+"'><OPTION VALUE=0>нет</OPTION><OPTION VALUE=1>да</OPTION></SELECT>";
 Unit.innerHTML = res;
 }
-                
+
 
 function change_line(Check,Unit)
 {
@@ -172,7 +172,7 @@ if (confirm('Вы уверены, что хотите удалить новость?'))
 
 <table Border=0 CellSpacing=0 CellPadding=0 width=100%>
   <tr><td class=pageline>
-     <div class=wmiddletext><a href="main.php">Администрирование сайта</a> &#187; <a><?=$part_name;?></a></div>
+     <div class=wmiddletext><a href="main.php">Администрирование сайта</a> &#187; <a>Новости</a></div>
   </td></tr>
 </table>
 &nbsp;
@@ -196,8 +196,8 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
 
 <table class=grayhead Border=0 CellSpacing=0 CellPadding=0 >
  <tr class=normaltext>
-  <td ><div ><h4><?=$part_name;?></h4></div></td>
-  <td align=right class=wmiddletext><a class=submenu onclick="displayform(this,'добавить новость')">добавить новость</a></td>  
+  <td ><div ><h4>Новости</h4></div></td>
+  <td align=right class=wmiddletext><a class=submenu onclick="displayform(this,'добавить новость')">добавить новость</a></td>
  </tr>
 </table>
 
@@ -223,7 +223,7 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
     <td class=lmenutext> URL: </td>
     <td width=5></td>
     <td><input name='news_url' type=text style="width:250px" class=smalltext></td>
- </tr> 
+ </tr>
  </table>
  </td>
 
@@ -267,7 +267,7 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
  <center>
  <table>
  <tr height=30 >
-   <td><input type=button onClick=Send('U') value='изменить отмеченные' class=smalltext></td> 
+   <td><input type=button onClick=Send('U') value='изменить отмеченные' class=smalltext></td>
    <td width=5></td>
    <td><input type=button onClick=ConfirmSend('D') value='удалить отмеченные'  class=smalltext></td>
  </tr>
@@ -290,7 +290,7 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
   </tr>
 <?php
 $res=mysql_query ($mainquery) or die ("Не могу выбрать страницы. Ошибка в запросе.");
-$num_rows=mysql_num_rows($res);  //Количество строк  
+$num_rows=mysql_num_rows($res);  //Количество строк
   if($num_rows)
   {
       $page_quant=ceil($num_rows / $per_page); //всего страниц
@@ -301,14 +301,14 @@ $num_rows=mysql_num_rows($res);  //Количество строк
       for ($x=$start_pos; $x<$end_pos; $x++)
       {
          list($news_code,$news_date,$news_url,$page_code, $page_name, $page_active)=mysql_fetch_array($res);
-         $checkname=$page_code;            
-         if($page_active) {$page_active="да";$bg="#FFFFFF";} else {$page_active="нет";$bg="#EEEEEE";}    
+         $checkname=$page_code;
+         if($page_active) {$page_active="да";$bg="#FFFFFF";} else {$page_active="нет";$bg="#EEEEEE";}
          echo"<tr class=edittabletext height=24 bgcolor=$bg>";
          echo"<TD width=20 align=center ><input type='checkbox' name=\"C#$checkname\" id=\"C#$checkname\"></TD>";
          echo"<TD align=left class=smalltext ondblclick='change_line(\"$checkname\",\"F#$checkname#news_date#string\");' id=\"F#$checkname#news_date#string\">".Show($news_date)."</TD>\n";
          echo"<TD align=left class=smalltext ondblclick='change_line(\"$checkname\",\"F#$checkname#page_name#string\");' id=\"F#$checkname#page_name#string\">".Show($page_name)."</TD>\n";
          echo"<TD class=smalltext align=center  ondblclick='change_yes_no(\"$checkname\",\"F#$checkname#page_active#int\");' id=\"F#$checkname#page_active#int\">".Show($page_active)."</TD>\n";
-    //     echo"<TD align=center class=smalltext ondblclick='change_line(\"$checkname\",\"F#$checkname#news_url#string\");' id=\"F#$checkname#news_url#string\">".Show($news_url)."</TD>\n"; 
+    //     echo"<TD align=center class=smalltext ondblclick='change_line(\"$checkname\",\"F#$checkname#news_url#string\");' id=\"F#$checkname#news_url#string\">".Show($news_url)."</TD>\n";
     //    echo"<TD align=center class=smalltext align=center  ondblclick='change_line(\"$checkname\",\"F#$checkname#static_pos#int\");' id=\"F#$checkname#static_pos#int\">".Show($static_pos)."</TD>\n";
          echo"<td align=center ><a href='editstatic.php?page_code=$page_code&page_name=$page_name'><img height='20' width='20' src='graph/edit.gif' border=0 title='Текст страницы'></a></td>";
          echo"<td align=center ><a href='editseo.php?page_code=$page_code&page_name=$page_name'><img height='20' width='20' src='graph/edit.gif' border=0 title=''></a></td>";
@@ -326,7 +326,7 @@ $num_rows=mysql_num_rows($res);  //Количество строк
  <center>
  <table>
  <tr height=30 >
-   <td><input type=button onClick=Send('U') value='изменить отмеченные' class=smalltext></td> 
+   <td><input type=button onClick=Send('U') value='изменить отмеченные' class=smalltext></td>
    <td width=5></td>
    <td><input type=button onClick=ConfirmSend('D') value='удалить отмеченные'  class=smalltext></td>
  </tr>

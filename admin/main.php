@@ -26,12 +26,12 @@ $_SESSION["pageback"]="main.php";
   <td width=10></td>
 
   <td>
-        
-        
+
+
 <table Border=0 CellSpacing=0 CellPadding=0 Width=100%>
  <tr align=cener valign=top>
      <td width=48%>
-     
+
 <?
 if( (isAllowed("radmin")) )
 {
@@ -41,18 +41,18 @@ echo"
 </table>
 <table Border=0 CellSpacing=15 CellPadding=0>
  <tr class=middletext align=center valign=top>";
-if (isAllowed("radmin")) echo"
-    <td><a href=\"admin.php\"><img src=\"graph/icon/admins.gif\"  border=0><p class=\"space\">управление<br>доступом</a></td>";
-if (isAllowed("rtext"))
-{ echo"<td><a href=\"dict.php\"><img src=\"graph/icon/dictionary.gif\"  border=0><p class=\"space\">словарь</a></td>";
-  echo"<td><a href=\"textpage.php\"><img src=\"graph/icon/events.gif\"  border=0><p class=\"space\">текстовые<br>страницы</a></td>";
-}
+     if (isAllowed("radmin")) echo"<td><a href=\"admin.php\"><img hspace=20 b src=\"graph/newicon/admin.png\"  border=0><p class=\"space\">управление<br>доступом</a></td>";
+     if (isAllowed("rtext"))
+        {
+          echo"<td><a href=\"dict.php\"><img src=\"graph/newicon/lang.png\"  hspace=20 border=0><p class=\"space\">словарь</a></td>";
+          echo"<td><a href=\"textpage.php\"><img src=\"graph/newicon/page.png\"  hspace=20 b border=0><p class=\"space\">текстовые<br>страницы</a></td>";
+        }
 echo"
  </tr>
 </table>
 &nbsp;";
 }
-                    
+
 if(isAllowed(("rnews")) || (isAllowed("requipment")) || (isAllowed("rpartner")))
 {
     echo"
@@ -61,16 +61,11 @@ if(isAllowed(("rnews")) || (isAllowed("requipment")) || (isAllowed("rpartner")))
 </table>
 <table Border=0 CellSpacing=15 CellPadding=0>
  <tr class=middletext align=center valign=top>";
-if (isAllowed("rnews")) echo"
-    <td><a href=\"newspage.php\"><img src=\"graph/icon/news.gif\" border=0><p class=\"space\">Новости</a></td>
-    <td>&nbsp;</td>";
-if (isAllowed("requipment")) echo"
-    <td>&nbsp;</td>
-    <td ><a href=\"catalogpage.php\"><img src=\"graph/icon/equipment.gif\"  border=0><p class=\"space\">Оборудование</a></td>";
-if (isAllowed("rpartner")) echo"
-    <td>&nbsp;</td>
-    <td ><a href=\"partnerpage.php\"><img src=\"graph/icon/partner.gif\"  border=0><p class=\"space\">Партнеры</a></td>";  
-   
+
+if (isAllowed("rnews")) echo"<td><a href=\"newspage.php\"><img src=\"graph/newicon/news.png\" hspace=20 border=0><p class=\"space\">Новости</a></td>";
+if (isAllowed("requipment")) echo"<td ><a href=\"catalogpage.php\"><img src=\"graph/icon/equipment.gif\"  hspace=20 border=0><p class=\"space\">Оборудование</a></td>";
+if (isAllowed("rpartner")) echo"<td ><a href=\"partnerpage.php\"><img src=\"graph/newicon/rooms.png\"  hspace=20 border=0><p class=\"space\">Партнеры</a></td>";
+
 echo"
  </tr>
 </table>
@@ -82,23 +77,23 @@ echo"
 
 ?>
 
-    
-     
+
+
 
      </td>
-     
+
      <td width=4%>&nbsp;</td>
-     
+
      <td width=48%>
-   
-<!--   
-   
+
+<!--
+
 
 <?
 
-if (isAllowed("rdirectory"))  
+if (isAllowed("rdirectory"))
 {
-    echo"   
+    echo"
 <center>
 <table class=grayhead Border=0 CellSpacing=0 CellPadding=0>
  <tr colspan=10 class=normaltext><td ><div ><h4>Справочники</h4></div></td></tr>
@@ -113,7 +108,7 @@ if (isAllowed("rdirectory"))
     <td ><a href='styles.php'><img src='graph/icon/adv.gif'  border=0><p class=space>Стили</a></td><td>&nbsp;</td>
     <td ><a href='colors.php'><img src='graph/icon/dep.gif'  border=0><p class=space>Цвета</a></td><td>&nbsp;</td>
     <td ><a href='materials.php'><img src='graph/icon/files.gif'  border=0><p class=space>Материалы</a></td>
- 
+
  </tr><tr class=middletext align=center valign=top>
     <td ><a href='surfaces.php'><img src='graph/icon/artmain.gif'  border=0><p class=space>Типы поверхности</a></td><td>&nbsp;</td>
     <td ><a href='status.php'><img src='graph/icon/sminews.jpg'  border=0><p class=space>Статусы коллекций</a></td><td>&nbsp;</td>
@@ -123,21 +118,21 @@ if (isAllowed("rdirectory"))
 </center>
 ";
 
-}      
+}
 ?>
 
-     
+
 -->
-     
+
      </td>
  </tr>
-</table>        
-        
-        
+</table>
 
 
 
-  
+
+
+
   </td>
   <td width=10></td>
 

@@ -161,11 +161,10 @@ function alertContents(httpRequest) {
 
 <table Border=0 CellSpacing=0 CellPadding=0 width=100%>
   <tr><td  class=pageline>
-     <div class=wmiddletext><a href="main.php">Администрирование сайта</a> <a href="<?=$_SESSION['pageback']?>"> <?echo"$page_name";?></a></div>
+     <div class=wmiddletext><a href="main.php">Администрирование сайта</a> &#187; <a href="<?=$_SESSION['pageback']?>"> <?echo"$page_name";?></a></div>
   </td>
-   <td width=200 class=pageline> <div class=wmiddletext>
-        <? include("inc/selectlang.php");?>
-    </div>
+   <td width=200 class=pageline>
+     <div class=langselect><? include("inc/selectlang.php");?></div>
   </td>
   </tr>
 </table>
@@ -233,8 +232,8 @@ function alertContents(httpRequest) {
 <table Border=0 CellSpacing=0 CellPadding=0 width=650>
  <tr><td height=10></td></tr>
  <tr>
-  <td bgcolor=#f9f9f9 style='padding:5px'>
-  <center><input type=submit class=smalltext value='сохранить изменения'></center> <BR>
+  <td bgcolor=#f9f9f9 style='padding:10px'>
+  <center><input type=submit class=smalltext value='сохранить изменения'></center>
   <table Border=0 CellSpacing=0 CellPadding=0>
      <tr><td class=lmenutext><a>Заголовок страницы  [<?=$langname;?>] :</a><br>
        <input type=text name='static_name' style="width:630px;" value="<?=$static_name; ?>"><p>
@@ -252,15 +251,15 @@ function alertContents(httpRequest) {
      <?php
      if ($page_type!="static")  {
          print '<tr><td class=lmenutext>';
-         $labeltext='Ссылка на внешнюю страницу';
-         if ($page_type=="catalog") $labeltext='Ссылка на сайт производителя';
+         $labeltext='Ссылка на внешнюю страницу:';
+         if ($page_type=="catalog") $labeltext='Ссылка на сайт производителя:';
          print $labeltext;
          print '<br> <input type="text" name="page_url" style="width:630px;" value="'.$page_url.'"><p>';
          print '</td></tr>';
      }
      if ($page_type=="catalog")
      {
-     	print '<tr><td class=lmenutext > Ссылка на документ (pdf) <span id="txtHint">'.$static_url.'</span>';
+     	print '<tr><td class=lmenutext > Файл документации:  <span id="txtHint">'.$static_url.'</span>';
      	if ($static_url!="")
      	{
      	print ' &nbsp <input type="button" type=button class=smalltext onClick=makeRequest("deletepdf.php?static_code='.$static_code;
@@ -273,7 +272,6 @@ function alertContents(httpRequest) {
   </table>
   </td>
  </tr>
- <tr><td height=10 bgcolor=#f9f9f9 height=0></td></tr>
  <tr><td bgcolor=#f9f9f9 ><center><input type=submit class=smalltext value='сохранить изменения'></td></tr>
  <tr><td height=10 bgcolor=#f9f9f9 height=0></td></tr>
  <tr><td height=10 height=0></td></tr>

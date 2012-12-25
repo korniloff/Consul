@@ -18,11 +18,11 @@ if (!empty($oper))
 if ($oper=='I')
 {
   $newicon=$icon+1;
-  
+
   $resu=mysql_query("select max(picture_code) from {$PREFFIX}_picture");
   $newunitcode=mysql_result($resu,0,0);
   $newunitcode=$newunitcode+1;
-  
+
   if ($_FILES['picbig'])
   {
       $r=basename($_FILES['picbig']['name']);
@@ -55,7 +55,7 @@ if ($oper=='I')
   }
   $res=mysql_query("update {$PREFFIX}_picture set picpos=picpos+1 where picpos>=$picpos and page_code=$page_code");
   $query="insert into {$PREFFIX}_picture (page_code,picsmall,picbig,picpos,piccomment,piccomment_en) values($page_code,'$small','$big',$picpos,'$piccomment','$piccomment_en')";
-  echo"$query";
+//  echo"$query";
   $result=mysql_query($query) or die("Cannot Insert Picture") ;
 //для постраничного-------------------------------------------------------------
   $query="select picture_code from {$PREFFIX}_picture where page_code=$page_code order by $sortby $realsortdir";
@@ -82,13 +82,15 @@ if ($oper=="D")
 //      echo"varCode=$varCode<br>varName=$varName<br>varPos=$varPos<br>";
       if ( ($varName=="C")&&($value=="on"))
       {
+         $delquery="select picsmall,picbig from {$PREFFIX}_picture where picture_code=$varCode";
+         $delres = mysql_query($delquery) or die ("Cannot Select Delete Picture.");
+         list($delsmall,$delbig)=mysql_fetch_array($delres);
+
          $query = "delete from {$PREFFIX}_picture where picture_code=$varCode";
          $resultdel = mysql_query($query) or die ("Cannot Delete Picture.");
 //удаление файлов из таблицы-----------------------------------------
-            $picbig="big".$varCode.".".$varExt;
-            $picbig="../images/".$picbig;
-            $picsmall="small".$varCode.".".$varExt;
-            $picsmall="../images/".$picsmall;
+            $picbig="../images/".$delbig;
+            $picsmall="../images/".$delsmall;
             unlink($picbig); unlink($picsmall);
 //------------------------------------------------------------------------------
          $res=mysql_query("update {$PREFFIX}_picture set picpos=picpos-1 where picpos>$varPos and page_code=$page_code");
@@ -224,7 +226,7 @@ if ($page_code==0)
   if ($pagecnt==0)
       die ("<div align=center><B>ОШИБКА : работа с изображениями невозможна, так как не определено ни одной страницы альбома. Определите <a class=blue href=page.php><u>страницы альбома</u></a> и повторите запрос.</B></div>");
 
-} 
+}
 ?>
 
 <table Border=0 CellSpacing=0 class=pagebluetable CellPadding=0>
@@ -288,11 +290,11 @@ if ($page_code==0)
     <td class=lmenutext>Водяной знак:</td>
     <td width=5></td>
 
-    <? 
+    <?
       if (!isset($watermark)||($watermark==2))  {$wno="selected"; $wye="";}
       else {$wye="selected"; $wno="";}
     ?>
-    
+
     <td><select name=watermark style="width:50px" class=smalltext><option value=1 <?echo"$wye"?> > да </option><option value=2 <?echo"$wno"?>> нет </option></select></td>
     <td width=5></td>
  </tr>
@@ -334,8 +336,8 @@ $res=mysql_query ("SELECT picture_code,page_code,picsmall,picbig,picpos,piccomme
   if($num_rows)
   {
       $page_quant=ceil($num_rows / $per_page); //всего страниц
-  } 
-  
+  }
+
 if ($page_quant>1)
 {
 echo"<div align=left class=smalltext><b>Страницы:</b>  ";
@@ -443,6 +445,7 @@ echo"</div>";
 
 </table>
 </div>
+<br>
 </center>
 
 </BODY>

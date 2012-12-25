@@ -34,10 +34,11 @@ function sendloginpassw() {
 
 <center>
 
-<img src="../img/logo.gif" border=0>
+<img src="../img/logo.gif" border=0><br><br>
+
 <form name=userform action='<?$PHP_SELF?>' method=POST enctype=multipart/form-data>
 <input type=hidden name=op value='in'>
-<table Border=0 class=smalltext bgcolor=#ffffff CellSpacing=0 CellPadding=0 width=370>
+<table Border=0 class=smalltext bgcolor=#ffffff CellSpacing=0 CellPadding=0 width=340>
  <tr><td height=45 bgcolor=#333333 class=normaltext><b><center><h4>Вход в панель администрирования</h4></td></tr>
  <tr><td height=15></td></tr>
  <tr><td >
@@ -47,7 +48,7 @@ function sendloginpassw() {
     <tr><td height=5></td></tr>
     <tr><td align=right><font color=#999999>Пароль:</font> &nbsp;</td><td><input type=password class=loginformtext name=password style='width:170px'><td></tr>
     <tr><td height=5></td></tr>
-                                                                                        
+
 <?
 if ($err==1)
 echo"
@@ -67,7 +68,7 @@ echo"
 
  </table>
  </td></tr>
- <tr><td height=70 ><center><input type=submit onclick='sendloginpassw()' class=bigtext value='Войти в систему' ></td></tr>
+ <tr><td height=70 ><center><input type=submit onclick='sendloginpassw()' class=bigtext value='Войти' ></td></tr>
 
 </table>
  </form>

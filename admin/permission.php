@@ -19,7 +19,7 @@ if(!isAllowed("radmin")) {die("У Вас недостаточно прав для просмотра этой страни
         $admin_code=$admin_c;
         $query="update {$PREFFIX}_admin set
         admin_radmin=".intval($admin_radmin).",
-        admin_rtext=".intval($admin_rtext).",       
+        admin_rtext=".intval($admin_rtext).",
         admin_rnews=".intval($admin_rnews).",
         admin_requipment=".intval($admin_requipment).",
         admin_rpartner=".intval($admin_rpartner)." where admin_code=".intval($admin_code);
@@ -68,39 +68,34 @@ echo"<input type=hidden name=admin_code value=\"$admin_code\">";
  </tr>
 </table>
 
-<table Border=0 CellSpacing=0 class=pagebluetable CellPadding=0 >
+<table Border=0 CellSpacing=0 class=pagebluetable CellPadding=0 width=650 >
  <tr><td class=lmenutext height=30 bgcolor=#ffffff align="center">АДМИНИСТРИРОВАНИЕ</td></tr>
 </table>
-<table Border=0 CellSpacing=1 class=bluetable CellPadding=4 width=50% align=center>
+<table Border=0 CellSpacing=1 class=bluetable CellPadding=4  align=center width=650>
     <tr class=edittabletext height=18 bgcolor="#FFFFFF">
-     <td width=20 align=center ><input type='checkbox' id="admin_radmin" name="admin_radmin" <?php if($admin_radmin) echo" checked";?>></td><td><label for="admin_radmin">Управление администрированием и правами доступа</label></td>
-     <td width=20 align=center ><input type='checkbox' id="admin_rtext" name="admin_rtext" <?php if($admin_rtext) echo" checked";?>></td><td><label for="admin_rtext">Управление текстовыми страницами и словарем</label></td>     
+     <td ><input type='checkbox' id="admin_radmin" name="admin_radmin" <?php if($admin_radmin) echo" checked";?>></td><td><label for="admin_radmin">Управление администрированием и правами доступа</label></td>
+     <td ><input type='checkbox' id="admin_rtext" name="admin_rtext" <?php if($admin_rtext) echo" checked";?>></td><td><label for="admin_rtext">Управление текстовыми страницами и словарем</label></td>
     </tr>
 </table>
 
-     
-<table Border=0 CellSpacing=0 class=pagebluetable CellPadding=0 >
+<table Border=0 CellSpacing=0 class=pagebluetable CellPadding=0 width=650>
  <tr><td class=lmenutext height=30 bgcolor=#ffffff align="center">ДЕЯТЕЛЬНОСТЬ</td></tr>
 </table>
-<table Border=0 CellSpacing=1 class=bluetable CellPadding=4 width=50% align=center>
+<table Border=0 CellSpacing=1 class=bluetable CellPadding=4 align=center width=650>
     <tr class=edittabletext height=18 bgcolor="#FFFFFF">
-     <td width=20 align=center ><input type='checkbox' id="admin_rnews" name="admin_rnews" <?php if($admin_rnews) echo" checked";?>></td><td><label for="admin_rnews">Управление новостями</label></td>
-    </tr>
-    <tr class=edittabletext height=18 bgcolor="#FFFFFF">
-     <td width=20 align=center ><input type='checkbox' id="admin_requipment" name="admin_requipment" <?php if($admin_requipment) echo" checked";?>></td><td><label for="admin_requpment">Управление каталогом оборудования</label></td>
-    </tr>
-    <tr class=edittabletext height=18 bgcolor="#FFFFFF">
-     <td width=20 align=center ><input type='checkbox' id="admin_rpartner" name="admin_rpartner" <?php if($admin_rpartner) echo" checked";?>></td><td><label for="admin_rpatner">Управление списком партнеров</label></td>
+       <td  WIDTH=20><input type='checkbox' id="admin_rnews" name="admin_rnews" <?php if($admin_rnews) echo" checked";?>></td><td><label for="admin_rnews">Управление новостями</label></td>
+       <td  WIDTH=20><input type='checkbox' id="admin_rpartner" name="admin_rpartner" <?php if($admin_rpartner) echo" checked";?>></td><td><label for="admin_rpatner">Управление списком партнеров</label></td>
+       <td WIDTH=20 ><input type='checkbox' id="admin_requipment" name="admin_requipment" <?php if($admin_requipment) echo" checked";?>></td><td><label for="admin_requpment">Управление каталогом оборудования</label></td>
     </tr>
 
 </table>
-                
-                
+
+
 
 
 <?php
- if(intval($err)>=10) echo"<div class=smalltext align=center style='color:red;'>Ошибка при сохранении данных</div>";
- if((isset($err))&&(intval($err)==0)) echo"<div class=smalltext align=center style='color:#009900;'>Данные измененены</div>";
+ if(intval($err)>=10) echo"<div class=smalltext align=center style='color:red; padding:10px; '>Ошибка при сохранении данных</div>";
+ if((isset($err))&&(intval($err)==0)) echo"<div class=smalltext align=center style='padding:10px; color:#009900;'>Данные измененены</div>";
 ?>
 
 <table Border=0 CellSpacing=0 class=pagebluetable CellPadding=0 width=95%>
