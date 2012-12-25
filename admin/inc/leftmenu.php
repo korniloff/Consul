@@ -35,7 +35,7 @@ if(isAllowed(("rnews")) || (isAllowed("requipment")) || (isAllowed("rpartner")))
 // {
   echo "<p><div class=lmenupart><b>Оборудование</b></div>";
   echo "<div class=jquery-tree>";
-     view_tree(1);
+   if (isAllowed("requipment"))  view_tree(1);
   echo "</div>";
 // }
 ?>

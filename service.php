@@ -28,7 +28,7 @@ include ("inc/head.php");
              <a href='<?=$mainurl;?>'><?=Translate($LANG,'Компания "Консул"');?></a>  <span>/</span>  <a><?=Translate($LANG,'Услуги');?></a>
           </div>
           <!-- конец хлебных крошек  -->
-<?php   $topstatic=getStatic('service',$LANG);
+<?php   $topstatic=getStaticByCode(36,$LANG);
          echo" <h1>".$topstatic['name']."</h1>";
 ?>
           <div class=pnewstext>

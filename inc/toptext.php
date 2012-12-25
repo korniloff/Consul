@@ -2,7 +2,7 @@
     <div class=toptextarea>
        <div class=topabout>
        <?php 
-         $topstatic=getStatic('toptext',$LANG);
+         $topstatic=getStaticByCode(2,$LANG);
          echo $topstatic['text'];
        ?>
          <!-- текст приветствия должен выводиься из базы (отдельная страница статики) 

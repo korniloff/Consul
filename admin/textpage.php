@@ -184,7 +184,7 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
 <table class=grayhead Border=0 CellSpacing=0 CellPadding=0 >
  <tr class=normaltext>
   <td ><div ><h4>Текстовые страницы</h4></div></td>
-  <td align=right class=wmiddletext><a class=submenu onclick="displayform(this,'добавить страницу')">добавить страницу</a></td>
+  <td align=right class=wmiddletext>&nbsp<!--  <a class=submenu onclick="displayform(this,'добавить страницу')">добавить страницу</a> --></td>
  </tr>
 </table>
 
@@ -244,7 +244,8 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
  <center>
  <table>
  <tr height=30 >
-   <td> <select name="pagetype" onchange="submit()">
+ <!--  
+   <td> <select name="pagetype" onchange="submit()" type=hidden>
            <option value="static" <?php if ($pagetype=="static") echo "selected"; ?>> статические страницы </option>
            <option value="news" <?php if ($pagetype=="news") echo "selected"; ?>> новости </option>
            <option value="catalog" <?php if ($pagetype=="catalog") echo "selected"; ?>> элементы каталога </option>
@@ -252,10 +253,10 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
            <option value="%" <?php if ($pagetype=="%") echo "selected"; ?>> все </option>
         </select>
    </td>
-
+-->
    <td><input type=button onClick=Send('U') value='изменить отмеченные' class=smalltext></td>
-   <td width=5></td>
-   <td><input type=button onClick=ConfirmSend('D') value='удалить отмеченные'  class=smalltext></td>
+<!--     <td width=5></td> 
+   <td><input type=button onClick=ConfirmSend('D') value='удалить отмеченные'  class=smalltext></td> -->
  </tr>
 
  </table>
@@ -313,9 +314,10 @@ $res=mysql_query ($mainquery) or die ("Не могу выбрать страницы. Ошибка в запрос
  <center>
  <table>
  <tr height=30 >
+   
    <td><input type=button onClick=Send('U') value='изменить отмеченные' class=smalltext></td>
-   <td width=5></td>
-   <td><input type=button onClick=ConfirmSend('D') value='удалить отмеченные'  class=smalltext></td>
+<!--   <td width=5></td> 
+   <td><input type=button onClick=ConfirmSend('D') value='удалить отмеченные'  class=smalltext></td> -->
  </tr>
  </table>
  </td></tr>

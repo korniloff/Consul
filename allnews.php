@@ -1,6 +1,6 @@
 <?php
 include("inc/settings.php");
-$mainstatic=getStatic('main',$LANG);
+$mainstatic=getStaticByCode(39,$LANG);
 $meta_title=$mainstatic['seo_title'];
 $meta_desc=$mainstatic['seo_desc'];
 $meta_key=$mainstatic['seo_key'];

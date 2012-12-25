@@ -85,6 +85,40 @@ WHERE ({$PREFFIX}_page.page_name='$pagename') and (lang_code=$lng)
     return $a;
 }
 
+function getStaticByCode($pagecode,$lng)
+{
+	global $PREFFIX;
+	$query= "SELECT
+	{$PREFFIX}_static.static_text,
+	{$PREFFIX}_static.static_pos,
+	{$PREFFIX}_static.static_seo_title,
+	{$PREFFIX}_static.static_seo_desc,
+	{$PREFFIX}_static.static_seo_key,
+	{$PREFFIX}_static.static_abstract,
+	{$PREFFIX}_static.static_url,
+	{$PREFFIX}_static.static_name,
+	{$PREFFIX}_page.page_url
+	FROM
+	{$PREFFIX}_static
+	INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
+	WHERE ({$PREFFIX}_page.page_code='$pagecode') and (lang_code=$lng)
+	";
+
+	$res=mysql_query($query);
+	list($static_text,$static_pos,$static_seo_title,$static_seo_desc,$static_seo_key,$static_abstact, $static_url,$static_name,$page_url)=mysql_fetch_array($res);
+	$a=array("text"=>$static_text,
+			"pos"=>$static_pos,
+			"seo_title"=>$static_seo_title,
+			"seo_desc"=>$static_seo_desc,
+			"seo_key"=>$static_seo_key,
+			"abstract"=>$static_abstact,
+			"url"=>$static_url,
+			"name"=>$static_name,
+			"page_url"=>$page_url
+	);
+	return $a;
+}
+
 function getCatalogStatic($id,$lng)
 {
 	

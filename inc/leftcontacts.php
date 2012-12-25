@@ -2,7 +2,7 @@
          <div class=contactarea>
             <h5><?=Translate($LANG,'Контактная информация');?></h5>
             <div class=addresstext>
-                   <?php   $leftstatic=getStatic('contacts',$LANG);
+                   <?php   $leftstatic=getStaticByCode(35,$LANG);
                      echo $leftstatic['text']; ?>
 
             <!--

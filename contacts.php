@@ -1,6 +1,6 @@
 <?php
 include("inc/settings.php");
-$contactstatic=getStatic('contacts',$LANG);
+$contactstatic=getStaticByCode(35,$LANG);
 $meta_title=$contactstatic['seo_title'];
 $meta_desc=$contactstatic['seo_desc'];
 $meta_key=$contactstatic['seo_key'];
