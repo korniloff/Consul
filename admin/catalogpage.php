@@ -208,10 +208,14 @@ while ($ep)
 
  $res=mysql_query($pq) or die("Incorrect Equip queery: ".$pq) ;
  list($ec,$ep,$en)=mysql_fetch_array($res);
+ if (!isset($praparent) and (isset($lastlev))) $praparent=$ec;
+ if (!isset($lastlev)) $lastlev=$en;
+ 
  $outs="<a href=$PHP_SELF?equip_parent=$ec$sortparam>$en</a> / ".$outs;
 }
 $outs="<a href=$PHP_SELF>Оборудование</a> / ".$outs;
-echo " <div class=wmiddletext> &nbsp <a href='main.php'>Администрирование сайта</a> / ". $outs."</div>"
+echo " <div class=wmiddletext> &nbsp <a href='main.php'>Администрирование сайта</a> / ". $outs."</div>";
+if (!isset($lastlev)) $lastlev="Каталог оборудования";
 //*********************  Поиск по дереву  *******************************
 ?>
 
@@ -244,7 +248,7 @@ $max_pos++;
 
 <table class=grayhead Border=0 CellSpacing=0 CellPadding=0 >
  <tr class=normaltext>
-  <td ><div ><h4>ТУТ ДОЛЖНО БЫТЬ НАЗВАНИЕ ТЕКУЩЕГО ПОДРАЗДЕЛА</h4></div></td>
+  <td ><div ><h4><?=$lastlev?></h4></div></td>
   <td align=right class=wmiddletext><a class=submenu onclick="displayform(this,'добавить элемент каталога')">добавить элемент каталога</a></td>
  </tr>
 </table>
@@ -305,18 +309,11 @@ $max_pos++;
 <?php
  if ($equip_parent<>0)
  {
+ 	if (!isset($praparent)) $praparent=0; 
     echo  '<tr><td class=lmenutext height=60 bgcolor=#ffffff align="center"><h5>Подраздел: ';
- 	$query="
-		SELECT 	{$PREFFIX}_equip.equip_parent,
-				{$PREFFIX}_page.page_name
-				FROM  {$PREFFIX}_equip
-				INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_equip.page_code = {$PREFFIX}_page.page_code
-		        WHERE {$PREFFIX}_equip.equip_code=$equip_parent";
- 	$result=mysql_query($query) or die("Incorrect Query: ".$query) ;
- 	list($parpcode,$parname)=mysql_fetch_array($result);
- 	echo"$parname";
-    echo  "</h5> <a href='javascript:GotoSub($parpcode)'> вернуться на предудущий уровень </a> </td></tr>";
- }
+ 	echo"$lastlev";
+    echo  "</h5> <a href=$PHP_SELF?equip_parent=$praparent$sortparam> вернуться на предудущий уровень </a> </td></tr>";
+  }
  else echo"<br>";
  ?>
 </table>

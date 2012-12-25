@@ -713,7 +713,7 @@ function view_tree($langcode) {
 	}
 	print '<ul id="tree_one">';
 	foreach ($one_lvl as $key){
-		print '<li><a href="catalogpage.php?equip_parent='.$key[1].'">'.$key[3].'</a>';
+		print '<li><a href="catalogpage.php?equip_parent='.$key[0].'">'.$key[3].'</a>';
 		print '<ul>';
 		view_tree_next_level($key[0], $next_lvl);
 		print "</ul>";
@@ -726,7 +726,7 @@ function view_tree($langcode) {
 function view_tree_next_level($family, $next_lvl) {
 	foreach ($next_lvl as $key) {	
 		if ($key[1]==$family) {			
-			print ' <li><a href="catalogpage.php?equip_parent='.$key[1].'">'.$key[3].'</a></li>';						
+			print ' <li><a href="catalogpage.php?equip_parent='.$key[0].'">'.$key[3].'</a></li>';						
 		}
 	}
 }
