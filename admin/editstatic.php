@@ -249,7 +249,7 @@ function alertContents(httpRequest) {
        <textarea name='static_text' style="width:630px;height:400px;"> <?=$static_text;?> </textarea><p>
      </td></tr>
      <?php
-     if ($page_type!="static")  {
+     if (($page_type!="static")&&($page_type!="department"))  {
          print '<tr><td class=lmenutext>';
          $labeltext='—сылка на внешнюю страницу:';
          if ($page_type=="catalog") $labeltext='—сылка на сайт производител€:';

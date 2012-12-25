@@ -39,7 +39,8 @@ if ($oper=='I')
 {
 $err=0;
 mysql_query("start transaction;");
-$query="insert into {$PREFFIX}_page (page_name,  page_active, page_type) values('$page_name',1,'catalog')";
+if ($level<$maxlevel) $pagetype="department"; else $pagetype="catalog";
+$query="insert into {$PREFFIX}_page (page_name,  page_active, page_type) values('$page_name',1,'$pagetype')";
 $result=mysql_query($query) or $err=1;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
 if (!$err)
 {
@@ -240,6 +241,7 @@ echo"<input type=hidden name=curr_page value=\"$curr_page\">";
 echo"<input type=hidden name=equip_parent value=$equip_parent>";
 echo"<input type=hidden name=sortby value=\"$sortby\">";
 echo"<input type=hidden name=sortdir value=\"$sortdir\">";
+echo"<input type=hidden name=level value=\"$level\">";
 $maxquery="select max(equip_pos) from {$PREFFIX}_equip WHERE {$PREFFIX}_equip.equip_parent=$equip_parent";
 $result=mysql_query($maxquery) or die("Incorrect Max Query: ".$maxquery) ;
 list($max_pos)=mysql_fetch_array($result);
