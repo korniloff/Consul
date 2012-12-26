@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Дек 25 2012 г., 19:53
+-- Время создания: Дек 26 2012 г., 10:10
 -- Версия сервера: 5.1.50
 -- Версия PHP: 5.3.14
 
@@ -207,12 +207,15 @@ CREATE TABLE IF NOT EXISTS `consul_news` (
   `news_url` varchar(200) DEFAULT '',
   `page_code` int(11) NOT NULL,
   PRIMARY KEY (`news_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=cp1251 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `consul_news`
 --
 
+INSERT INTO `consul_news` (`news_code`, `news_date`, `news_url`, `page_code`) VALUES
+(1, '2012-12-26', 'http://dumskaya.net/post/o-more-i-lyudyah-dostuchatsya-do-navteks/author/', 56),
+(2, '2012-12-26', '', 57);
 
 --
 -- Триггеры `consul_news`
@@ -238,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `consul_page` (
   `page_url` varchar(255) CHARACTER SET cp1251 DEFAULT NULL,
   `page_type` varchar(10) NOT NULL DEFAULT 'static',
   PRIMARY KEY (`page_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=56 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=58 ;
 
 --
 -- Дамп данных таблицы `consul_page`
@@ -279,7 +282,9 @@ INSERT INTO `consul_page` (`page_code`, `page_name`, `page_active`, `page_url`, 
 (52, 'АРБ', 1, NULL, 'department'),
 (53, 'РЛО', 1, NULL, 'department'),
 (54, 'Антарсат', 1, NULL, 'department'),
-(55, 'SR-180 MK2', 1, 'http://antarsat.ru/index.php?catid=84&iid=138', 'catalog');
+(55, 'SR-180 MK2', 1, 'http://antarsat.ru/index.php?catid=84&iid=138', 'catalog'),
+(56, 'О море и людях: «Достучаться до Навтекс»', 1, 'http://dumskaya.net/post/o-more-i-lyudyah-dostuchatsya-do-navteks/author/', 'news'),
+(57, 'Авторулевой на современном катере', 1, 'http://www.garmin.ru/about/news/19340/#.UNqvt-S6ei0', 'news');
 
 --
 -- Триггеры `consul_page`
@@ -343,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `consul_picture` (
   `piccomment_en` text,
   PRIMARY KEY (`picture_code`),
   UNIQUE KEY `picture_code` (`picture_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=48 ;
 
 --
 -- Дамп данных таблицы `consul_picture`
@@ -384,7 +389,10 @@ INSERT INTO `consul_picture` (`picture_code`, `page_code`, `picsmall`, `picbig`,
 (41, 46, 'small41.jpg', 'big41.jpg', 6, '', ''),
 (42, 47, 'small42.jpg', 'big42.jpg', 1, '', ''),
 (43, 47, 'small43.jpg', 'big43.jpg', 2, '', ''),
-(44, 48, 'small44.jpg', 'big44.jpg', 1, '', '');
+(44, 48, 'small44.jpg', 'big44.jpg', 1, '', ''),
+(45, 56, 'small45.jpg', 'big45.jpg', 1, '', ''),
+(46, 56, 'small46.jpg', 'big46.jpg', 2, '', ''),
+(47, 57, 'small47.jpg', 'big47.jpg', 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -406,7 +414,7 @@ CREATE TABLE IF NOT EXISTS `consul_static` (
   `static_abstract` text,
   `static_url` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`static_code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=96 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=cp1251 AUTO_INCREMENT=98 ;
 
 --
 -- Дамп данных таблицы `consul_static`
@@ -480,4 +488,6 @@ INSERT INTO `consul_static` (`static_code`, `page_code`, `static_name`, `static_
 (92, 52, 'АРБ', '', 0, NULL, NULL, NULL, 1, '', NULL),
 (93, 53, 'РЛО', '', 0, NULL, NULL, NULL, 1, '', NULL),
 (94, 54, 'Антарсат', '', 0, NULL, NULL, NULL, 1, '', NULL),
-(95, 55, 'SR-180 MK2', '', 0, NULL, NULL, NULL, 1, '', NULL);
+(95, 55, 'SR-180 MK2', '', 0, NULL, NULL, NULL, 1, '', NULL),
+(96, 56, 'О море и людях: «Достучаться до Навтекс»', '<table>\r\n<tbody>\r\n<tr>\r\n<td><a class="upic" href="http://dumskaya.net/user/Serge-Dibrov/"><img class="makeframe" src="http://dumskaya.net/pics/auserpic9803.jpg" alt="" /></a></td>\r\n<td><a class="user" href="http://dumskaya.net/user/Serge-Dibrov/">Serge Dibrov</a>&nbsp;<span class="gray">/ 6 декабря, 17:40</span>\r\n<h1>О море и людях: &laquo;Достучаться до Навтекс&raquo;</h1>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>В июле 2012 года мы с друзьями из организации &laquo;Магеллан 500&raquo; готовили сложную многодневную парусную регату Одесса-Батуми-Одесса.</p>\r\n<p>Конечно, крейсерские яхты &mdash; это полноценные автономные морские суда. Хорошая яхта с опытный экипажем (а другие в регате не участвовали) способна обеспечить безопасный переход неограниченной дальности. Но море есть море, и мы делали все, что в наших силах, чтобы сложная гонка была максимально безопасной для участников.</p>\r\n<p>Поэтому мы решили уведомить суда, находящиеся на трассе регаты, о нашей гонке. Для этого существует международная система &laquo;Навтекс&raquo; (Navtex), которая позволяет рассылать текстовые оповещения на судовые терминалы... Полный текст статьи&nbsp;<a href="http://dumskaya.net/post/o-more-i-lyudyah-dostuchatsya-do-navteks/author/" target="_blank">http://dumskaya.net/post/o-more-i-lyudyah-dostuchatsya-do-navteks/author/</a></p>', 0, NULL, NULL, NULL, 1, '<p><span>...&laquo;достучаться до Навтекс&raquo;, просто просунув письмо под стекло в приемной турецкого консульства, оказалось куда проще и быстрее, чем через наши украинские инстанции.</span></p>', NULL),
+(97, 57, 'Авторулевой на современном катере', '<h3>Многие судовладельцы предвзято относятся к установке авторулевого на малые катера. Между тем, вещь это крайне полезная и нужная, особенно при тролллинговой рыбалке.</h3>\r\n<p>Если раньше на троллинг было необходимо обязательно брать напарника на штурвал, с авторулевым&nbsp;<a href="http://www.garmin.ru/avtorulevoy-cat/ghp-10.html">Garmin GHP 10</a>&nbsp;троллингом можно заниматься абсолютно автономно. Мало того, управлять можно большим количеством снастей и ловить больше рыбы, ведь судном управляет автопилот!</p>\r\n<p>Garmin GHP 10 позволит судну оставаться на заданном курсе, но это не единственная из его функций. При подключении авторулевого к картплоттеру Garmin, судно может следовать по заданным точкам или ранее записанному треку, то есть самостоятельно маневрировать. Например, вы можете ввести в авторулевой задание следовать по треку предыдущей удачной рыбалки. При наличии карт Bluechart g2 Vision, установленных в картплоттер, авторулевому можно также задать режим следования по заданной глубине, что также важно для успешного троллинга.</p>\r\n<p>При возникновении потребности сделать маневр, используя уникальную, запатентованную технологию Shadow Drive , капитану теперь не нужно производить лишних действий, достаточно просто повернуть штурвал. Авторулевой автоматически передаст управление шкиперу.&nbsp; После возвращения катера на прежний курс, автопилот снова самостоятельно включится и продолжит свою работу.</p>', 0, NULL, NULL, NULL, 1, '<p><span>Многие судовладельцы предвзято относятся к установке авторулевого на малые катера. Между тем, вещь это крайне полезная и нужная, особенно при тролллинговой рыбалке.</span></p>', NULL);
