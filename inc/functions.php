@@ -912,9 +912,11 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 			            print "<div class=mlpic> <a href='".$catalogquest."'><img src='images/".$picbig."' alt='".$static_name."'></a></div>";
 						print "<div class=mltext>";
 			            print "<h2><a href='".$catalogquest."'>".$static_name."</a></h2>";
-			            if ($page_url)	print "<div class=mllink><a href='".$page_url."' target=_blank>.$page_url.</a></div>";
-						print $static_abst;
-						print "<div class=nlmore><a href='$mainurl$static_url'>".Translate($langcode,'Документация')."</a> <span>|</span> <a href='".$catalogquest."'>".Translate($langcode,'Дополнительная информация')." »</a></div>";
+			            if ($page_url)	print "<div class=mllink><a href='".$page_url."' target=_blank>$page_url</a></div>";
+						print $static_abst;			
+						$docurl=$mainurl.ltrim($static_url,'.');
+						echo $docurl;
+						print "<div class=nlmore><a href='$docurl'>".Translate($langcode,'Документация')."</a> <span>|</span> <a href='".$catalogquest."'>".Translate($langcode,'Дополнительная информация')." »</a></div>";
 						print "	</div>";
 						print "	</div>"; 
 				       }

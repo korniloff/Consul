@@ -14,7 +14,11 @@
                <span> <?=$newsitem[1]?></span>
                <p> <?=$newsitem[2]?></p>
                </div>
-              <div class=mnmore><a href='news.php?id=<?=$newsitem[0]?>'><?=Translate($LANG,'подробнее')?>»</a> </div>
+                  <?php
+                     if(empty($newsitem[5])) $newspath='news.php?id='.$newsitem[0];
+                         else  $newspath=$newsitem[5];
+                   ?>               
+              <div class=mnmore><a href='<?=$newspath?>'><?=Translate($LANG,'подробнее')?>»</a> </div>
               </div>
               <?php
              }

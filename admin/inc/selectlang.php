@@ -15,6 +15,6 @@
           echo ' value="'.$row[lang_code].'">'.$row[lang_name].'</option>';
          
         }
-         mysql_free_result($result);
+//         mysql_free_result($result);
         print '</select> </form>';
 ?>

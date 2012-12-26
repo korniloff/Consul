@@ -20,8 +20,8 @@ $err=0;
     	{
     		mysql_query("start transaction;");
     		$query="insert into {$PREFFIX}_static (page_code,static_name,static_text,lang_code,static_abstract)
-    		        values($page_code,'".mysql_escape_string($static_name)."','".mysql_escape_string($static_text).
-    		        "',".$langindex.",'".mysql_escape_string($static_abstract)."')";
+    		        values($page_code,'".$static_name."','".$static_text.
+    		        "',".$langindex.",'".$static_abstract."')";
     		$result=mysql_query($query) or $err=2;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
 
     		$static_code=mysql_insert_id();
@@ -55,9 +55,9 @@ $err=0;
 
 */
 
-    		$query="update {$PREFFIX}_static set static_name='".mysql_escape_string($static_name).
-    		       "', static_text='".mysql_escape_string($static_text).
-    		       "',static_abstract='".mysql_escape_string($static_abstract).
+    		$query="update {$PREFFIX}_static set static_name='".$static_name.
+    		       "', static_text='".$static_text.
+    		       "',static_abstract='".$static_abstract.
     		       "' where (static_code=$static_code)";
     		$result=mysql_query($query) or $err=3;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
 
@@ -240,8 +240,8 @@ function alertContents(httpRequest) {
      </td></tr>
      <?php
        if ($page_type!="static")  {
-        print '<tr><td class=lmenutext>Аннотация  [<?=$langname;?>]:<br>';
-        print '<textarea name="static_abstract" style="width:630px;height:200px;">'. $static_abstract.'</textarea><p>';
+        print '<tr><td class=lmenutext>Аннотация  [$langname]:<br>';
+        print '<textarea name="static_abstract" style="widthл:630px;height:200px;">'. $static_abstract.'</textarea><p>';
         print '</td></tr>';
        }
       ?>
