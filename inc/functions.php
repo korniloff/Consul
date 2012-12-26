@@ -718,17 +718,18 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		{$PREFFIX}_news.news_date,
 		{$PREFFIX}_static.static_abstract,
 		{$PREFFIX}_static.static_name,
-		{$PREFFIX}_page.page_code		
+		{$PREFFIX}_page.page_code,
+		{$PREFFIX}_page.page_url		
 		FROM
 		{$PREFFIX}_news
 		LEFT JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_news.page_code
 		LEFT JOIN {$PREFFIX}_static ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
-		WHERE {$PREFFIX}_static.lang_code=$lang
+		WHERE ({$PREFFIX}_static.lang_code=$lang) and ({$PREFFIX}_page.page_active>0)
 		ORDER BY news_date DESC";
-		if ($limit)	$lastnewsquery=$lastnewsquery." LIMIT $limit";
+		if ($limit)	$lastnewsquery=$lastnewsquery." LIMIT $limit"; 
 
 		$query = mysql_query("$lastnewsquery") or  die("Ошибка выборки новости ".$lastnewsquery);
-		while (list($news_code,$news_date,$static_abstract,$static_name,$page_code)= mysql_fetch_array($query))
+		while (list($news_code,$news_date,$static_abstract,$static_name,$page_code,$page_url)= mysql_fetch_array($query))
 		{
 			$galquery="SELECT {$PREFFIX}_picture.picbig FROM  {$PREFFIX}_picture
 			WHERE {$PREFFIX}_picture.page_code=$page_code  ORDER BY picpos LIMIT 1";
@@ -736,7 +737,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 					list($picbig)=mysql_fetch_array($galres);
 					if ((!isset($picbig)) or ($picbig=="")) $picbig='nullnews.gif';
 						
-			$a[] = array ($news_code,$news_date,$static_abstract,$picbig,$static_name);
+			$a[] = array ($news_code,$news_date,$static_abstract,$picbig,$static_name,$page_url);
 		}	
 		return $a;
 	}
@@ -1011,9 +1012,11 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
     	   print "<div class=itembpic id=ibp0><a href='images/".$picbig."' title='".$piccomment."' rel='lightbox[item]' target=_blank><img src='images/".$picbig."'  alt='".$piccomment."' border=0></a></div>";
     	   while (list($picbig,$picpos,$piccomment)= mysql_fetch_array($galquery))
     		  $itemgal[] = array ($picbig,$picpos,$piccomment);
-    	   foreach  ($itemgal as $itempic)
+    	   
+    	   $sz=count($itemgal);
+    	   for ($i=1;$i<$sz;$i++)
     	   {
-    	   	print "<div class=itembpic id=ibp1 style='display:none;'><a href='images/".$itempic[0]."' title='".$itempic[2]."' rel='lightbox[item]' target=_blank><img src='images/".$itempic[0]."'  alt='".$itempic[2]."' border=0></a></div>";   	   		
+    	   	print "<div class=itembpic id=ibp$i style='display:none;'><a href='images/".$itemgal[$i][0]."' title='".$itemgal[$i][2]."' rel='lightbox[item]' target=_blank><img src='images/".$itemgal[$i][0]."'  alt='".$itemgal[$i][2]."' border=0></a></div>";    	   	   	   	
     	   }
     	   print "<div class=roomiconlist>";
     	   print "<div class=roomiconarea>";
@@ -1042,7 +1045,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
          {$PREFFIX}_partner
          INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_partner.page_code = {$PREFFIX}_page.page_code
          INNER JOIN {$PREFFIX}_static ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
-         WHERE ({$PREFFIX}_static.lang_code=$langcode)";
+         WHERE ({$PREFFIX}_static.lang_code=$langcode) and ({$PREFFIX}_page.page_active>0)";
 		if ($onmain) $partnerquery=$partnerquery." AND (partner_onmain>0)";
 		$partnerquery=$partnerquery." ORDER BY partner_pos ASC";
 		$query = mysql_query("$partnerquery") or  die("Ошибка выборки партнера ".$partnerquery);

@@ -29,7 +29,7 @@ if ($oper=='I')
 {
 $err=0;
 mysql_query("start transaction;");
-$query="insert into {$PREFFIX}_page (page_name,page_active) values('$page_name',1)";
+$query="insert into {$PREFFIX}_page (page_name,page_active) values('$page_name',0)";
 $result=mysql_query($query) or $err=1;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
 
 $new_code=mysql_insert_id();

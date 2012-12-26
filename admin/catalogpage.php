@@ -40,7 +40,7 @@ if ($oper=='I')
 $err=0;
 mysql_query("start transaction;");
 if ($level<$maxlevel) $pagetype="department"; else $pagetype="catalog";
-$query="insert into {$PREFFIX}_page (page_name,  page_active, page_type) values('$page_name',1,'$pagetype')";
+$query="insert into {$PREFFIX}_page (page_name,  page_active, page_type) values('$page_name',0,'$pagetype')";
 $result=mysql_query($query) or $err=1;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
 if (!$err)
 {

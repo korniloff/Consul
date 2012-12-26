@@ -36,7 +36,7 @@ if ($oper=='I')
 {
 $err=0;
 mysql_query("start transaction;");
-$query="insert into {$PREFFIX}_page (page_name,  page_active, page_type) values('$page_name',1,'news')";
+$query="insert into {$PREFFIX}_page (page_name,  page_active, page_type) values('$page_name',0,'news')";
 $result=mysql_query($query) or $err=1;//die("Не могу добавить страницу:<br>$query<br>".mysql_error());
 if (!$err)
 {
@@ -219,11 +219,11 @@ echo"<input type=hidden name=sortdir value=\"$sortdir\">";
     <td width=5></td>
     <td><input name='page_name' type=text style="width:250px" class=smalltext></td>
  </tr>
- <tr height=30 >
+ <!--  <tr height=30 >
     <td class=lmenutext> URL: </td>
     <td width=5></td>
-    <td><input name='news_url' type=text style="width:250px" class=smalltext></td>
- </tr>
+    <td><input name='news_url' type=text style="width:250px" class=smalltext></td> 
+ </tr> -->
  </table>
  </td>
 

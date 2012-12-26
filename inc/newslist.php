@@ -25,7 +25,11 @@
                    <h2><a href='news.php?id=<?=$newsitem[0]?>'><?=$newsitem[4]?></a></h2>
                    <div class=nldate><?=ConvertDate($newsitem[1])?></div>
                    <?=$newsitem[2]?>
-                   <div class=nlmore><a href='news.php?id=<?=$newsitem[0]?>'><?=Translate($LANG,'подробнее');?> »</a></div>
+                   <?php
+                     if(empty($newsitem[5])) $newspath='news.php?id='.$newsitem[0];
+                         else  $newspath=$newsitem[5];
+                   ?>
+                   <div class=nlmore><a href='<?=$newspath?>'><?=Translate($LANG,'подробнее');?> »</a></div>
                  </div>
                  </div>
            <?php
