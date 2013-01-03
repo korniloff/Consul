@@ -121,16 +121,16 @@ function getStaticByCode($pagecode,$lng)
 
 function getCatalogStatic($id,$lng)
 {
-	
+
 	global $PREFFIX;
 	$query= "SELECT
-	{$PREFFIX}_page.page_name	
+	{$PREFFIX}_page.page_name
 	FROM
 	{$PREFFIX}_page
 	INNER JOIN {$PREFFIX}_equip ON {$PREFFIX}_equip.page_code = {$PREFFIX}_page.page_code
-	WHERE ({$PREFFIX}_equip.equip_code=$id) LIMIT 1";	
+	WHERE ({$PREFFIX}_equip.equip_code=$id) LIMIT 1";
 	$res=mysql_query($query) or die ('Ошибка выборки раздела каталога '.$query);
-	if (mysql_num_rows($res)>0) 
+	if (mysql_num_rows($res)>0)
 	{
 		list($pagename)=mysql_fetch_array($res);
 		return getStatic($pagename, $lng);
@@ -150,7 +150,7 @@ function getParentId($id)
 	{
 	list($parentid)=mysql_fetch_array($res);
 	return $parentid;
-	}	
+	}
 }
 
 
@@ -701,10 +701,10 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 	}
 
 
-	function view_tree_next_level($family, $next_lvl) 
+	function view_tree_next_level($family, $next_lvl)
 	{
-		print '<ul>';	
-		foreach ($next_lvl as $key) if ($key[1]==$family) 
+		print '<ul>';
+		foreach ($next_lvl as $key) if ($key[1]==$family)
 	       print '<li><a href="models.php?id='.$key[0].'">'.$key[3].'</a> </li>';
  	   print '</ul>';
 	}
@@ -719,14 +719,14 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		{$PREFFIX}_static.static_abstract,
 		{$PREFFIX}_static.static_name,
 		{$PREFFIX}_page.page_code,
-		{$PREFFIX}_page.page_url		
+		{$PREFFIX}_page.page_url
 		FROM
 		{$PREFFIX}_news
 		LEFT JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_news.page_code
 		LEFT JOIN {$PREFFIX}_static ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
 		WHERE ({$PREFFIX}_static.lang_code=$lang) and ({$PREFFIX}_page.page_active>0)
 		ORDER BY news_date DESC";
-		if ($limit)	$lastnewsquery=$lastnewsquery." LIMIT $limit"; 
+		if ($limit)	$lastnewsquery=$lastnewsquery." LIMIT $limit";
 
 		$query = mysql_query("$lastnewsquery") or  die("Ошибка выборки новости ".$lastnewsquery);
 		while (list($news_code,$news_date,$static_abstract,$static_name,$page_code,$page_url)= mysql_fetch_array($query))
@@ -736,9 +736,9 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 			$galres = mysql_query("$galquery") or  die("Ошибка выборки галереи ".$galquery);
 					list($picbig)=mysql_fetch_array($galres);
 					if ((!isset($picbig)) or ($picbig=="")) $picbig='nullnews.gif';
-						
+
 			$a[] = array ($news_code,$news_date,$static_abstract,$picbig,$static_name,$page_url);
-		}	
+		}
 		return $a;
 	}
 
@@ -806,8 +806,8 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		}
 		else return -1;
 		}
-	
-	
+
+
 	/*
 	 *
 	*
@@ -871,7 +871,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		{$PREFFIX}_static.static_abstract,
 		{$PREFFIX}_page.page_url,
 		{$PREFFIX}_static.static_url
-		
+
 		FROM {$PREFFIX}_static
 		INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_static.page_code
 		INNER JOIN {$PREFFIX}_equip ON {$PREFFIX}_page.page_code = {$PREFFIX}_equip.page_code
@@ -879,7 +879,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		ORDER BY equip_pos";
 
 		$query = mysql_query("$catalogquery") or  die("Ошибка выборки каталога ".$catalogquery);
-		$per_page=10;		
+		$per_page=10;
 		$i=0;
 		while (list($equip_code,$equip_parent,$static_code,$static_name,$equip_pos,$page_code,$static_abst,$page_url,$static_url)= mysql_fetch_array($query))
 		{
@@ -887,7 +887,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 
 			$galquery="SELECT {$PREFFIX}_picture.picbig FROM  {$PREFFIX}_picture
 			    	   WHERE {$PREFFIX}_picture.page_code=$page_code  ORDER BY picpos LIMIT 1";
-			$galres = mysql_query("$galquery") or  die("Ошибка выборки галереи ".$galquery);			
+			$galres = mysql_query("$galquery") or  die("Ошибка выборки галереи ".$galquery);
 			list($picbig)=mysql_fetch_array($galres);
 			if ((!isset($picbig)) or ($picbig=="")) $picbig='nullequip.gif';
 			switch ($typeprint)
@@ -913,40 +913,40 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 						print "<div class=mltext>";
 			            print "<h2><a href='".$catalogquest."'>".$static_name."</a></h2>";
 			            if ($page_url)	print "<div class=mllink><a href='".$page_url."' target=_blank>$page_url</a></div>";
-						print $static_abst;			
+						print $static_abst;
 						$docurl=$mainurl.ltrim($static_url,'.');
 						echo $docurl;
 						print "<div class=nlmore><a href='$docurl'>".Translate($langcode,'Документация')."</a> <span>|</span> <a href='".$catalogquest."'>".Translate($langcode,'Дополнительная информация')." »</a></div>";
 						print "	</div>";
-						print "	</div>"; 
+						print "	</div>";
 				       }
-						break;	
+						break;
 
 			}
 		}
      return (ceil($i/$per_page));
 	}
-	
+
 	function GetNexEquip($eq_id,$par_id)
 	{
 		global $PREFFIX;
 		$query="SELECT {$PREFFIX}_equip.equip_pos FROM {$PREFFIX}_equip WHERE equip_code=$eq_id";
 		$res = mysql_query("$query") or  die("Ошибка выборки ".$query);
 		list($eq_pos)=mysql_fetch_array($res);
-		$query="SELECT 
-		{$PREFFIX}_equip.equip_code	
+		$query="SELECT
+		{$PREFFIX}_equip.equip_code
 		FROM {$PREFFIX}_equip
-        INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_equip.page_code		
+        INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_equip.page_code
 		WHERE (equip_pos>$eq_pos) and  (page_active>0)  and (equip_parent=$par_id) ORDER BY equip_pos LIMIT 1";
 		$res = mysql_query("$query") or  die("Ошибка выборки ".$query);
-		if (mysql_num_rows($res)>0) 
+		if (mysql_num_rows($res)>0)
 		{
 			list($nextid)=mysql_fetch_array($res);
 			return $nextid;
 		}
 		else return -1;
 	}
-	
+
 	function GetPrevEquip($eq_id,$par_id)
 	{
 		global $PREFFIX;
@@ -966,9 +966,9 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 						}
 						else return -1;
 	}
-	
 
-	function GetGallery ($pagename,$lang)
+
+	function GetGallery ($pageid,$lang)
 	{
 		global $PREFFIX;
 		if ($lang==2)$suf="_en"; else $suf="";
@@ -978,14 +978,14 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
 		{$PREFFIX}_picture.piccomment".$suf.
 		" FROM  {$PREFFIX}_picture
 		INNER JOIN {$PREFFIX}_page ON {$PREFFIX}_page.page_code = {$PREFFIX}_picture.page_code
-		WHERE {$PREFFIX}_page.page_name='".$pagename."' ORDER BY picpos";
+		WHERE {$PREFFIX}_page.page_code='".$pageid."' ORDER BY picpos";
 		$query = mysql_query("$galquery") or  die("Ошибка выборки галереи ".$galquery);
 		return $query;
 	}
 
-    function PrintGallery ($pagename,$lang, $outdiv='sertgalleryitem',$insdiv='sgpic')
+    function PrintGallery ($pageid,$lang, $outdiv='sertgalleryitem',$insdiv='sgpic')
     {
-    	$query=GetGallery($pagename, $lang);
+    	$query=GetGallery($pageid, $lang);
 		while (list($picbig,$picpos,$piccomment)= mysql_fetch_array($query))
 		{
          print "<div class=".$outdiv.">";
@@ -993,7 +993,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
          print "</div>";
         }
     }
-    
+
     function ItemGallery($itemid,$lang)
     {
     	global $PREFFIX;
@@ -1009,16 +1009,16 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
     	list($pagename)=mysql_fetch_array($res);
     	$galquery=GetGallery($pagename, $lang); //Выбрали рисунки и комментарии к ним
     	if (mysql_num_rows($galquery)>0)
-    	{	
+    	{
     	   list($picbig,$picpos,$piccomment)= mysql_fetch_array($galquery); //Выбрали первое
     	   print "<div class=itembpic id=ibp0><a href='images/".$picbig."' title='".$piccomment."' rel='lightbox[item]' target=_blank><img src='images/".$picbig."'  alt='".$piccomment."' border=0></a></div>";
     	   while (list($picbig,$picpos,$piccomment)= mysql_fetch_array($galquery))
     		  $itemgal[] = array ($picbig,$picpos,$piccomment);
-    	   
+
     	   $sz=count($itemgal);
     	   for ($i=1;$i<$sz;$i++)
     	   {
-    	   	print "<div class=itembpic id=ibp$i style='display:none;'><a href='images/".$itemgal[$i][0]."' title='".$itemgal[$i][2]."' rel='lightbox[item]' target=_blank><img src='images/".$itemgal[$i][0]."'  alt='".$itemgal[$i][2]."' border=0></a></div>";    	   	   	   	
+    	   	print "<div class=itembpic id=ibp$i style='display:none;'><a href='images/".$itemgal[$i][0]."' title='".$itemgal[$i][2]."' rel='lightbox[item]' target=_blank><img src='images/".$itemgal[$i][0]."'  alt='".$itemgal[$i][2]."' border=0></a></div>";
     	   }
     	   print "<div class=roomiconlist>";
     	   print "<div class=roomiconarea>";
@@ -1030,9 +1030,9 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
     	   print "</div>";
     	   print "</div>";
     	}
-    	}	
+    	}
     }
- 
+
 	function GetPartners ($langcode,$onmain=false)
 	{
 		global $PREFFIX;
@@ -1066,7 +1066,7 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
    		WHERE {$PREFFIX}_picture.page_code=$page_code  ORDER BY picpos LIMIT 1";
    		$galres = mysql_query("$galquery") or  die("Ошибка выборки галереи ".$galquery);
    				list($picbig)=mysql_fetch_array($galres);
-   				 
+
    	    switch  ($typeout)
    	    {
    	    	case  0: print "<div class=tpitem><a href='".$partner_url."' traget=_blank>";
@@ -1089,17 +1089,17 @@ function view_tree($langcode,$catalogpage,$opensub=false, $opensubcode=0) {
    	return ceil($i/$per_page);
    }
 
-   
+
    function mark ($curpage,$samplepage,$start)
    {
    	 if ($curpage-$samplepage) return "";
-   	 else 
+   	 else
    	 {
    	 	if ($start>0) return "<b>"; else return "</b>";
    	 }
-   	 	 
+
    }
-   
+
 	//************  George Sergeev *********
 
 

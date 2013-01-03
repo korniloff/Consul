@@ -21,6 +21,7 @@ $mainquery="SELECT
 				{$PREFFIX}_partner.partner_url,
 				{$PREFFIX}_page.page_code,
 				{$PREFFIX}_page.page_name,
+				{$PREFFIX}_page.page_active,
 				{$PREFFIX}_partner.partner_onmain
 			FROM
 			{$PREFFIX}_partner
@@ -287,6 +288,7 @@ $max_pos++;
     <td><?=SortTitle("Позиция","partner_pos",$sortby,$sortdir);?></td>
     <td><?=SortTitle("Наименование партнера","page_name",$sortby,$sortdir);?></td>
     <td width="50"><?=SortTitle("На главной странице","partner_onmain",$sortby,$sortdir);?></td>
+    <td width="60"><?=SortTitle("Актив.","page_active",$sortby,$sortdir);?></td>
     <td width="180"><?=SortTitle("URL сайта партнера","partner_URL",$sortby,$sortdir);?></td>
      <td width=40>Текст</td>
     <!-- <td width=40>SEO</td> -->
@@ -304,7 +306,8 @@ $num_rows=mysql_num_rows($res);  //Количество строк
       mysql_data_seek($res,$start_pos);
       for ($x=$start_pos; $x<$end_pos; $x++)
       {
-         list($partner_code,$partner_pos,$partner_url,$page_code, $page_name, $partner_onmain)=mysql_fetch_array($res);
+         list($partner_code,$partner_pos,$partner_url,$page_code, $page_name, $page_active, $partner_onmain)=mysql_fetch_array($res);
+         if($page_active) {$page_active="да";$bg="#FFFFFF";} else {$page_active="нет";$bg="#EEEEEE";}
          $checkname=$page_code;            
          if($partner_onmain) {$partner_onmain="да";$bg="#FFFFFF";} else {$partner_onmain="нет";$bg="#EEEEEE";}    
          echo"<tr class=edittabletext height=24 bgcolor=$bg>";
@@ -312,6 +315,7 @@ $num_rows=mysql_num_rows($res);  //Количество строк
          echo"<TD align=left class=smalltext ondblclick='change_line(\"$checkname\",\"F#$checkname#partner_pos#string\");' id=\"F#$checkname#partner_pos#string\">".Show($partner_pos)."</TD>\n";
          echo"<TD align=left class=smalltext ondblclick='change_line(\"$checkname\",\"F#$checkname#page_name#string\");' id=\"F#$checkname#page_name#string\">".Show($page_name)."</TD>\n";
          echo"<TD class=smalltext align=center  ondblclick='change_yes_no(\"$checkname\",\"F#$checkname#partner_onmain#int\");' id=\"F#$checkname#partner_onmain#int\">".Show($partner_onmain)."</TD>\n";
+         echo"<TD class=smalltext align=center  ondblclick='change_yes_no(\"$checkname\",\"F#$checkname#page_active#int\");' id=\"F#$checkname#page_active#int\">".Show($page_active)."</TD>\n";         
          echo"<TD width=180 align=left  class=smalltext ondblclick='change_line(\"$checkname\",\"F#$checkname#partner_url#string\");' id=\"F#$checkname#partner_url#string\">".Show($partner_url)."</TD>\n"; 
          echo"<td align=center ><a href='editstatic.php?page_code=$page_code&page_name=$page_name'><img height='20' width='20' src='graph/edit.gif' border=0 title='Текст страницы'></a></td>";
        //  echo"<td align=center ><a href='editseo.php?page_code=$page_code&page_name=$page_name'><img height='20' width='20' src='graph/edit.gif' border=0 title='SEO'></a></td>";
